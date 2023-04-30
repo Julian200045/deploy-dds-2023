@@ -1,17 +1,12 @@
 package services.ValidadorDeContrasenia;
 
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
-import com.google.common.hash.Hashing;
-import services.LectorPropiedades;
 import services.ValidadorDeContrasenia.Validacion.Validacion;
 
-public class ValidadorDeContraseniasPorValidaciones {
+public class ValidadorDeContraseniasPorValidaciones implements ValidadorDeContrasenias{
     private static List<Validacion> validaciones;
 
     public ValidadorDeContraseniasPorValidaciones() throws IOException {
@@ -19,7 +14,7 @@ public class ValidadorDeContraseniasPorValidaciones {
 
     }
 
-    public Boolean esValida(String contrasenia) throws FileNotFoundException {
+    public Boolean esValida(String contrasenia){
         return validaciones.stream().allMatch(validacion -> validacion.valida(contrasenia));
     }
 
