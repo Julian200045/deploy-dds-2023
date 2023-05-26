@@ -1,10 +1,9 @@
-package services.ValidadorDeContrasenia;
+package services.validadorDeContrasenia;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import services.ValidadorDeContrasenia.Validacion.Validacion;
+import services.validadorDeContrasenia.Validacion.Validacion;
 
 public class ValidadorDeContraseniasPorValidaciones implements ValidadorDeContrasenias{
     private static List<Validacion> validaciones;

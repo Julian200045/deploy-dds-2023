@@ -1,7 +1,6 @@
-package services.ValidadorDeContrasenia.Validacion;
+package services.validadorDeContrasenia.Validacion;
 
 import services.LectorPropiedades;
-import services.ValidadorDeContrasenia.Validacion.Validacion;
 
 import java.io.IOException;
 

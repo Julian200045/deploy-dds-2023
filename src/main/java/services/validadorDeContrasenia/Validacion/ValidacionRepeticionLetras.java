@@ -1,4 +1,4 @@
-package services.ValidadorDeContrasenia.Validacion;
+package services.validadorDeContrasenia.Validacion;
 import java.util.regex.*;
 
 public class ValidacionRepeticionLetras implements Validacion{

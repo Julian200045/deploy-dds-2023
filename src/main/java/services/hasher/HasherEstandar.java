@@ -1,4 +1,4 @@
-package services.Hasher;
+package services.hasher;
 
 import com.google.common.hash.Hashing;
 
