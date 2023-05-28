@@ -1,41 +1,30 @@
 package tests;
 
+import domain.localizaciones.Departamento;
+import domain.localizaciones.Municipio;
+import domain.localizaciones.Provincia;
+import domain.ubicaciones.Ubicacion;
+import org.checkerframework.checker.units.qual.A;
 import services.georef.ServicioGeoref;
-import services.georef.entities.*;
 
 import java.io.IOException;
-import java.util.Optional;
-import java.util.Scanner;
+import java.util.ArrayList;
+import java.util.List;
 
 public class PruebaAPI {
   public static void main(String[] args) throws IOException {
     ServicioGeoref servicioGeoref = ServicioGeoref.instancia();
-    System.out.println("Seleccione una de las siguientes provincias, ingresando su id:");
 
-    ListaProvinciasEntity listadoDeProvinciasArgentinas = servicioGeoref.listadoDeProvincias();
+    Provincia misiones = servicioGeoref.provincia(54);
 
-    listadoDeProvinciasArgentinas.provincias.sort((p1, p2) -> p1.id >= p2.id? 1 : -1);
+    misiones.getMunicipios().forEach(municipio -> {
+      System.out.println(municipio.nombre);
+    });
 
-    for(ProvinciaEntity unaProvincia:listadoDeProvinciasArgentinas.provincias){
-      System.out.println(unaProvincia.id + ") " + unaProvincia.nombre);
-    }
+    misiones.getDepartamentos().forEach(municipio -> {
+      System.out.println(municipio.nombre);
+    });
 
-    Scanner entradaEscaner = new Scanner(System.in);
-    int idProvinciaElegida = Integer.parseInt(entradaEscaner.nextLine());
-
-    Optional<ProvinciaEntity> posibleProvincia = listadoDeProvinciasArgentinas.provinciaDeId(idProvinciaElegida);
-
-    if(posibleProvincia.isPresent()){
-      ProvinciaEntity provinciaSeleccionada = posibleProvincia.get();
-      ListaMunicipiosEntity municipiosDeLaProvincia = servicioGeoref.listadoDeMunicipiosDeProvincia(provinciaSeleccionada);
-      System.out.println("Los municipios de la provincia "+ provinciaSeleccionada.nombre +" son:");
-      for(MunicipioEntity unMunicipio: municipiosDeLaProvincia.municipios){
-        System.out.println(unMunicipio.nombre);
-      }
-    }
-    else{
-      System.out.println("No existe la provincia seleccionada");
-    }
   }
 
 }

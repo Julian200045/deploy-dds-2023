@@ -1,5 +1,7 @@
 package domain.localizaciones;
 
-public interface Localizacion {
+import domain.ubicaciones.Ubicacion;
 
+public interface Localizacion {
+  public Boolean seEncuentraEn(Ubicacion ubicacion);
 }

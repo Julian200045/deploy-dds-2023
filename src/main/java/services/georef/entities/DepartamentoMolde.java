@@ -1,9 +1,9 @@
 package services.georef.entities;
 
-public class DepartamentoEntity {
-  public int id;
+public class DepartamentoMolde {
+  public Integer id;
   public String nombre;
   public Centroide centroide;
-  public ProvinciaEntity provinciaInfo;
+  public ProvinciaMolde provincia;
 
 }
