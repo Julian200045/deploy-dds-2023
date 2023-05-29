@@ -12,8 +12,8 @@ public class ValidacionDeLargo implements Validacion {
   public ValidacionDeLargo(String path) throws IOException {
     LectorPropiedades lectorPropiedades = new LectorPropiedades(path);
 
-    this.min = Integer.parseInt(lectorPropiedades.getPropiedad("min"));
-    this.max = Integer.parseInt(lectorPropiedades.getPropiedad("max"));
+    this.min = lectorPropiedades.getPropiedadInt("min");
+    this.max = lectorPropiedades.getPropiedadInt("max");
   }
 
   @Override
