@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import domain.csv.LectorCSV;
 import domain.repositorios.RepositorioEntidades;
 import domain.repositorios.RepositorioOrganismos;
+import domain.repositorios.RepositorioUsuarios;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -28,16 +29,25 @@ public class CSVTest {
 	}
 
 	@Test
-	public void test() throws  java.io.IOException, com.opencsv.exceptions.CsvValidationException{
+	public void losOrganismosSeCreanSegunCSV() throws  java.io.IOException, com.opencsv.exceptions.CsvValidationException{
 		RepositorioOrganismos repoOrganismos = new RepositorioOrganismos();
 		RepositorioEntidades repoEntidad = RepositorioEntidades.instancia();
+		RepositorioUsuarios repositorioUsuarios = RepositorioUsuarios.instancia();
+
 		repoEntidad.nuevaEntidad(1,"entidad1");
 		repoEntidad.nuevaEntidad(2,"entidad2");
 		repoEntidad.nuevaEntidad(3,"entidad3");
+
+		repositorioUsuarios.nuevoUsuario(1,"messi","1234");
+		repositorioUsuarios.nuevoUsuario(2, "anses", "1234");
+
 		repoOrganismos.cargarOrganismos();
 		assertTrue(repoOrganismos.getOrganismos().size() > 0);
 		assertTrue(repoOrganismos.getOrganismos().get(0).getNombre().equals("afip"));
+		assertTrue(repoOrganismos.getOrganismos().get(0).getUsuario().getNombre().equals("messi"));
 	}
+
+
 
 
 }

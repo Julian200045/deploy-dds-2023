@@ -9,13 +9,14 @@ import lombok.Getter;
 public class Organismo {
 	@Getter
 	String nombre;
+	@Getter
 	Usuario usuario;
 	String emailResponsable;
 	List<Entidad> entidades;
 
-	public Organismo(String nombre, String email, List<Entidad> entidades){
+	public Organismo(String nombre, Usuario usuario,String email, List<Entidad> entidades){
 		this.nombre = nombre;
-		//this.usuario = usuario;
+		this.usuario = usuario;
 		this.emailResponsable = email;
 		this.entidades = entidades;
 	}

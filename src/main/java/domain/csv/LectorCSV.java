@@ -18,8 +18,6 @@ public class LectorCSV {
 		csvReader = new CSVReader(new FileReader(csvOrganismos));
 		retirarDatosOrganismos();
 		csvReader.close();
-		//System.out.println(Arrays.stream(datosOrganismos.get(0)).toList());
-		//System.out.println(Arrays.stream(datosOrganismos.get(1)).toList());
 	}
 
 	public void retirarDatosOrganismos() throws java.io.IOException, com.opencsv.exceptions.CsvValidationException{
@@ -29,10 +27,4 @@ public class LectorCSV {
 		}
 	}
 
-	public List<Integer> getIds(String ids){
-		//List<String> newIds = Arrays.stream(ids.split("|")).toList();
-		List<String> newIds = Arrays.stream(ids.split("|")).toList();
-		System.out.println(newIds);
-		return newIds.stream().map(string->Integer.parseInt(string)).collect(Collectors.toList());
-	}
 }
