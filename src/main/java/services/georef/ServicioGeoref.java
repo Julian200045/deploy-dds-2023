@@ -9,6 +9,7 @@ import retrofit2.Call;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import services.LectorPropiedades;
 import services.georef.entities.DepartamentoMolde;
 import services.georef.entities.ListaDepartamentosMolde;
 import services.georef.entities.ListaMunicipiosMolde;
@@ -18,57 +19,66 @@ import services.georef.entities.ProvinciaMolde;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class ServicioGeoref {
 
   private static ServicioGeoref instancia = null;
-  private static int maximaCantidadRegistrosProvincias = 24;
-  private static int maximaCantidadRegistrosMunicipios = 1814;
-  private static int maximaCantidadRegistrosDepartamentos = 529;
+  private static int maximaCantidadRegistrosProvincias;
+  private static int maximaCantidadRegistrosMunicipios;
+  private static int maximaCantidadRegistrosDepartamentos;
   private static final String urlApi = "https://apis.datos.gob.ar/georef/api/";
+
   private Retrofit retrofit;
 
-  public static List<ProvinciaMolde> _provincias;
-  public static List<MunicipioMolde> _municipios;
+  private static List<ProvinciaMolde> _provincias;
+  private static List<MunicipioMolde> _municipios;
   private static List<DepartamentoMolde> _departamentos;
 
 
-  private ServicioGeoref() {
+  private ServicioGeoref(String pathPropiedades) throws IOException {
     this.retrofit = new Retrofit.Builder()
         .baseUrl(urlApi)
         .addConverterFactory(GsonConverterFactory.create())
         .build();
+
+    LectorPropiedades lectorPropiedades = new LectorPropiedades(pathPropiedades);
+
+    maximaCantidadRegistrosProvincias = lectorPropiedades.getPropiedadInt("maximaCantidadRegistrosProvincias");
+    maximaCantidadRegistrosMunicipios = lectorPropiedades.getPropiedadInt("maximaCantidadRegistrosMunicipios");
+    maximaCantidadRegistrosDepartamentos = lectorPropiedades.getPropiedadInt("maximaCantidadRegistrosDepartamentos");
   }
 
-  public static ServicioGeoref instancia(){
+  public static ServicioGeoref instancia(String pathPropiedades) throws IOException {
     if(instancia== null){
-      instancia = new ServicioGeoref();
+      instancia = new ServicioGeoref(pathPropiedades);
     }
+
     return instancia;
   }
 
-  private Municipio moldeAMunicipio(MunicipioMolde entity){
-    return new Municipio(entity.id,
-        entity.nombre,
-        new Ubicacion(entity.centroide.getLat(),
-            entity.centroide.getLon()));
+  private Municipio moldeAMunicipio(MunicipioMolde molde){
+    return new Municipio(molde.id,
+        molde.nombre,
+        new Ubicacion(molde.centroide.getLat(),
+            molde.centroide.getLon()));
   }
 
-  private Departamento moldeADepartamento(DepartamentoMolde entity){
-    return new Departamento(entity.id,
-        entity.nombre,
-        new Ubicacion(entity.centroide.getLat(),
-            entity.centroide.getLon()));
+  private Departamento moldeADepartamento(DepartamentoMolde molde){
+    return new Departamento(molde.id,
+        molde.nombre,
+        new Ubicacion(molde.centroide.getLat(),
+            molde.centroide.getLon()));
   }
 
-  private Provincia moldeAProvincia(ProvinciaMolde entity){
+  private Provincia moldeAProvincia(ProvinciaMolde molde){
     return new Provincia(
-        entity.id,
-        entity.nombre,
-        new Ubicacion(entity.centroide.getLat(),entity.centroide.getLon()),
-        municipiosDeLaProvinciaMolde(entity),
-        departamentosDeLaProvinciaMolde(entity));
+        molde.id,
+        molde.nombre,
+        new Ubicacion(molde.centroide.getLat(),molde.centroide.getLon()),
+        municipiosDeLaProvinciaMolde(molde),
+        departamentosDeLaProvinciaMolde(molde));
   }
 
   private List<ProvinciaMolde> listaProvinciasMolde() throws IOException {
@@ -96,7 +106,6 @@ public class ServicioGeoref {
   }
 
   private List<Municipio> municipiosDeLaProvinciaMolde(ProvinciaMolde provinciaMolde){
-
     List<MunicipioMolde> municipiosMolde =  _municipios.stream().filter(municipio -> municipio.provincia.id == provinciaMolde.id).collect(Collectors.toList());
     return municipiosMolde.stream().map(municipio -> moldeAMunicipio(municipio)).collect(Collectors.toList());
   }
@@ -116,7 +125,7 @@ public class ServicioGeoref {
     if(_departamentos == null || _departamentos.isEmpty()){
       _departamentos = listaDepartamentosMolde();
     }
-    ProvinciaMolde provinciaMolde = _provincias.stream().filter(provincia -> provincia.id == id).findFirst().get();
+    ProvinciaMolde provinciaMolde = _provincias.stream().filter(provincia -> Objects.equals(provincia.id, id)).findFirst().get();
     return moldeAProvincia(provinciaMolde);
   }
 
@@ -124,7 +133,7 @@ public class ServicioGeoref {
     if(_municipios == null || _municipios.isEmpty()){
       _municipios = listaMunicipiosMolde();
     }
-    MunicipioMolde municipioMolde = _municipios.stream().filter(municipio -> municipio.id == id).findFirst().get();
+    MunicipioMolde municipioMolde = _municipios.stream().filter(municipio -> Objects.equals(municipio.id, id)).findFirst().get();
     return moldeAMunicipio(municipioMolde);
   }
 
@@ -132,7 +141,7 @@ public class ServicioGeoref {
     if(_departamentos == null || _departamentos.isEmpty()){
       _departamentos = listaDepartamentosMolde();
     }
-    DepartamentoMolde departamentoMolde = _departamentos.stream().filter(departamento -> departamento.id == id).findFirst().get();
+    DepartamentoMolde departamentoMolde = _departamentos.stream().filter(departamento -> Objects.equals(departamento.id, id)).findFirst().get();
     return moldeADepartamento(departamentoMolde);
 
   }

@@ -13,7 +13,7 @@ import java.util.List;
 
 public class PruebaAPI {
   public static void main(String[] args) throws IOException {
-    ServicioGeoref servicioGeoref = ServicioGeoref.instancia();
+    ServicioGeoref servicioGeoref = ServicioGeoref.instancia("");
 
     Provincia misiones = servicioGeoref.provincia(54);
 
@@ -21,8 +21,8 @@ public class PruebaAPI {
       System.out.println(municipio.nombre);
     });
 
-    misiones.getDepartamentos().forEach(municipio -> {
-      System.out.println(municipio.nombre);
+    misiones.getDepartamentos().forEach(departamento -> {
+      System.out.println(departamento.nombre);
     });
 
   }
