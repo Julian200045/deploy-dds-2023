@@ -14,8 +14,7 @@ public class RepositorioOrganismos {
 	@Getter
 	List<Organismo> organismos = new ArrayList<>();
 
-	public void cargarOrganismos() throws java.io.FileNotFoundException ,java.io.IOException, com.opencsv.exceptions.CsvValidationException {
-		LectorCSV lector = new LectorCSV();
+	public void cargarOrganismos(LectorCSV lector) throws java.io.FileNotFoundException ,java.io.IOException, com.opencsv.exceptions.CsvValidationException {
 		RepositorioEntidades repositorioEntidades = RepositorioEntidades.instancia();
 		RepositorioUsuarios repositorioUsuarios = RepositorioUsuarios.instancia();
 		while(!lector.getDatosOrganismos().isEmpty()){
