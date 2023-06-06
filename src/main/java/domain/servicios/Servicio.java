@@ -1,5 +1,9 @@
 package domain.servicios;
 
-public interface Servicio {
-    public Boolean estaHabilitado();
+public class Servicio {
+    public String nombre;
+
+    public Servicio(String nombre) {
+        this.nombre = nombre;
+    }
 }

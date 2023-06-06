@@ -21,4 +21,14 @@ public class LectorPropiedades {
 
     return prop.getProperty(key);
   }
+
+  public Integer getPropiedadInt(String key) throws IOException {
+
+    FileInputStream ip = new FileInputStream(path);
+    Properties prop = new Properties();
+
+    prop.load(ip);
+
+    return Integer.parseInt(prop.getProperty(key));
+  }
 }
