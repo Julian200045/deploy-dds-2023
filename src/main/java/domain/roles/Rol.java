@@ -10,6 +10,7 @@ public class Rol {
   public List<Permiso> permisos;
 
   public boolean tenesPerimos(Permiso permiso){
-    return true;
+
+    return permisos.contains(permiso);
   }
 }
