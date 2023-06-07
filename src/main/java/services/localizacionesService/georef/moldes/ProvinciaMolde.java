@@ -1,4 +1,4 @@
-package services.georef.entities;
+package services.localizacionesService.georef.moldes;
 
 public class ProvinciaMolde {
   public Integer id;

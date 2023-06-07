@@ -5,8 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import domain.entidades.Entidad;
 import domain.repositorios.entidades.RepoEntidades;
-import domain.repositorios.organismos.RepoEntidadesPrestadoras;
-import domain.repositorios.organismos.RepositorioEntidadesPrestadoras;
+import domain.repositorios.entidadesprestadoras.RepoEntidadesPrestadoras;
+import domain.repositorios.entidadesprestadoras.RepositorioEntidadesPrestadoras;
 import domain.repositorios.organismos.RepositorioOrganismoDeControl;
 import domain.repositorios.servicios.RepoServicios;
 import domain.repositorios.servicios.RepositorioServicios;

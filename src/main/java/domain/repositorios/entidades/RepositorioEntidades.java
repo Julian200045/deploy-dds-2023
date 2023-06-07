@@ -17,7 +17,7 @@ public class RepositorioEntidades implements RepoEntidades{
 
 	public Entidad devolverPorId(int id){
 		Entidad entidad;
-		entidad = entidades.stream().filter(entidad1 -> entidad1.getId() == id).collect(Collectors.toList()).get(0); //rompe aca en caso de que se pida un id que no existe
+		entidad = entidades.stream().filter(entidad1 -> entidad1.getId() == id).toList().get(0);
 		return entidad;
 	}
 

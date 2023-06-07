@@ -23,8 +23,6 @@ public class LectorCSV implements CSVService{
 		csvEntidadesPrestadoras = lectorPropiedades.getPropiedad("entidades-prestadoras-csv-path");
 		csvOrganismosDeControl = lectorPropiedades.getPropiedad("organismos-de-control-csv-path");
 
-		System.out.println(csvEntidadesPrestadoras);
-
 		csvReader = new CSVReader(new FileReader(csvOrganismosDeControl));
 		retirarDatos(datosOrganismosDeControl);
 		csvReader.close();

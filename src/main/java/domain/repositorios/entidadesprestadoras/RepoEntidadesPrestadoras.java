@@ -1,4 +1,4 @@
-package domain.repositorios.organismos;
+package domain.repositorios.entidadesprestadoras;
 
 import domain.entidades.Entidad;
 import domain.organismos.EntidadPrestadora;

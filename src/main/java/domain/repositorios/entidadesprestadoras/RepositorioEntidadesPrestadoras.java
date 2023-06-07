@@ -1,6 +1,7 @@
-package domain.repositorios.organismos;
+package domain.repositorios.entidadesprestadoras;
 
 import domain.repositorios.entidades.RepoEntidades;
+import domain.repositorios.entidadesprestadoras.RepoEntidadesPrestadoras;
 import domain.repositorios.usuarios.RepoUsuarios;
 import java.util.stream.Collectors;
 import services.csv.LectorCSV;
@@ -12,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import lombok.Getter;
 
-public class RepositorioEntidadesPrestadoras implements RepoEntidadesPrestadoras{
+public class RepositorioEntidadesPrestadoras implements RepoEntidadesPrestadoras {
 	@Getter
 	List<EntidadPrestadora> entidadesPrestadoras = new ArrayList<>();
 	RepoEntidades repoEntidades;
@@ -51,7 +52,7 @@ public class RepositorioEntidadesPrestadoras implements RepoEntidadesPrestadoras
 	public EntidadPrestadora devolverPorId(int id){
 		EntidadPrestadora entidad;
 
-		entidad = entidadesPrestadoras.stream().filter(entidad1 -> entidad1.getId() == id).collect(Collectors.toList()).get(0); //rompe aca en caso de que se pida un id que no existe
+		entidad = entidadesPrestadoras.stream().filter(entidad1 -> entidad1.getId() == id).toList().get(0); //rompe aca en caso de que se pida un id que no existe
 		return entidad;
 	}
 	public List<EntidadPrestadora> devolverPorIds(List<Integer> ids){

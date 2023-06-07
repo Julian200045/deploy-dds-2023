@@ -1,4 +1,4 @@
-package services.georef.entities;
+package services.localizacionesService.georef.moldes;
 
 public class MunicipioMolde {
   public Integer id;

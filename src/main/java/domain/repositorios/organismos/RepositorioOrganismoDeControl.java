@@ -2,6 +2,7 @@ package domain.repositorios.organismos;
 
 import domain.organismos.EntidadPrestadora;
 import domain.organismos.OrganismoDeControl;
+import domain.repositorios.entidadesprestadoras.RepoEntidadesPrestadoras;
 import domain.repositorios.servicios.RepoServicios;
 import domain.repositorios.usuarios.RepoUsuarios;
 import domain.servicios.Servicio;

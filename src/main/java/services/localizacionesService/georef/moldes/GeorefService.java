@@ -1,11 +1,8 @@
-package services.georef;
+package services.localizacionesService.georef.moldes;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
-import services.georef.entities.ListaDepartamentosMolde;
-import services.georef.entities.ListaMunicipiosMolde;
-import services.georef.entities.ListaProvinciasMolde;
 
 public interface GeorefService {
   @GET("provincias")

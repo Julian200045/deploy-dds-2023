@@ -1,4 +1,4 @@
-package services.georef.entities;
+package services.localizacionesService.georef.moldes;
 
 import java.util.List;
 import java.util.Optional;
