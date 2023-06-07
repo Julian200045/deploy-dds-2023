@@ -1,19 +1,18 @@
 package domain.localizaciones;
 
 import domain.ubicaciones.Ubicacion;
+import java.util.List;
 import lombok.Getter;
 
-import java.util.ArrayList;
-import java.util.List;
 
-public class Provincia implements Localizacion{
+public class Provincia implements Localizacion {
   public Integer id;
   public String nombre;
   public Ubicacion ubicacion;
   @Getter
-  private List<Municipio> municipios;
+  private final List<Municipio> municipios;
   @Getter
-  private List<Departamento> departamentos;
+  private final List<Departamento> departamentos;
 
   public Provincia(Integer id, String nombre, Ubicacion ubicacion, List<Municipio> municipios, List<Departamento> departamentos) {
     this.id = id;
@@ -26,12 +25,12 @@ public class Provincia implements Localizacion{
   @Override
   public Boolean seEncuentraEn(Ubicacion ubicacion) {
     return
-        ubicacion == this.ubicacion ||
-        municipios.stream().anyMatch(municipio -> municipio.seEncuentraEn(ubicacion)) ||
-        departamentos.stream().anyMatch(departamento -> departamento.seEncuentraEn(ubicacion));
+        ubicacion == this.ubicacion
+            || municipios.stream().anyMatch(municipio -> municipio.seEncuentraEn(ubicacion))
+            || departamentos.stream().anyMatch(departamento -> departamento.seEncuentraEn(ubicacion));
   }
 
-  public List<Municipio> municipios(){
+  public List<Municipio> municipios() {
     return municipios;
   }
 }

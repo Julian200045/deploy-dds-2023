@@ -14,8 +14,10 @@ import lombok.Getter;
 import services.csv.LectorCSV;
 
 public interface RepoOrganismoDeControl {
-	void agregarOrganismoDeControl(String nombre, Usuario responsable, String email, Servicio servicio, List<EntidadPrestadora> entidades);
-	List<Integer> getIds(String[] datos);
-	void cargarOrganismosDeControl(LectorCSV lector) throws java.io.FileNotFoundException ,java.io.IOException, com.opencsv.exceptions.CsvValidationException;
+  void agregarOrganismoDeControl(String nombre, Usuario responsable, String email, Servicio servicio, List<EntidadPrestadora> entidades);
+
+  List<Integer> getIds(String[] datos);
+
+  void cargarOrganismosDeControl(LectorCSV lector) throws java.io.FileNotFoundException, java.io.IOException, com.opencsv.exceptions.CsvValidationException;
 
 }
