@@ -10,26 +10,34 @@ import services.LectorPropiedades;
 
 public class LectorCSV implements CSVService{
 	String csvEntidadesPrestadoras;
+	String csvOrganismosDeControl;
 	@Getter
 	List<String[]> datosEntidadesPrestadoras = new ArrayList<>();
+	@Getter
+	List<String[]> datosOrganismosDeControl = new ArrayList<>();
 	CSVReader csvReader;
 
 	public LectorCSV(String pathPropiedades) throws java.io.FileNotFoundException, java.io.IOException, com.opencsv.exceptions.CsvValidationException{
 
 		LectorPropiedades lectorPropiedades = new LectorPropiedades(pathPropiedades);
 		csvEntidadesPrestadoras = lectorPropiedades.getPropiedad("entidades-prestadoras-csv-path");
+		csvOrganismosDeControl = lectorPropiedades.getPropiedad("organismos-de-control-csv-path");
 
 		System.out.println(csvEntidadesPrestadoras);
 
+		csvReader = new CSVReader(new FileReader(csvOrganismosDeControl));
+		retirarDatos(datosOrganismosDeControl);
+		csvReader.close();
+
 		csvReader = new CSVReader(new FileReader(csvEntidadesPrestadoras));
-		retirarDatosEntidadesPrestadoras();
+		retirarDatos(datosEntidadesPrestadoras);
 		csvReader.close();
 	}
 
-	public void retirarDatosEntidadesPrestadoras() throws java.io.IOException, com.opencsv.exceptions.CsvValidationException{
+	public void retirarDatos(List<String[]> datos)throws java.io.IOException, com.opencsv.exceptions.CsvValidationException{
 		String[] fila = null;
-		while((fila = csvReader.readNext()) != null) {
-			datosEntidadesPrestadoras.add(fila);
+		while((fila = csvReader.readNext()) != null){
+			datos.add(fila);
 		}
 	}
 

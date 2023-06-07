@@ -3,11 +3,18 @@ package csv;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import domain.entidades.Entidad;
 import domain.repositorios.entidades.RepoEntidades;
+import domain.repositorios.organismos.RepoEntidadesPrestadoras;
+import domain.repositorios.organismos.RepositorioEntidadesPrestadoras;
+import domain.repositorios.organismos.RepositorioOrganismoDeControl;
+import domain.repositorios.servicios.RepoServicios;
+import domain.repositorios.servicios.RepositorioServicios;
 import domain.repositorios.usuarios.RepoUsuarios;
+import domain.usuarios.Usuario;
 import services.csv.LectorCSV;
 import domain.repositorios.entidades.RepositorioEntidades;
-import domain.repositorios.organismos.RepositorioOrganismos;
+
 import domain.repositorios.usuarios.RepositorioUsuarios;
 
 import java.util.ArrayList;
@@ -20,33 +27,35 @@ public class CSVTest {
 
 	RepoEntidades repoEntidades = new RepositorioEntidades();
 	RepoUsuarios repoUsuarios = new RepositorioUsuarios();
+	RepoServicios repoServicios = new RepositorioServicios();
+	RepoEntidadesPrestadoras repoEntidadesPrestadoras = new RepositorioEntidadesPrestadoras(repoEntidades, repoUsuarios);
 
 	@Test
 	public void lectorLeeAlIniciar() throws java.io.IOException, com.opencsv.exceptions.CsvValidationException{
 		LectorCSV lector = new LectorCSV("src/main/resources/template/project.properties");
-		assertTrue(lector.getDatosOrganismos().size() > 0);
+		assertTrue(lector.getDatosEntidadesPrestadoras().size() > 0);
 	}
 
 
 	@Test
 	public void getIdsFunciona() throws java.io.FileNotFoundException, java.io.IOException, com.opencsv.exceptions.CsvValidationException{
 		LectorCSV lector = new LectorCSV("src/main/resources/template/project.properties");
-		RepositorioOrganismos repo = new RepositorioOrganismos(repoEntidades,repoUsuarios);
+		RepositorioEntidadesPrestadoras repo = new RepositorioEntidadesPrestadoras(repoEntidades,repoUsuarios);
 		String[] datos = {"nombre","usuario","email","1","2", "3"};
 		assertTrue(repo.getIds(datos).size() == 3);
 	}
 
 	@Test
-	public void losOrganismosSeCreanSegunCSV() throws  java.io.IOException, com.opencsv.exceptions.CsvValidationException{
+	public void lasEntidadesPrestadorasSeCreanSegunCSV() throws  java.io.IOException, com.opencsv.exceptions.CsvValidationException{
 
-		RepositorioOrganismos repoOrganismos = new RepositorioOrganismos(repoEntidades,repoUsuarios);
+		RepositorioEntidadesPrestadoras repositorioEntidadesPrestadoras = new RepositorioEntidadesPrestadoras(repoEntidades,repoUsuarios);
 
 		LectorCSV lector = mock(LectorCSV.class);
 
 		List<String[]> lista = new ArrayList<>();
 		String[] array = {"afip","1","messi@hotmail.com","1","2","3"};
 		lista.add(array);
-		when(lector.getDatosOrganismos()).thenReturn(lista);
+		when(lector.getDatosEntidadesPrestadoras()).thenReturn(lista);
 
 		repoEntidades.agregarEntidad(1,"entidad1");
 		repoEntidades.agregarEntidad(2,"entidad2");
@@ -54,11 +63,36 @@ public class CSVTest {
 
 		repoUsuarios.nuevoUsuario(1,"messi","1234");
 
-		repoOrganismos.cargarOrganismos(lector);
-		assertTrue(repoOrganismos.getOrganismos().size() == 1);
-		assertTrue(repoOrganismos.getOrganismos().get(0).getNombre().equals("afip"));
-		assertTrue(repoOrganismos.getOrganismos().get(0).getUsuario().getNombre().equals("messi"));
+		repositorioEntidadesPrestadoras.cargarEntidadesPrestadoras(lector);
+		assertTrue(repositorioEntidadesPrestadoras.getEntidadesPrestadoras().size() == 1);
+		assertTrue(repositorioEntidadesPrestadoras.getEntidadesPrestadoras().get(0).getNombre().equals("afip"));
+		assertTrue(repositorioEntidadesPrestadoras.getEntidadesPrestadoras().get(0).getUsuario().getNombre().equals("messi"));
 	}
+
+	@Test
+	public void losOrganismosSeCreanSegunCSV() throws  java.io.IOException, com.opencsv.exceptions.CsvValidationException{
+
+		RepositorioOrganismoDeControl repositorioOrganismoDeControl = new RepositorioOrganismoDeControl(repoEntidadesPrestadoras,repoUsuarios, repoServicios);
+
+		LectorCSV lector = mock(LectorCSV.class);
+
+		List<String[]> lista = new ArrayList<>();
+		String[] array = {"afip","1","messi@hotmail.com","1","1"};
+		lista.add(array);
+		when(lector.getDatosOrganismosDeControl()).thenReturn(lista);
+
+		repoEntidadesPrestadoras.agregarEntidadPrestadora(1,"nombre",new Usuario(1,"messi", "contraseña"), "messi", new ArrayList<Entidad>());
+		repoServicios.agregarServicio(1, "transporte");
+
+		repoUsuarios.nuevoUsuario(1,"messi","1234");
+
+		repositorioOrganismoDeControl.cargarOrganismosDeControl(lector);
+		assertTrue(repositorioOrganismoDeControl.getOrganismosDeControl().size() == 1);
+		assertTrue(repositorioOrganismoDeControl.getOrganismosDeControl().get(0).getNombre().equals("afip"));
+		assertTrue(repositorioOrganismoDeControl.getOrganismosDeControl().get(0).getUsuario().getNombre().equals("messi"));
+	}
+
+
 
 
 
