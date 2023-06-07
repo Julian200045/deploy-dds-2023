@@ -42,7 +42,7 @@ public class CSVTest {
 		LectorCSV lector = new LectorCSV("src/main/resources/template/project.properties");
 		RepositorioEntidadesPrestadoras repo = new RepositorioEntidadesPrestadoras(repoEntidades,repoUsuarios);
 		String[] datos = {"nombre","usuario","email","1","2", "3"};
-		assertTrue(repo.getIds(datos).size() == 3);
+		assertEquals(3, repo.getIds(datos).size());
 	}
 
 	@Test
@@ -64,9 +64,9 @@ public class CSVTest {
 		repoUsuarios.nuevoUsuario(1,"messi","1234");
 
 		repositorioEntidadesPrestadoras.cargarEntidadesPrestadoras(lector);
-		assertTrue(repositorioEntidadesPrestadoras.getEntidadesPrestadoras().size() == 1);
-		assertTrue(repositorioEntidadesPrestadoras.getEntidadesPrestadoras().get(0).getNombre().equals("afip"));
-		assertTrue(repositorioEntidadesPrestadoras.getEntidadesPrestadoras().get(0).getUsuario().getNombre().equals("messi"));
+		assertEquals(1, repositorioEntidadesPrestadoras.getEntidadesPrestadoras().size());
+		assertEquals("afip", repositorioEntidadesPrestadoras.getEntidadesPrestadoras().get(0).getNombre());
+		assertEquals("messi", repositorioEntidadesPrestadoras.getEntidadesPrestadoras().get(0).getUsuario().getNombre());
 	}
 
 	@Test
@@ -87,9 +87,9 @@ public class CSVTest {
 		repoUsuarios.nuevoUsuario(1,"messi","1234");
 
 		repositorioOrganismoDeControl.cargarOrganismosDeControl(lector);
-		assertTrue(repositorioOrganismoDeControl.getOrganismosDeControl().size() == 1);
-		assertTrue(repositorioOrganismoDeControl.getOrganismosDeControl().get(0).getNombre().equals("afip"));
-		assertTrue(repositorioOrganismoDeControl.getOrganismosDeControl().get(0).getUsuario().getNombre().equals("messi"));
+		assertEquals(1, repositorioOrganismoDeControl.getOrganismosDeControl().size());
+		assertEquals("afip", repositorioOrganismoDeControl.getOrganismosDeControl().get(0).getNombre());
+		assertEquals("messi", repositorioOrganismoDeControl.getOrganismosDeControl().get(0).getUsuario().getNombre());
 	}
 
 
