@@ -10,4 +10,13 @@ public class Establecimiento {
     private String nombre;
     private Ubicacion ubicacion;
     private List<PrestacionDeServicio> prestaciones;
+
+    public Establecimiento(String nombre,Ubicacion ubicacion){
+        this.nombre = nombre;
+        this.ubicacion = ubicacion;
+    }
+
+    public void agregarPrestacionDeServicio(PrestacionDeServicio prestacion){
+        prestaciones.add(prestacion);
+    }
 }
