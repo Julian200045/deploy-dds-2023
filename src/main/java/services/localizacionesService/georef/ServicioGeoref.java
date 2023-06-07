@@ -8,6 +8,10 @@ import retrofit2.Call;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import java.io.IOException;
+import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 import services.LectorPropiedades;
 import services.localizacionesService.LocalizacionesService;
 import services.localizacionesService.georef.moldes.DepartamentoMolde;
@@ -17,7 +21,6 @@ import services.localizacionesService.georef.moldes.ListaMunicipiosMolde;
 import services.localizacionesService.georef.moldes.ListaProvinciasMolde;
 import services.localizacionesService.georef.moldes.MunicipioMolde;
 import services.localizacionesService.georef.moldes.ProvinciaMolde;
-
 import java.io.IOException;
 import java.util.List;
 import java.util.Objects;
@@ -53,25 +56,25 @@ public class ServicioGeoref implements LocalizacionesService {
         .build();
   }
 
-  private Municipio moldeAMunicipio(MunicipioMolde molde){
+  private Municipio moldeAMunicipio(MunicipioMolde molde) {
     return new Municipio(molde.id,
         molde.nombre,
         new Ubicacion(molde.centroide.getLat(),
             molde.centroide.getLon()));
   }
 
-  private Departamento moldeADepartamento(DepartamentoMolde molde){
+  private Departamento moldeADepartamento(DepartamentoMolde molde) {
     return new Departamento(molde.id,
         molde.nombre,
         new Ubicacion(molde.centroide.getLat(),
             molde.centroide.getLon()));
   }
 
-  private Provincia moldeAProvincia(ProvinciaMolde molde){
+  private Provincia moldeAProvincia(ProvinciaMolde molde) {
     return new Provincia(
         molde.id,
         molde.nombre,
-        new Ubicacion(molde.centroide.getLat(),molde.centroide.getLon()),
+        new Ubicacion(molde.centroide.getLat(), molde.centroide.getLon()),
         municipiosDeLaProvinciaMolde(molde),
         departamentosDeLaProvinciaMolde(molde));
   }
@@ -100,24 +103,24 @@ public class ServicioGeoref implements LocalizacionesService {
     return responseDepartamentosArgentinos.body().departamentos;
   }
 
-  private List<Municipio> municipiosDeLaProvinciaMolde(ProvinciaMolde provinciaMolde){
-    List<MunicipioMolde> municipiosMolde =  _municipios.stream().filter(municipio -> municipio.provincia.id == provinciaMolde.id).toList();
+  private List<Municipio> municipiosDeLaProvinciaMolde(ProvinciaMolde provinciaMolde) {
+    List<MunicipioMolde> municipiosMolde = _municipios.stream().filter(municipio -> municipio.provincia.id == provinciaMolde.id).collect(Collectors.toList());
     return municipiosMolde.stream().map(municipio -> moldeAMunicipio(municipio)).collect(Collectors.toList());
   }
 
-  private List<Departamento> departamentosDeLaProvinciaMolde(ProvinciaMolde provinciaMolde){
-    List<DepartamentoMolde> departamentosMolde = _departamentos.stream().filter(departamento -> departamento.provincia.id == provinciaMolde.id).toList();
+  private List<Departamento> departamentosDeLaProvinciaMolde(ProvinciaMolde provinciaMolde) {
+    List<DepartamentoMolde> departamentosMolde = _departamentos.stream().filter(departamento -> departamento.provincia.id == provinciaMolde.id).collect(Collectors.toList());
     return departamentosMolde.stream().map(departamento -> moldeADepartamento(departamento)).collect(Collectors.toList());
   }
 
   public Provincia provincia(Integer id) throws IOException {
-    if(_provincias == null || _provincias.isEmpty()){
+    if (_provincias == null || _provincias.isEmpty()) {
       _provincias = listaProvinciasMolde();
     }
-    if(_municipios == null || _municipios.isEmpty()){
+    if (_municipios == null || _municipios.isEmpty()) {
       _municipios = listaMunicipiosMolde();
     }
-    if(_departamentos == null || _departamentos.isEmpty()){
+    if (_departamentos == null || _departamentos.isEmpty()) {
       _departamentos = listaDepartamentosMolde();
     }
     ProvinciaMolde provinciaMolde = _provincias.stream().filter(provincia -> Objects.equals(provincia.id, id)).findFirst().get();
@@ -125,7 +128,7 @@ public class ServicioGeoref implements LocalizacionesService {
   }
 
   public Municipio municipio(Integer id) throws IOException {
-    if(_municipios == null || _municipios.isEmpty()){
+    if (_municipios == null || _municipios.isEmpty()) {
       _municipios = listaMunicipiosMolde();
     }
     MunicipioMolde municipioMolde = _municipios.stream().filter(municipio -> Objects.equals(municipio.id, id)).findFirst().get();
@@ -133,7 +136,7 @@ public class ServicioGeoref implements LocalizacionesService {
   }
 
   public Departamento departamento(Integer id) throws IOException {
-    if(_departamentos == null || _departamentos.isEmpty()){
+    if (_departamentos == null || _departamentos.isEmpty()) {
       _departamentos = listaDepartamentosMolde();
     }
     DepartamentoMolde departamentoMolde = _departamentos.stream().filter(departamento -> Objects.equals(departamento.id, id)).findFirst().get();

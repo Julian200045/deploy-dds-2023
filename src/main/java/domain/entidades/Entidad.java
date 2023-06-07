@@ -2,7 +2,6 @@ package domain.entidades;
 
 import domain.establecimientos.Establecimiento;
 import domain.localizaciones.Localizacion;
-
 import java.util.List;
 import lombok.Getter;
 
@@ -14,7 +13,7 @@ public class Entidad {
   public TipoEntidad tipo;
   public Localizacion localizacion;
 
-  public Entidad(int id, String nombre){
+  public Entidad(int id, String nombre) {
     this.id = id;
     this.nombre = nombre;
   }

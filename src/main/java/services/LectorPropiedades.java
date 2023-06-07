@@ -8,7 +8,7 @@ public class LectorPropiedades {
 
   String path;
 
-  public LectorPropiedades(String path){
+  public LectorPropiedades(String path) {
     this.path = path;
   }
 

@@ -2,13 +2,14 @@ package domain.servicios;
 
 import domain.comunidades.Miembro;
 import domain.establecimientos.Establecimiento;
+import java.util.List;
 import lombok.Getter;
 
-import java.util.List;
 
 public class PrestacionDeServicio {
   public Servicio servicio;
   public Establecimiento establecimiento;
+
   @Getter
   public boolean estaHabilitado;
   private List<Miembro> miembrosInteresados;
