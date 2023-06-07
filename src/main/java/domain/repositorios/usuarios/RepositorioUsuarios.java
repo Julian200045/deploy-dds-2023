@@ -1,27 +1,15 @@
-package domain.repositorios;
+package domain.repositorios.usuarios;
 
-import domain.entidades.Entidad;
 import domain.usuarios.Usuario;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.Getter;
-import lombok.Setter;
 
-public class RepositorioUsuarios {
+public class RepositorioUsuarios implements RepoUsuarios{
 	@Getter
 	List<Usuario> usuarios = new ArrayList<>();
-	static RepositorioUsuarios instancia;
 
-	public static RepositorioUsuarios instancia() {
-		if(instancia == null) {
-			instancia = new RepositorioUsuarios();
-			return instancia;
-		}
-		else {
-			return instancia;
-		}
-	}
 
 	public void nuevoUsuario(int id, String nombre, String contrasenia) throws java.io.IOException{
 		Usuario usuario = new Usuario(id, nombre, contrasenia);

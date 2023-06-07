@@ -2,11 +2,11 @@ package domain.organismos;
 
 import domain.entidades.Entidad;
 import domain.usuarios.Usuario;
-import java.util.ArrayList;
+
 import java.util.List;
 import lombok.Getter;
 
-public class Organismo {
+public class EntidadPrestadora {
 	@Getter
 	String nombre;
 	@Getter
@@ -14,7 +14,7 @@ public class Organismo {
 	String emailResponsable;
 	List<Entidad> entidades;
 
-	public Organismo(String nombre, Usuario usuario,String email, List<Entidad> entidades){
+	public EntidadPrestadora(String nombre, Usuario usuario, String email, List<Entidad> entidades){
 		this.nombre = nombre;
 		this.usuario = usuario;
 		this.emailResponsable = email;
