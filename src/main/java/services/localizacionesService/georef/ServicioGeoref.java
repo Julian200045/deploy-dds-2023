@@ -56,6 +56,31 @@ public class ServicioGeoref implements LocalizacionesService {
         .build();
   }
 
+  public Provincia provincia(Integer id) throws IOException {
+
+    if (primeraPeticion()) cargarMoldes();
+
+    ProvinciaMolde provinciaMolde = _provincias.stream().filter(provincia -> Objects.equals(provincia.id, id)).findFirst().get();
+    return moldeAProvincia(provinciaMolde);
+  }
+
+  public Municipio municipio(Integer id) throws IOException {
+
+    if (primeraPeticion()) cargarMoldes();
+
+    MunicipioMolde municipioMolde = _municipios.stream().filter(municipio -> Objects.equals(municipio.id, id)).findFirst().get();
+    return moldeAMunicipio(municipioMolde);
+  }
+
+  public Departamento departamento(Integer id) throws IOException {
+
+    if (primeraPeticion()) cargarMoldes();
+
+    DepartamentoMolde departamentoMolde = _departamentos.stream().filter(departamento -> Objects.equals(departamento.id, id)).findFirst().get();
+    return moldeADepartamento(departamentoMolde);
+
+  }
+
   private Municipio moldeAMunicipio(MunicipioMolde molde) {
     return new Municipio(molde.id,
         molde.nombre,
@@ -113,41 +138,23 @@ public class ServicioGeoref implements LocalizacionesService {
     return departamentosMolde.stream().map(departamento -> moldeADepartamento(departamento)).collect(Collectors.toList());
   }
 
-  public Provincia provincia(Integer id) throws IOException {
-    if (_provincias == null || _provincias.isEmpty()) {
-      _provincias = listaProvinciasMolde();
-    }
-    if (_municipios == null || _municipios.isEmpty()) {
-      _municipios = listaMunicipiosMolde();
-    }
-    if (_departamentos == null || _departamentos.isEmpty()) {
-      _departamentos = listaDepartamentosMolde();
-    }
-    ProvinciaMolde provinciaMolde = _provincias.stream().filter(provincia -> Objects.equals(provincia.id, id)).findFirst().get();
-    return moldeAProvincia(provinciaMolde);
+  private Boolean georefInstanciado() {
+    return urlGeorefApi != null
+        && maximaCantidadRegistrosProvincias != null
+        && maximaCantidadRegistrosMunicipios != null
+        && maximaCantidadRegistrosDepartamentos != null;
   }
 
-  public Municipio municipio(Integer id) throws IOException {
-    if (_municipios == null || _municipios.isEmpty()) {
-      _municipios = listaMunicipiosMolde();
-    }
-    MunicipioMolde municipioMolde = _municipios.stream().filter(municipio -> Objects.equals(municipio.id, id)).findFirst().get();
-    return moldeAMunicipio(municipioMolde);
+  private Boolean primeraPeticion() {
+    return
+    (_provincias == null || _provincias.isEmpty())
+    && (_municipios == null || _municipios.isEmpty())
+    && (_departamentos == null || _departamentos.isEmpty());
   }
 
-  public Departamento departamento(Integer id) throws IOException {
-    if (_departamentos == null || _departamentos.isEmpty()) {
-      _departamentos = listaDepartamentosMolde();
-    }
-    DepartamentoMolde departamentoMolde = _departamentos.stream().filter(departamento -> Objects.equals(departamento.id, id)).findFirst().get();
-    return moldeADepartamento(departamentoMolde);
-
-  }
-
-  private Boolean georefInstanciado(){
-    return urlGeorefApi != null &&
-        maximaCantidadRegistrosProvincias != null &&
-        maximaCantidadRegistrosMunicipios != null &&
-        maximaCantidadRegistrosDepartamentos != null;
+  private void cargarMoldes() throws IOException {
+    _provincias = listaProvinciasMolde();
+    _municipios = listaMunicipiosMolde();
+    _departamentos = listaDepartamentosMolde();
   }
 }
