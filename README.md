@@ -9,7 +9,7 @@ Esta es una plantilla de proyecto diseñada para:
   *  [Entrada de Blog (en español)](https://www.paradigmadigital.com/dev/nos-espera-junit-5/)
 * Maven 3.8.1 o superior
 
-## Ejecutar tests
+## Ejecutar pruebasDeContexto
 
 ```
 mvn test
@@ -23,7 +23,7 @@ mvn clean verify
 
 Este comando hará lo siguiente:
 
- 1. Ejecutará los tests
+ 1. Ejecutará los pruebasDeContexto
  2. Validará las convenciones de formato mediante checkstyle
  3. Detectará la presencia de (ciertos) code smells
  4. Validará la cobertura del proyecto

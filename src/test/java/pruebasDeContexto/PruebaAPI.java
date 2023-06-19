@@ -1,4 +1,4 @@
-package tests;
+package pruebasDeContexto;
 
 import domain.localizaciones.Provincia;
 import services.localizacionesService.LocalizacionesService;
@@ -22,10 +22,10 @@ public class PruebaAPI {
     });
 
     System.out.println("///////////////////////////////");
-    System.out.println("Departamentos de "+ misiones.nombre+ ":\n");
+    System.out.println("localidades de "+ misiones.nombre+ ":\n");
 
-    misiones.getDepartamentos().forEach(departamento -> {
-      System.out.println(departamento.nombre);
+    misiones.getLocalidades().forEach(localidad -> {
+      System.out.println(localidad.nombre);
     });
 
   }

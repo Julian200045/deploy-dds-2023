@@ -11,14 +11,14 @@ public interface GeorefService {
   @GET("provincias")
   Call<ListaProvinciasMolde> provinciasMax(@Query("max") int max);
 
-  @GET("departamentos")
-  Call<ListaDepartamentosMolde> departamentos();
+  @GET("localidades")
+  Call<ListaLocalidadesMolde> localidades();
 
-  @GET("departamentos")
-  Call<ListaDepartamentosMolde> departamentosMax(@Query("max") int max);
+  @GET("localidades")
+  Call<ListaLocalidadesMolde> localidadesMax(@Query("max") int max);
 
-  @GET("departamentos")
-  Call<ListaDepartamentosMolde> departamentos(@Query("provincia") int idProvincia);
+  @GET("localidades")
+  Call<ListaLocalidadesMolde> localidades(@Query("provincia") String nombreProvincia);
 
   @GET("municipios")
   Call<ListaMunicipiosMolde> municipios();

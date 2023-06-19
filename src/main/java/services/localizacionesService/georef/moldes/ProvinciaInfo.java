@@ -1,6 +1,6 @@
 package services.localizacionesService.georef.moldes;
 
 public class ProvinciaInfo {
-    public int id;
+    public Integer id;
     public String nombre;
 }

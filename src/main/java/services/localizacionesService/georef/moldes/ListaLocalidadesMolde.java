@@ -2,9 +2,9 @@ package services.localizacionesService.georef.moldes;
 
 import java.util.List;
 
-public class ListaDepartamentosMolde {
+public class ListaLocalidadesMolde {
   public int cantidad;
   public int inicio;
-  public List<DepartamentoMolde> departamentos;
+  public List<LocalidadMolde> localidades;
   public int total;
 }

@@ -1,7 +1,10 @@
 package domain.comunidades;
 
-import domain.localizaciones.Localizacion;
+import domain.localizaciones.Localidad;
+import domain.localizaciones.Municipio;
+import domain.localizaciones.Provincia;
 import domain.usuarios.Usuario;
+import lombok.Getter;
 import lombok.Setter;
 
 public class Miembro {
@@ -10,13 +13,21 @@ public class Miembro {
   String email;
   Usuario usuario;
 
-  @Setter
-  Localizacion localizacionDeInteres;
+  @Getter
+  Localidad localidadDeInteres;
+
 
   public Miembro(String nombre, String apellido, String email, Usuario usuario) {
     this.nombre = nombre;
     this.apellido = apellido;
     this.email = email;
     this.usuario = usuario;
+  }
+
+  Municipio getMunicipioDeInteres(){
+    return localidadDeInteres.getMunicipio();
+  }
+  Provincia getProvinciaDeInteres(){
+    return localidadDeInteres.getProvincia();
   }
 }
