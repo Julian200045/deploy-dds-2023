@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import domain.entidades.Entidad;
+import domain.entidades.TipoEntidad;
 import domain.repositorios.entidades.RepoEntidades;
 import domain.repositorios.entidadesprestadoras.RepoEntidadesPrestadoras;
 import domain.repositorios.entidadesprestadoras.RepositorioEntidadesPrestadoras;
@@ -54,12 +55,13 @@ public class CSVTest {
 
 		List<String[]> lista = new ArrayList<>();
 		String[] array = {"afip","1","messi@hotmail.com","1","2","3"};
+		TipoEntidad tipoBancario = new TipoEntidad("Bancaria","Entidad bancaria",new ArrayList<>());
 		lista.add(array);
 		when(lector.getDatosEntidadesPrestadoras()).thenReturn(lista);
 
-		repoEntidades.agregarEntidad(1,"entidad1");
-		repoEntidades.agregarEntidad(2,"entidad2");
-		repoEntidades.agregarEntidad(3,"entidad3");
+		repoEntidades.agregarEntidad(1,"entidad1",tipoBancario);
+		repoEntidades.agregarEntidad(2,"entidad2",tipoBancario);
+		repoEntidades.agregarEntidad(3,"entidad3",tipoBancario);
 
 		repoUsuarios.nuevoUsuario(1,"messi","1234");
 

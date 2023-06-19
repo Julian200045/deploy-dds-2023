@@ -12,7 +12,6 @@ public class PrestacionDeServicio {
 
   @Getter
   public boolean estaHabilitado;
-  private List<Miembro> miembrosInteresados;
 
   public PrestacionDeServicio(Servicio servicio, Establecimiento establecimiento) {
     this.servicio = servicio;

@@ -1,11 +1,13 @@
 package domain.repositorios.entidades;
 
 import domain.entidades.Entidad;
+import domain.entidades.TipoEntidad;
+
 import java.util.List;
 
 public interface RepoEntidades {
 
-  public void agregarEntidad(int id, String nombre);
+  public void agregarEntidad(int id, String nombre, TipoEntidad tipo);
 
   public Entidad devolverPorId(int id);
 

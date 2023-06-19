@@ -3,6 +3,7 @@ package domain.comunidades;
 import domain.localizaciones.Localidad;
 import domain.localizaciones.Municipio;
 import domain.localizaciones.Provincia;
+import domain.servicios.Servicio;
 import domain.usuarios.Usuario;
 import lombok.Getter;
 import lombok.Setter;

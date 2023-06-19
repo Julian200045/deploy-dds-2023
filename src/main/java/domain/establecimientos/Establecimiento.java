@@ -15,10 +15,13 @@ public class Establecimiento {
   private List<PrestacionDeServicio> prestaciones;
   @Getter
   public Localidad localidad;
+  @Getter
+  public TipoEstablecimiento tipo;
 
-  public Establecimiento(String nombre, Ubicacion ubicacion) {
+  public Establecimiento(String nombre, Ubicacion ubicacion,TipoEstablecimiento tipo) {
     this.nombre = nombre;
     this.ubicacion = ubicacion;
+    this.tipo = tipo;
   }
 
   public void agregarPrestacionDeServicio(PrestacionDeServicio prestacion) {

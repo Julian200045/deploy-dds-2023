@@ -10,7 +10,8 @@ public class Municipio{
   public String nombre;
   public Ubicacion ubicacion;
 
-  public Provincia provincia;
+  @Getter
+  private Provincia provincia;
   @Getter
   private final List<Localidad> localidades;
 
