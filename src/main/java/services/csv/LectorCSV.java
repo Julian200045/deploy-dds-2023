@@ -8,14 +8,11 @@ import lombok.Getter;
 import services.LectorPropiedades;
 
 public class LectorCSV implements CSVService {
-  String csvEntidadesPrestadoras;
-  String csvOrganismosDeControl;
+  String direccionCSV;
   @Getter
-  List<String[]> datosEntidadesPrestadoras = new ArrayList<>();
-  @Getter
-  List<String[]> datosOrganismosDeControl = new ArrayList<>();
+  List<String[]> datos = new ArrayList<>();
   CSVReader csvReader;
-
+/*
   public LectorCSV(String pathPropiedades) throws java.io.FileNotFoundException, java.io.IOException, com.opencsv.exceptions.CsvValidationException {
 
     LectorPropiedades lectorPropiedades = new LectorPropiedades(pathPropiedades);
@@ -28,6 +25,15 @@ public class LectorCSV implements CSVService {
 
     csvReader = new CSVReader(new FileReader(csvEntidadesPrestadoras));
     retirarDatos(datosEntidadesPrestadoras);
+    csvReader.close();
+  } */
+
+  public LectorCSV(String pathPropiedades, String tipoCSV)throws java.io.FileNotFoundException, java.io.IOException, com.opencsv.exceptions.CsvValidationException{
+    LectorPropiedades lectorPropiedades = new LectorPropiedades(pathPropiedades);
+    direccionCSV = lectorPropiedades.getPropiedad(tipoCSV);
+
+    csvReader = new CSVReader(new FileReader(direccionCSV));
+    retirarDatos(datos);
     csvReader.close();
   }
 
