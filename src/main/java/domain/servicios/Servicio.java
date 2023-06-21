@@ -1,9 +1,14 @@
 package domain.servicios;
 
-public class Servicio {
-    public String nombre;
+import lombok.Getter;
 
-    public Servicio(String nombre) {
-        this.nombre = nombre;
-    }
+public class Servicio {
+  @Getter
+  public int id;
+  public String nombre;
+
+  public Servicio(int id, String nombre) {
+    this.id = id;
+    this.nombre = nombre;
+  }
 }

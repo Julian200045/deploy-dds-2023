@@ -1,37 +1,24 @@
 package domain.localizaciones;
 
 import domain.ubicaciones.Ubicacion;
+import java.util.List;
 import lombok.Getter;
 
-import java.util.ArrayList;
-import java.util.List;
 
-public class Provincia implements Localizacion{
+public class Provincia {
   public Integer id;
   public String nombre;
   public Ubicacion ubicacion;
   @Getter
-  private List<Municipio> municipios;
+  private final List<Municipio> municipios;
   @Getter
-  private List<Departamento> departamentos;
+  private final List<Localidad> localidades;
 
-  public Provincia(Integer id, String nombre, Ubicacion ubicacion, List<Municipio> municipios, List<Departamento> departamentos) {
+  public Provincia(Integer id, String nombre, Ubicacion ubicacion, List<Municipio> municipios, List<Localidad> localidades) {
     this.id = id;
     this.nombre = nombre;
     this.ubicacion = ubicacion;
     this.municipios = municipios;
-    this.departamentos = departamentos;
-  }
-
-  @Override
-  public Boolean seEncuentraEn(Ubicacion ubicacion) {
-    return
-        ubicacion == this.ubicacion ||
-        municipios.stream().anyMatch(municipio -> municipio.seEncuentraEn(ubicacion)) ||
-        departamentos.stream().anyMatch(departamento -> departamento.seEncuentraEn(ubicacion));
-  }
-
-  public List<Municipio> municipios(){
-    return municipios;
+    this.localidades = localidades;
   }
 }
