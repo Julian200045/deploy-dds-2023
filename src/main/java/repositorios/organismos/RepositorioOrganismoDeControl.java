@@ -1,16 +1,12 @@
-package domain.repositorios.organismos;
+package repositorios.organismos;
 
 import domain.organismos.EntidadPrestadora;
 import domain.organismos.OrganismoDeControl;
-import domain.repositorios.entidadesprestadoras.RepoEntidadesPrestadoras;
-import domain.repositorios.servicios.RepoServicios;
-import domain.repositorios.usuarios.RepoUsuarios;
 import domain.servicios.Servicio;
 import domain.usuarios.Usuario;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.Getter;
-import services.csv.LectorCSV;
 
 public class RepositorioOrganismoDeControl implements RepoOrganismoDeControl {
   @Getter

@@ -1,9 +1,9 @@
 package services.importadorDatosCSV;
 
 import domain.entidades.Entidad;
-import domain.repositorios.entidades.RepoEntidades;
-import domain.repositorios.entidadesprestadoras.RepoEntidadesPrestadoras;
-import domain.repositorios.usuarios.RepoUsuarios;
+import repositorios.entidades.RepoEntidades;
+import repositorios.entidadesprestadoras.RepoEntidadesPrestadoras;
+import repositorios.usuarios.RepoUsuarios;
 import domain.usuarios.Usuario;
 import java.util.ArrayList;
 import java.util.List;

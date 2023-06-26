@@ -5,18 +5,18 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import domain.entidades.Entidad;
 import domain.entidades.TipoEntidad;
-import domain.repositorios.entidades.RepoEntidades;
-import domain.repositorios.entidadesprestadoras.RepoEntidadesPrestadoras;
-import domain.repositorios.entidadesprestadoras.RepositorioEntidadesPrestadoras;
-import domain.repositorios.organismos.RepositorioOrganismoDeControl;
-import domain.repositorios.servicios.RepoServicios;
-import domain.repositorios.servicios.RepositorioServicios;
-import domain.repositorios.usuarios.RepoUsuarios;
+import repositorios.entidades.RepoEntidades;
+import repositorios.entidadesprestadoras.RepoEntidadesPrestadoras;
+import repositorios.entidadesprestadoras.RepositorioEntidadesPrestadoras;
+import repositorios.organismos.RepositorioOrganismoDeControl;
+import repositorios.servicios.RepoServicios;
+import repositorios.servicios.RepositorioServicios;
+import repositorios.usuarios.RepoUsuarios;
 import domain.usuarios.Usuario;
 import services.csv.LectorCSV;
-import domain.repositorios.entidades.RepositorioEntidades;
+import repositorios.entidades.RepositorioEntidades;
 
-import domain.repositorios.usuarios.RepositorioUsuarios;
+import repositorios.usuarios.RepositorioUsuarios;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,9 +1,8 @@
-package domain.repositorios.servicios;
+package repositorios.servicios;
 
 import domain.servicios.Servicio;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class RepositorioServicios implements RepoServicios {
   List<Servicio> servicios = new ArrayList<>();

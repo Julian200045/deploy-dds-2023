@@ -1,4 +1,4 @@
-package domain.repositorios.usuarios;
+package repositorios.usuarios;
 
 import domain.usuarios.Usuario;
 import java.util.ArrayList;

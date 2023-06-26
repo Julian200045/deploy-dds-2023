@@ -1,9 +1,8 @@
-package domain.repositorios.entidades;
+package repositorios.entidades;
 
 import domain.entidades.Entidad;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import domain.entidades.TipoEntidad;
 import lombok.Getter;

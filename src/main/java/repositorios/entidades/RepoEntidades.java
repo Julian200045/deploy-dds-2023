@@ -1,4 +1,4 @@
-package domain.repositorios.entidades;
+package repositorios.entidades;
 
 import domain.entidades.Entidad;
 import domain.entidades.TipoEntidad;

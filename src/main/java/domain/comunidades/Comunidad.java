@@ -10,6 +10,8 @@ public class Comunidad {
   private final List<Miembro> administradores = new ArrayList<>();
   private final List<PrestacionDeServicio> prestacionDeServicios = new ArrayList<>();
 
+
+
   public Comunidad(String nombre) {
     this.nombre = nombre;
   }

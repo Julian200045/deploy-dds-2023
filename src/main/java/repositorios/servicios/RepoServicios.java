@@ -1,4 +1,4 @@
-package domain.repositorios.servicios;
+package repositorios.servicios;
 
 import domain.servicios.Servicio;
 
