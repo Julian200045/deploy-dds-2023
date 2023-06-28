@@ -8,11 +8,15 @@ import domain.usuarios.Usuario;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Miembro {
   String nombre;
   String apellido;
   String email;
   Usuario usuario;
+  private List<Comunidad> comunidades; //ver como inicializar
 
   @Getter
   Localidad localidadDeInteres;
@@ -23,6 +27,18 @@ public class Miembro {
     this.apellido = apellido;
     this.email = email;
     this.usuario = usuario;
+
+  }
+
+  public void unirseAComunidad(Comunidad comunidad){
+    if(!comunidad.esMiembro(this)){
+      comunidades.add(comunidad);
+      comunidad.agregarMiembro(this);
+    }
+  }
+
+  public List<Comunidad> comunidades(){
+    return new ArrayList<>(comunidades);
   }
 
   Municipio getMunicipioDeInteres(){

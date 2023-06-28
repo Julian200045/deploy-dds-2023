@@ -15,4 +15,20 @@ public class Comunidad {
   public Comunidad(String nombre) {
     this.nombre = nombre;
   }
+
+  public void agregarPrestacionDeInteres(PrestacionDeServicio prestacionDeServicio){
+    prestacionDeServicios.add(prestacionDeServicio);
+  }
+
+  public Boolean prestacionEsDeInteres(PrestacionDeServicio prestacionDeServicio){
+    return prestacionDeServicios.contains(prestacionDeServicio);
+  }
+
+  public Boolean esMiembro(Miembro miembro){
+    return miembros.contains(miembro);
+  }
+
+  public void agregarMiembro(Miembro miembro){
+    miembros.add(miembro);
+  }
 }
