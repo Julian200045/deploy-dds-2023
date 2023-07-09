@@ -9,15 +9,16 @@ public class Localidad {
   public Ubicacion ubicacion;
   @Getter
   private Municipio municipio;
-  @Getter
-  private Provincia provincia;
 
-  public Localidad(Long id, String nombre, Ubicacion ubicacion, Municipio municipio, Provincia provincia) {
+  public Localidad(Long id, String nombre, Ubicacion ubicacion) {
     this.id = id;
     this.nombre = nombre;
     this.ubicacion = ubicacion;
-    this.municipio = municipio;
-    this.provincia = provincia;
   }
 
+  public void setMunicipio(Municipio municipioASetear){
+    if(municipio == null){
+      municipio = municipioASetear;
+    }
+  }
 }

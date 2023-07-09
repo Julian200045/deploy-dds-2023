@@ -30,9 +30,9 @@ public class ServicioGeoref implements LocalizacionesService {
 
   private final Retrofit retrofit;
 
-  private static List<ProvinciaMolde> _provincias;
-  private static List<MunicipioMolde> _municipios;
-  private static List<LocalidadMolde> _localidades;
+  public static List<ProvinciaMolde> _provincias;
+  public static List<MunicipioMolde> _municipios;
+  public static List<LocalidadMolde> _localidades;
 
 
   public ServicioGeoref(String pathPropiedades) throws IOException {
@@ -65,7 +65,10 @@ public class ServicioGeoref implements LocalizacionesService {
     if (primeraPeticion()) cargarMoldes();
 
     MunicipioMolde municipioMolde = _municipios.stream().filter(municipio -> Objects.equals(municipio.id, id)).findFirst().get();
-    return moldeAMunicipio(municipioMolde);
+
+    Provincia provinciaDelMunicipio = moldeAProvincia(_provincias.stream().filter(provinciaMolde -> provinciaMolde.id == municipioMolde.provincia.id).findFirst().get());
+
+    return moldeAMunicipio(municipioMolde,provinciaDelMunicipio);
   }
 
   public Localidad localidad(Integer id) throws IOException {
@@ -73,35 +76,49 @@ public class ServicioGeoref implements LocalizacionesService {
     if (primeraPeticion()) cargarMoldes();
 
     LocalidadMolde localidadMolde = _localidades.stream().filter(localidad -> Objects.equals(localidad.id, id)).findFirst().get();
-    return moldeALocalidad(localidadMolde);
+
+    Provincia provinciaDeLaLocalidad = moldeAProvincia(_provincias.stream().filter(provinciaMolde -> provinciaMolde.id == localidadMolde.provincia.id).findFirst().get());
+    Municipio municipioDeLaLocalidad = moldeAMunicipio(_municipios.stream().filter(municipioMolde -> municipioMolde.id == localidadMolde.municipio.id).findFirst().get(),provinciaDeLaLocalidad);
+
+    return moldeALocalidad(localidadMolde,municipioDeLaLocalidad);
 
   }
 
-  private Localidad moldeALocalidad(LocalidadMolde molde) {
-    return new Localidad(molde.id,
+  private Localidad moldeALocalidad(LocalidadMolde molde,Municipio municipio) {
+
+    Localidad localidad = new Localidad(molde.id,
         molde.nombre,
         new Ubicacion(molde.centroide.getLat(),
-            molde.centroide.getLon()),
-        moldeAMunicipio(_municipios.stream().filter(municipioMolde -> municipioMolde.id == molde.municipio.id).toList().get(0)),
-        moldeAProvincia(_provincias.stream().filter(provinciaMolde -> provinciaMolde.id == molde.provincia.id).toList().get(0)));
+            molde.centroide.getLon()));
+
+    localidad.setMunicipio(municipio);
+
+    return localidad;
   }
 
-  private Municipio moldeAMunicipio(MunicipioMolde molde) {
-    return new Municipio(molde.id,
+  private Municipio moldeAMunicipio(MunicipioMolde molde,Provincia provincia) {
+
+    Municipio municipio = new Municipio(molde.id,
         molde.nombre,
         new Ubicacion(molde.centroide.getLat(),
-            molde.centroide.getLon()),
-        moldeAProvincia(_provincias.stream().filter(provinciaMolde -> provinciaMolde.id == molde.provincia.id).toList().get(0)),
-        localidadesDelMunicipioMolde(molde));
+            molde.centroide.getLon()));
+
+    municipio.setProvincia(provincia);
+    municipio.setLocalidades(localidadesDelMunicipio(municipio));
+
+    return municipio;
   }
 
   private Provincia moldeAProvincia(ProvinciaMolde molde) {
-    return new Provincia(
+
+    Provincia provincia = new Provincia(
         molde.id,
         molde.nombre,
-        new Ubicacion(molde.centroide.getLat(), molde.centroide.getLon()),
-        municipiosDeLaProvinciaMolde(molde),
-        localidadesDeLaProvinciaMolde(molde));
+        new Ubicacion(molde.centroide.getLat(), molde.centroide.getLon()));
+
+    provincia.setMunicipios(municipiosDeLaProvincia(provincia));
+
+    return provincia;
   }
 
   private List<ProvinciaMolde> listaProvinciasMolde() throws IOException {
@@ -128,19 +145,14 @@ public class ServicioGeoref implements LocalizacionesService {
     return responselocalidadesArgentinos.body().localidades;
   }
 
-  private List<Municipio> municipiosDeLaProvinciaMolde(ProvinciaMolde provinciaMolde) {
-    List<MunicipioMolde> municipiosMolde = _municipios.stream().filter(municipio -> municipio.provincia.id == provinciaMolde.id).toList();
-    return municipiosMolde.stream().map(municipio -> moldeAMunicipio(municipio)).collect(Collectors.toList());
+  private List<Municipio> municipiosDeLaProvincia(Provincia provincia) {
+    List<MunicipioMolde> municipiosMolde = _municipios.stream().filter(municipio -> Objects.equals(municipio.provincia.id, provincia.id)).toList();
+    return municipiosMolde.stream().map(municipio -> moldeAMunicipio(municipio,provincia)).collect(Collectors.toList());
   }
 
-  private List<Localidad> localidadesDeLaProvinciaMolde(ProvinciaMolde provinciaMolde) {
-    List<LocalidadMolde> localidadesMolde = _localidades.stream().filter(localidad -> localidad.provincia.id == provinciaMolde.id).toList();
-    return localidadesMolde.stream().map(localidad -> moldeALocalidad(localidad)).collect(Collectors.toList());
-  }
-
-  private List<Localidad> localidadesDelMunicipioMolde(MunicipioMolde municipioMolde) {
-    List<LocalidadMolde> localidadesMolde = _localidades.stream().filter(localidad -> localidad.municipio.id == municipioMolde.id).toList();
-    return localidadesMolde.stream().map(localidad -> moldeALocalidad(localidad)).collect(Collectors.toList());
+  private List<Localidad> localidadesDelMunicipio(Municipio municipio) {
+    List<LocalidadMolde> localidadesMolde = _localidades.stream().filter(localidad -> Objects.equals(localidad.municipio.id, municipio.id)).toList();
+    return localidadesMolde.stream().map(localidad -> moldeALocalidad(localidad,municipio)).collect(Collectors.toList());
   }
 
   private Boolean georefInstanciado() {

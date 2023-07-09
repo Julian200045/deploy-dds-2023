@@ -3,6 +3,7 @@ package domain.localizaciones;
 import domain.ubicaciones.Ubicacion;
 import java.util.List;
 import lombok.Getter;
+import lombok.Setter;
 
 
 public class Provincia {
@@ -10,15 +11,23 @@ public class Provincia {
   public String nombre;
   public Ubicacion ubicacion;
   @Getter
-  private final List<Municipio> municipios;
-  @Getter
-  private final List<Localidad> localidades;
+  private List<Municipio> municipios;
 
-  public Provincia(Integer id, String nombre, Ubicacion ubicacion, List<Municipio> municipios, List<Localidad> localidades) {
+
+  public Provincia(Integer id, String nombre, Ubicacion ubicacion) {
     this.id = id;
     this.nombre = nombre;
     this.ubicacion = ubicacion;
-    this.municipios = municipios;
-    this.localidades = localidades;
+
+  }
+
+  public List<Localidad> getLocalidades(){
+    return municipios.stream().flatMap(municipio -> municipio.getLocalidades().stream()).toList();
+  }
+
+  public void setMunicipios(List<Municipio> municipiosList){
+    if(this.municipios == null){
+      municipios = municipiosList;
+    }
   }
 }

@@ -41,10 +41,10 @@ public class Miembro {
     return new ArrayList<>(comunidades);
   }
 
-  Municipio getMunicipioDeInteres(){
-    return localidadDeInteres.getMunicipio();
-  }
-  Provincia getProvinciaDeInteres(){
-    return localidadDeInteres.getProvincia();
-  }
+  //Municipio getMunicipioDeInteres(){
+   // return localidadDeInteres.getMunicipio();
+  //}
+  //Provincia getProvinciaDeInteres(){
+    //return localidadDeInteres.getProvincia();
+  //}
 }

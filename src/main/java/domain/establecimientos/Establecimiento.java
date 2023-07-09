@@ -28,10 +28,10 @@ public class Establecimiento {
     prestaciones.add(prestacion);
   }
 
-  Municipio getMunicipioDeInteres(){
-    return localidad.getMunicipio();
-  }
-  Provincia getProvinciaDeInteres(){
-    return localidad.getProvincia();
-  }
+  //Municipio getMunicipioDeInteres(){
+   // return localidad.getMunicipio();
+  //}
+  //Provincia getProvinciaDeInteres(){
+   // return localidad.getProvincia();
+  //}
 }
