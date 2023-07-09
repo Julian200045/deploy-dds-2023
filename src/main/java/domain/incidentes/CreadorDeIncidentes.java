@@ -7,7 +7,7 @@ import domain.servicios.PrestacionDeServicio;
 import java.util.List;
 
 public class CreadorDeIncidentes {
-  static List<Incidente> darDeAltaIncidente(Miembro miembro, PrestacionDeServicio prestacion, String observaciones){
+  public static List<Incidente> darDeAltaIncidente(Miembro miembro, PrestacionDeServicio prestacion, String observaciones){
 
     List<Comunidad> comunidadesInteresadas = miembro.comunidades().stream().filter(comunidad -> comunidad.prestacionEsDeInteres(prestacion)).toList();
 
