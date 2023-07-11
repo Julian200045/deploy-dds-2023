@@ -4,6 +4,7 @@ import domain.comunidades.Comunidad;
 import domain.comunidades.Miembro;
 import domain.entidades.Entidad;
 import domain.servicios.PrestacionDeServicio;
+import java.time.temporal.ChronoUnit;
 import lombok.Data;
 import lombok.Getter;
 
@@ -46,5 +47,9 @@ public class Incidente {
   }
   public String entidadNombre(){
     return prestacionDeServicio.getEstablecimiento().entidad.getNombre();
+  }
+
+  public long horasDesdeQueSeAbrio(){
+    return ChronoUnit.HOURS.between(fechaYHoraDeApertura,getFechaYHoraDeCierre);
   }
 }

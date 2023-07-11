@@ -21,6 +21,12 @@ public class RankingTest {
 		when(incidente2.entidadNombre()).thenReturn("entidad de arriba");
 		when(incidente3.entidadNombre()).thenReturn("entidad de abajo");
 
+		//mockeo las horas para que no sean rechazados por ser incidentes muy recientes
+		long horas = 25;
+		when(incidente3.horasDesdeQueSeAbrio()).thenReturn(horas);
+		when(incidente2.horasDesdeQueSeAbrio()).thenReturn(horas);
+		when(incidente1.horasDesdeQueSeAbrio()).thenReturn(horas);
+
 		List<Incidente> incidentesSemanales = new ArrayList<>();
 		incidentesSemanales.add(incidente1);
 		incidentesSemanales.add(incidente1);

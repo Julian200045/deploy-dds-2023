@@ -1,6 +1,7 @@
 package domain.informes.rankings;
 
 import domain.entidades.Entidad;
+import domain.incidentes.EstadoIncidente;
 import domain.incidentes.Incidente;
 import domain.informes.Informe;
 
@@ -31,17 +32,18 @@ public class RankingMayorCantidadReportes implements Ranking{
   }
   public void crearLista(List<Incidente> incidentesSemanales){
     for(int i = 0; i< incidentesSemanales.size(); i++){
-      String entidadNombre = incidentesSemanales.get(i).entidadNombre();
-      if(listaRanking.stream().anyMatch(lista -> lista.contains(entidadNombre))){
-        List<String> fila = listaRanking.stream().filter(lista -> lista.contains(entidadNombre)).collect(Collectors.toList()).get(0);
-        fila.set(2, Integer.toString(Integer.parseInt(fila.get(2))+1));
-      }
-      else{
-        List<String> fila = new ArrayList<>();
-        fila.add("0");
-        fila.add(entidadNombre);
-        fila.add("1");
-        listaRanking.add(fila);
+      if(incidentesSemanales.get(i).horasDesdeQueSeAbrio()>24 || incidentesSemanales.get(i).getEstado() == EstadoIncidente.RESUELTO) {
+        String entidadNombre = incidentesSemanales.get(i).entidadNombre();
+        if (listaRanking.stream().anyMatch(lista -> lista.contains(entidadNombre))) {
+          List<String> fila = listaRanking.stream().filter(lista -> lista.contains(entidadNombre)).collect(Collectors.toList()).get(0);
+          fila.set(2, Integer.toString(Integer.parseInt(fila.get(2)) + 1));
+        } else {
+          List<String> fila = new ArrayList<>();
+          fila.add("0");
+          fila.add(entidadNombre);
+          fila.add("1");
+          listaRanking.add(fila);
+        }
       }
     }
   }
