@@ -17,7 +17,7 @@ public class PruebaExportadorPdf {
   public static void main(String[] args) throws IOException {
 
 
-    AdapterExportadorAPdf adapterExportadorAPdf = new BoxablePdf();
+    AdapterExportadorAPdf adapterExportadorAPdf = new BoxablePdf("src/main/resources/template/project.properties");
     ExportadorAPdf exportadorAPdf = new ExportadorAPdf(adapterExportadorAPdf);
     Exportador exportador = new Exportador(exportadorAPdf);
 

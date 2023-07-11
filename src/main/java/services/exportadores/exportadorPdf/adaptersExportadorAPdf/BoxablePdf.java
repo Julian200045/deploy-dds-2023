@@ -12,6 +12,7 @@ import org.apache.pdfbox.pdmodel.PDPageContentStream;
 import org.apache.pdfbox.pdmodel.common.PDRectangle;
 import org.apache.pdfbox.pdmodel.font.PDFont;
 import org.apache.pdfbox.pdmodel.font.PDType1Font;
+import services.LectorPropiedades;
 import services.exportadores.Exportable;
 import services.exportadores.exportadorPdf.AdapterExportadorAPdf;
 
@@ -22,19 +23,29 @@ import java.util.List;
 
 public class BoxablePdf implements AdapterExportadorAPdf {
 
-  float margen = 50;
+  float margen;
 
   boolean drawContent = true;
   float yStart;
-  float bottomMargin = 50;
-  float yPosition = 820;
+  float bottomMargin;
+  float yPosition;
 
   PDFont font = PDType1Font.HELVETICA_BOLD;
   PDPageContentStream cos;
   PDPage page;
-  float leftMargin = 50;
-  float marginBetweenYElements = 20;
-  float titleFontSize = 18;
+  float leftMargin;
+  float marginBetweenYElements;
+  float titleFontSize;
+
+  public BoxablePdf(String pathPropiedades) throws java.io.IOException{
+    LectorPropiedades lectorPropiedades = new LectorPropiedades(pathPropiedades);
+    this.margen = lectorPropiedades.getPropiedadInt("BoxablePDF-margen");
+    this.bottomMargin = lectorPropiedades.getPropiedadInt("BoxablePDF-bottomMargin");
+    this.yPosition = lectorPropiedades.getPropiedadInt("BoxablePDF-yPosition");
+    this.leftMargin = lectorPropiedades.getPropiedadInt("BoxablePDF-leftMargin");
+    this.marginBetweenYElements = lectorPropiedades.getPropiedadInt("BoxablePDF-marginBetweenYElements");
+    this.titleFontSize = lectorPropiedades.getPropiedadInt("BoxablePDF-titleFontSize");
+  }
 
   public void exportarAPdf(Exportable exportable) throws IOException {
     DatosInforme datosInforme = exportable.getDatos();
