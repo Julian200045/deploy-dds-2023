@@ -2,6 +2,7 @@ package domain.incidentes;
 
 import domain.comunidades.Comunidad;
 import domain.comunidades.Miembro;
+import domain.entidades.Entidad;
 import domain.servicios.PrestacionDeServicio;
 import lombok.Data;
 import lombok.Getter;
@@ -42,5 +43,8 @@ public class Incidente {
       getFechaYHoraDeCierre = LocalDateTime.now();
       estado = EstadoIncidente.RESUELTO;
     }
+  }
+  public String entidadNombre(){
+    return prestacionDeServicio.getEstablecimiento().entidad.getNombre();
   }
 }

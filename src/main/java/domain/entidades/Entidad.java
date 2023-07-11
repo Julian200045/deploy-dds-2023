@@ -10,6 +10,7 @@ import lombok.Getter;
 public class Entidad {
   @Getter
   public int id;
+  @Getter
   public String nombre;
   private List<Establecimiento> establecimientos;
   public TipoEntidad tipo;

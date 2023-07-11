@@ -1,5 +1,6 @@
 package domain.establecimientos;
 
+import domain.entidades.Entidad;
 import domain.localizaciones.Localidad;
 import domain.localizaciones.Municipio;
 import domain.localizaciones.Provincia;
@@ -13,6 +14,9 @@ public class Establecimiento {
   private String nombre;
   private Ubicacion ubicacion;
   private List<PrestacionDeServicio> prestaciones;
+
+  @Getter
+  public Entidad entidad;
   @Getter
   public Localidad localidad;
   @Getter

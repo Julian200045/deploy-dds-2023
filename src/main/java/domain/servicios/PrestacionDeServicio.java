@@ -8,6 +8,7 @@ import lombok.Getter;
 
 public class PrestacionDeServicio {
   public Servicio servicio;
+  @Getter
   public Establecimiento establecimiento;
 
   @Getter
