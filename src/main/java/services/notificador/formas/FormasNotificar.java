@@ -1,7 +1,21 @@
 package services.notificador.formas;
 
+import org.quartz.SchedulerException;
 import services.notificador.Notificacion;
+import services.notificador.enviadores.EnviadorMail;
+import services.notificador.enviadores.EnviadorWPP;
 
-public interface FormasNotificar {
-    void notificar(Notificacion notificacion);
+public abstract class FormasNotificar {
+
+    public abstract void notificar(Notificacion notificacion) throws SchedulerException;
+    public void enviarNotificacion(Notificacion notificacion){
+        switch (notificacion.getUsuario().getMedioDeContacto()) {
+            case WPP:
+                EnviadorWPP.enviar(notificacion);
+            break;
+            case EMAIL:
+                EnviadorMail.enviar(notificacion);
+                break;
+        }
+    }
 }
