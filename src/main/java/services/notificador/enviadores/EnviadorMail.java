@@ -10,7 +10,7 @@ public class EnviadorMail {
         public static void enviar(Notificacion notificacion) {
             final String userName = "tpdds2023g10@gmail.com"; //same fromMail
             final String password = "ybddzazsnnaqzkyi";
-            final String toEmail = "lucas.lamanna60@gmail.com";
+            final String toEmail = notificacion.getUsuario().getMail();
 
             System.out.println("TLSEmail Start");
             Properties props = new Properties();
@@ -33,9 +33,9 @@ public class EnviadorMail {
 
             try{
                 MimeMessage message = new MimeMessage(session);
-                message.addRecipient(Message.RecipientType.TO, new InternetAddress("lucas.lamanna60@gmail.com", true));
+                message.addRecipient(Message.RecipientType.TO, new InternetAddress(notificacion.getUsuario().getMail(), true));
                 message.setSubject("Prueba");
-                message.setText(notificacion.getIncidente().getObservaciones());
+                message.setText(notificacion.getMensaje());
                 System.out.println("sending...");
                 Transport.send(message);
                 System.out.println("Sent message successfully....");

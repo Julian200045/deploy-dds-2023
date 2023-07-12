@@ -33,4 +33,7 @@ public class Comunidad {
   public void agregarMiembro(Miembro miembro){
     miembros.add(miembro);
   }
+  public List<Miembro> getMiembros(){
+    return new ArrayList<>(miembros);
+  }
 }

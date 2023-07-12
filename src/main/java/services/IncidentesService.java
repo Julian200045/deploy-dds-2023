@@ -6,10 +6,9 @@ import domain.incidentes.CreadorDeIncidentes;
 import domain.incidentes.Incidente;
 import domain.servicios.PrestacionDeServicio;
 import repositorios.incidentes.RepoIncidentes;
+import services.notificador.Notificador;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 public class IncidentesService {
 
@@ -24,6 +23,8 @@ public class IncidentesService {
     List<Incidente> incidentes = CreadorDeIncidentes.darDeAltaIncidente(miembro,prestacion,observaciones);
 
     repoIncidentes.add(incidentes.toArray(new Incidente[0]));
+
+    Notificador.generarNotificacion(miembro.getUsuario(), observaciones);
   }
 
   public void darDeBajaIncidentesDeLaPrestacion(Miembro miembro, PrestacionDeServicio prestacion){
@@ -31,9 +32,17 @@ public class IncidentesService {
     List<Incidente> incidentes = repoIncidentes.getByPrestacion(prestacion);
 
     List<Comunidad> comunidadesDelMiembroCerrador = miembro.comunidades();
+    List<Miembro> miembrosInteresados = new ArrayList<>();
+    comunidadesDelMiembroCerrador.forEach(comunidad -> {
+      miembrosInteresados.addAll(comunidad.getMiembros());
+    }
+    );
+
+    Set<Miembro> miembrosANotificar = new HashSet<>(miembrosInteresados);
 
     List<Incidente> incidentesDeLasComunidadesDelMiembro = incidentes.stream().filter(incidente -> comunidadesDelMiembroCerrador.contains(incidente.getComunidad())).toList();
 
     incidentesDeLasComunidadesDelMiembro.forEach(incidente -> incidente.cerrar(miembro));
+    miembrosANotificar.forEach(miembroAInformar -> Notificador.generarNotificacion(miembroAInformar.getUsuario(), "Se cerro el incidente"));
   }
 }

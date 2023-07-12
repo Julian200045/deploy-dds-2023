@@ -18,6 +18,10 @@ public class Usuario {
   String nombre;
   String contrasenia;
   Rol rol;
+  @Getter
+  String mail;
+  @Getter
+  String numeroCelular;
 
   @Getter
   MedioDeContacto medioDeContacto;

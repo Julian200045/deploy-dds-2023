@@ -16,7 +16,7 @@ public class EnviadorWPP {
             Message message = Message.creator(
                             new com.twilio.type.PhoneNumber("whatsapp:+12344152261"), //nro del que envia
                             new com.twilio.type.PhoneNumber("whatsapp:+14155238886"), //nro del receptor
-                            notificacion.getIncidente().getObservaciones())
+                            notificacion.getMensaje())
                     .create();
 
             System.out.println(message.getSid());

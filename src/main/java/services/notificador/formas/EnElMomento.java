@@ -5,17 +5,16 @@ import services.notificador.enviadores.EnviadorWPP;
 import services.notificador.Notificacion;
 
 public class EnElMomento implements FormasNotificar {
-
+public static EnviadorWPP enviadorWPP;
+public static EnviadorMail enviadorMail;
     @Override
     public void notificar(Notificacion notificacion) {
         switch (notificacion.getUsuario().getMedioDeContacto()) {
             case WPP:
-                EnviadorWPP enviadorWPP = new EnviadorWPP();
-                enviadorWPP.enviar(notificacion);
+                EnviadorWPP.enviar(notificacion);
                 break;
             case EMAIL:
-                EnviadorMail enviadorMail = new EnviadorMail();
-                enviadorMail.enviar(notificacion);
+                EnviadorMail.enviar(notificacion);
                 break;
         }
     }
