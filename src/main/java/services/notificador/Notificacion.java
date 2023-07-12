@@ -8,9 +8,9 @@ public class Notificacion {
     @Getter
     private Usuario usuario;
     @Getter
-    private Incidente incidente;
-    public Notificacion (Usuario usuario, Incidente incidente) {
+    private String mensaje;
+    public Notificacion (Usuario usuario, String mensaje) {
         this.usuario = usuario;
-        this.incidente = incidente;
+        this.mensaje = mensaje;
     }
 }

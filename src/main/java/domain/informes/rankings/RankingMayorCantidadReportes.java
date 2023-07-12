@@ -54,7 +54,7 @@ public class RankingMayorCantidadReportes implements Ranking{
 
   public List<String> encabezadosTabla() {
     List<String> encabezados = new ArrayList<>();
-    encabezados.add("puesto");
+    encabezados.add("Puesto");
     encabezados.add("entidad");
     encabezados.add("valor");
 
