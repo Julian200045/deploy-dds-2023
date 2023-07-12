@@ -50,6 +50,10 @@ public class Incidente {
   }
 
   public long horasDesdeQueSeAbrio(){
-    return ChronoUnit.HOURS.between(fechaYHoraDeApertura,getFechaYHoraDeCierre);
+    return ChronoUnit.HOURS.between(fechaYHoraDeApertura,LocalDateTime.now());
+  }
+
+  public long tiempoDeCierre(){
+    return ChronoUnit.HOURS.between(fechaYHoraDeApertura,LocalDateTime.now());
   }
 }

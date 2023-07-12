@@ -3,8 +3,10 @@ package domain.comunidades;
 import domain.servicios.PrestacionDeServicio;
 import java.util.ArrayList;
 import java.util.List;
+import lombok.Getter;
 
 public class Comunidad {
+  @Getter
   private String nombre;
   private final List<Miembro> miembros = new ArrayList<>();
   private final List<Miembro> administradores = new ArrayList<>();
