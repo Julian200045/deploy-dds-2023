@@ -1,12 +1,12 @@
 package domain.informes;
 
 import domain.informes.rankings.Ranking;
-import services.exportadores.Exportable;
+import services.exportadoresDeInformes.InformeExportable;
 
 import java.time.LocalDate;
 import java.util.List;
 
-public class Informe implements Exportable {
+public class Informe implements InformeExportable {
   Integer numeroInforme;
   LocalDate fechaInicio;
   LocalDate fechaFin;

@@ -1,4 +1,4 @@
-package services.exportadores.exportadorPdf.adaptersExportadorAPdf;
+package services.exportadoresDeInformes.exportadorDeInformesAPdf.adaptersExportadorDeInformesAPdf;
 
 import be.quodlibet.boxable.BaseTable;
 import be.quodlibet.boxable.datatable.DataTable;
@@ -13,15 +13,15 @@ import org.apache.pdfbox.pdmodel.common.PDRectangle;
 import org.apache.pdfbox.pdmodel.font.PDFont;
 import org.apache.pdfbox.pdmodel.font.PDType1Font;
 import services.LectorPropiedades;
-import services.exportadores.Exportable;
-import services.exportadores.exportadorPdf.AdapterExportadorAPdf;
+import services.exportadoresDeInformes.InformeExportable;
+import services.exportadoresDeInformes.exportadorDeInformesAPdf.AdapterExportadorDeInformesAPdf;
 
 import java.awt.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BoxablePdf implements AdapterExportadorAPdf {
+public class BoxablePdf implements AdapterExportadorDeInformesAPdf {
 
   float margen;
 
@@ -47,7 +47,7 @@ public class BoxablePdf implements AdapterExportadorAPdf {
     this.titleFontSize = lectorPropiedades.getPropiedadInt("BoxablePDF-titleFontSize");
   }
 
-  public void exportarAPdf(Exportable exportable) throws IOException {
+  public void exportarAPdf(InformeExportable exportable) throws IOException {
     DatosInforme datosInforme = exportable.getDatos();
 
 
