@@ -5,6 +5,7 @@ import domain.incidentes.EstadoIncidente;
 import domain.incidentes.Incidente;
 import domain.informes.Informe;
 
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -16,9 +17,27 @@ public class RankingMayorCantidadReportes implements Ranking{
 
   public RankingMayorCantidadReportes(List<Incidente> incidentesSemanales){
     listaRanking = new ArrayList<>();
-    crearLista(incidentesSemanales);
+    List<Incidente> incidentesFiltrados = filtraIncidentes(incidentesSemanales);
+    crearLista(incidentesFiltrados);
     ordenarLista();
     asignarPuestos();
+  }
+
+  public List<Incidente> filtraIncidentes(List<Incidente> incidentes){
+    for(int i = 0; i< incidentes.size(); i++){
+      Incidente  incidente = incidentes.get(i);
+      List<Incidente> incidentesABorrar = incidentes.stream().filter(incidente1 -> cumpleCriterio(incidente, incidente1)).collect(Collectors.toList());
+      for (int k = 0; k<incidentesABorrar.size(); k++){
+        incidentes.remove(incidentesABorrar.get(k));
+      }
+      incidentes.add(incidente);
+    }
+    return incidentes;
+  }
+
+  public boolean cumpleCriterio(Incidente incidente1, Incidente incidente2){
+    long horas = 24;
+    return incidente1.getPrestacionDeServicio() == incidente2.getPrestacionDeServicio() && horas > Math.abs(ChronoUnit.HOURS.between(incidente2.getFechaYHoraDeApertura(),incidente1.getFechaYHoraDeApertura()));
   }
 
   public void ordenarLista(){
@@ -32,18 +51,16 @@ public class RankingMayorCantidadReportes implements Ranking{
   }
   public void crearLista(List<Incidente> incidentesSemanales){
     for(int i = 0; i< incidentesSemanales.size(); i++){
-      if(incidentesSemanales.get(i).horasDesdeQueSeAbrio()>24 || incidentesSemanales.get(i).getEstado() == EstadoIncidente.RESUELTO) {
-        String entidadNombre = incidentesSemanales.get(i).entidadNombre();
-        if (listaRanking.stream().anyMatch(lista -> lista.contains(entidadNombre))) {
-          List<String> fila = listaRanking.stream().filter(lista -> lista.contains(entidadNombre)).collect(Collectors.toList()).get(0);
-          fila.set(2, Integer.toString(Integer.parseInt(fila.get(2)) + 1));
-        } else {
-          List<String> fila = new ArrayList<>();
-          fila.add("0");
-          fila.add(entidadNombre);
-          fila.add("1");
-          listaRanking.add(fila);
-        }
+      String entidadNombre = incidentesSemanales.get(i).entidadNombre();
+      if (listaRanking.stream().anyMatch(lista -> lista.contains(entidadNombre))) {
+        List<String> fila = listaRanking.stream().filter(lista -> lista.contains(entidadNombre)).collect(Collectors.toList()).get(0);
+        fila.set(2, Integer.toString(Integer.parseInt(fila.get(2)) + 1));
+      } else {
+        List<String> fila = new ArrayList<>();
+        fila.add("0");
+        fila.add(entidadNombre);
+        fila.add("1");
+        listaRanking.add(fila);
       }
     }
   }
