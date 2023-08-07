@@ -1,55 +1,70 @@
 package services.notificador.formas;
 
 import domain.usuarios.Usuario;
-import org.quartz.CronTrigger;
-import org.quartz.Job;
-import org.quartz.JobBuilder;
 import org.quartz.JobDetail;
 import org.quartz.Scheduler;
 import org.quartz.SchedulerException;
-import org.quartz.SimpleTrigger;
+import org.quartz.SchedulerFactory;
 import org.quartz.Trigger;
-import org.quartz.TriggerBuilder;
 import org.quartz.impl.StdSchedulerFactory;
+import repositorios.notificaciones.RepoNotificaciones;
+import services.notificador.EstadoEnvio;
 import services.notificador.Notificacion;
+import services.notificador.Notificar;
 
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
 
+import static org.quartz.CronScheduleBuilder.cronSchedule;
+import static org.quartz.JobBuilder.newJob;
+import static org.quartz.SimpleScheduleBuilder.simpleSchedule;
 import static org.quartz.TriggerBuilder.newTrigger;
 
 public class SinApuros extends FormasNotificar {
 
+    private RepoNotificaciones repoNotificaciones;
+
+    public SinApuros(RepoNotificaciones repoNotificaciones){
+        this.repoNotificaciones = repoNotificaciones;
+    }
     public void notificar(Notificacion notificacion) throws SchedulerException {
-
         Usuario usuario = notificacion.getUsuario();
-
         if(usuario.estaDisponible(LocalDateTime.now())){
             enviarNotificacion(notificacion);
         }
-        else{
-            if(!usuario.tieneNotificacionesPendientes()){
+    }
 
-                Date horarioNotificacionIn = new Date();
-                LocalDateTime ldt = LocalDateTime.ofInstant(horarioNotificacionIn.toInstant(), ZoneId.systemDefault());
-                Date horarioNotificacion = Date.from(ldt.atZone(ZoneId.systemDefault()).toInstant());
+    public void iniciarEnvioNotificaciones() throws SchedulerException {
+        SchedulerFactory schedulerFactory = new StdSchedulerFactory();
+        Scheduler scheduler = schedulerFactory.getScheduler();
 
-                Job notificarPendientes = new NotificarSinApuros(this,notificacion);
+        scheduler.start();
 
-                JobDetail jobDetail = JobBuilder.newJob(notificarPendientes.getClass())
-                    .withIdentity("NotificarSinApuros")
-                    .build();
+        JobDetail job = newJob(Notificar.class)
+            .withIdentity("notificar")
+            .build();
 
-                SimpleTrigger trigger = (SimpleTrigger) newTrigger()
-                    .withIdentity("NotificarPendientes")
-                    .startAt(horarioNotificacion)
-                    .forJob("NotificarSinApuros")
-                    .build();
+        job.getJobDataMap().put("servicioNotificador",this);
+
+        Trigger trigger = newTrigger()
+            .withIdentity("everyMinute")
+            .startNow()
+            .withSchedule(simpleSchedule()
+                .withIntervalInMinutes(1)
+                .repeatForever())
+            .forJob("notificar")
+            .build();
+
+        scheduler.scheduleJob(trigger);
+    }
+
+    public void notificarPendientes(){
+        repoNotificaciones.getAllByEstado(EstadoEnvio.PENDIENTE).forEach(notificacion ->
+            {
+                    enviarNotificacion(notificacion);
 
             }
-            notificacion.getUsuario().agregarNotificacion(notificacion);
-        }
-
+        );
     }
 }

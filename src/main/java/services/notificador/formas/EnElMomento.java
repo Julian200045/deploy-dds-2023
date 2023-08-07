@@ -1,5 +1,6 @@
 package services.notificador.formas;
 
+import repositorios.notificaciones.RepoNotificaciones;
 import services.notificador.enviadores.EnviadorMail;
 import services.notificador.enviadores.EnviadorWPP;
 import services.notificador.Notificacion;

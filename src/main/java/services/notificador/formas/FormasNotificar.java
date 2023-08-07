@@ -1,6 +1,8 @@
 package services.notificador.formas;
 
 import org.quartz.SchedulerException;
+import repositorios.notificaciones.RepoNotificaciones;
+import services.notificador.EstadoEnvio;
 import services.notificador.Notificacion;
 import services.notificador.enviadores.EnviadorMail;
 import services.notificador.enviadores.EnviadorWPP;
@@ -17,5 +19,6 @@ public abstract class FormasNotificar {
                 EnviadorMail.enviar(notificacion);
                 break;
         }
+        notificacion.enviar();
     }
 }

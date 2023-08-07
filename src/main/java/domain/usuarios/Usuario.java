@@ -30,8 +30,6 @@ public class Usuario {
   @Getter
   @Setter
   FormasNotificar forma;
-  @Getter
-  List<Notificacion> notifiacionesPendientes;
 
   @Getter
   LocalDateTime inicioHorarioDisponible;
@@ -43,21 +41,12 @@ public class Usuario {
     this.contrasenia = contrasenia;
     this.nombre = nombre;
     this.medioDeContacto = null;
-    this.notifiacionesPendientes = new ArrayList<>();
 
     this.inicioHorarioDisponible = inicioHorarioDisponible;
     this.finHorarioDisponible = finHorarioDisponible;
   }
 
-  public void agregarNotificacion(Notificacion notificacion) {
-    this.notifiacionesPendientes.add(notificacion);
-  }
-
-  public Boolean estaDisponible(LocalDateTime horario){
+  public Boolean estaDisponible(LocalDateTime horario) {
     return horario.isAfter(inicioHorarioDisponible) && horario.isBefore(finHorarioDisponible);
-  }
-
-  public Boolean tieneNotificacionesPendientes(){
-    return !notifiacionesPendientes.isEmpty();
   }
 }

@@ -24,7 +24,7 @@ public class Incidente {
   @Getter
   private final LocalDateTime fechaYHoraDeApertura;
   @Getter
-  private LocalDateTime getFechaYHoraDeCierre; //tener en cuenta que solo se puede cambiar una vez TODO
+  private LocalDateTime getFechaYHoraDeCierre;
   @Getter
   private EstadoIncidente estado;
 
@@ -47,10 +47,6 @@ public class Incidente {
   }
   public String entidadNombre(){
     return prestacionDeServicio.getEstablecimiento().entidad.getNombre();
-  }
-
-  public long horasDesdeQueSeAbrio(){
-    return ChronoUnit.HOURS.between(fechaYHoraDeApertura,LocalDateTime.now());
   }
 
   public long tiempoDeCierre(){
