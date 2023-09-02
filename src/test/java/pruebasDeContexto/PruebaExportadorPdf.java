@@ -1,8 +1,8 @@
 package pruebasDeContexto;
 
 import domain.informes.Informe;
-import domain.informes.rankings.Ranking;
-import domain.informes.rankings.RankingMayorCantidadReportes;
+import domain.informes.rankings.Rankeador;
+import domain.informes.rankings.RankeadorMayorCantidadReportes;
 import services.exportadoresDeInformes.ExportadorDeInformes;
 import services.exportadoresDeInformes.exportadorDeInformesAPdf.AdapterExportadorDeInformesAPdf;
 import services.exportadoresDeInformes.exportadorDeInformesAPdf.ExportadorDeInformesAPdf;
@@ -20,7 +20,7 @@ public class PruebaExportadorPdf {
     ExportadorDeInformesAPdf exportadorAPdf = new ExportadorDeInformesAPdf(adapterExportadorAPdf);
     ExportadorDeInformes exportador = new ExportadorDeInformes(exportadorAPdf);
 
-    RankingMayorCantidadReportes rankingMayorCantidadReportes = mock(RankingMayorCantidadReportes.class);
+    RankeadorMayorCantidadReportes rankingMayorCantidadReportes = mock(RankeadorMayorCantidadReportes.class);
     List<List<String>> filas = new ArrayList<>();
     for(int i = 0; i < 100; i++){
       List<String> fila = new ArrayList<>();
@@ -39,7 +39,7 @@ public class PruebaExportadorPdf {
     when(rankingMayorCantidadReportes.encabezadosTabla()).thenReturn(encabezados);
 
 
-    List<Ranking> rankings = new ArrayList<Ranking>();
+    List<Rankeador> rankings = new ArrayList<Rankeador>();
     rankings.add(rankingMayorCantidadReportes);
     rankings.add(rankingMayorCantidadReportes);
 

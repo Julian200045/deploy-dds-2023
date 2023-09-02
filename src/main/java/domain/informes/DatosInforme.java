@@ -1,6 +1,6 @@
 package domain.informes;
 
-import domain.informes.rankings.Ranking;
+import domain.informes.rankings.Rankeador;
 import lombok.Data;
 
 import java.time.LocalDate;
@@ -11,12 +11,12 @@ public class DatosInforme {
   Integer numeroInforme;
   LocalDate fechaInicio;
   LocalDate fechaFin;
-  List<Ranking> rankings;
+  List<Rankeador> rankeadores;
 
-  public DatosInforme(Integer numeroInforme, LocalDate fechaInicio, LocalDate fechaFin, List<Ranking> rankings) {
+  public DatosInforme(Integer numeroInforme, LocalDate fechaInicio, LocalDate fechaFin, List<Rankeador> rankeadores) {
     this.numeroInforme = numeroInforme;
     this.fechaInicio = fechaInicio;
     this.fechaFin = fechaFin;
-    this.rankings = rankings;
+    this.rankeadores = rankeadores;
   }
 }

@@ -5,7 +5,7 @@ import be.quodlibet.boxable.datatable.DataTable;
 import be.quodlibet.boxable.utils.PDStreamUtils;
 import be.quodlibet.boxable.utils.PageContentStreamOptimized;
 import domain.informes.DatosInforme;
-import domain.informes.rankings.Ranking;
+import domain.informes.rankings.Rankeador;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
@@ -56,9 +56,9 @@ public class BoxablePdf implements AdapterExportadorDeInformesAPdf {
 
 
 
-    List<Ranking> rankings = datosInforme.getRankings();
+    List<Rankeador> rankeadores = datosInforme.getRankeadores();
 
-    rankings.forEach(ranking -> {
+    rankeadores.forEach(ranking -> {
 
       List<List> data = new ArrayList<>();
 

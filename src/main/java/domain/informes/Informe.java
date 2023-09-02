@@ -1,6 +1,6 @@
 package domain.informes;
 
-import domain.informes.rankings.Ranking;
+import domain.informes.rankings.Rankeador;
 import services.exportadoresDeInformes.InformeExportable;
 
 import java.time.LocalDate;
@@ -10,13 +10,13 @@ public class Informe implements InformeExportable {
   Integer numeroInforme;
   LocalDate fechaInicio;
   LocalDate fechaFin;
-  List<Ranking> rankings;
+  List<Rankeador> rankings;
 
-  public Informe(Integer numeroInforme, LocalDate fechaInicio, LocalDate fechaFin, List<Ranking> rankings) {
+  public Informe(Integer numeroInforme, LocalDate fechaInicio, LocalDate fechaFin, List<Rankeador> rankeadores) {
     this.numeroInforme = numeroInforme;
     this.fechaInicio = fechaInicio;
     this.fechaFin = fechaFin;
-    this.rankings = rankings;
+    this.rankings = rankeadores;
   }
 
   public DatosInforme getDatos(){

@@ -1,9 +1,6 @@
 package domain.informes.rankings;
 
-import domain.entidades.Entidad;
-import domain.incidentes.EstadoIncidente;
 import domain.incidentes.Incidente;
-import domain.informes.Informe;
 
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
@@ -11,11 +8,11 @@ import java.util.List;
 import java.util.stream.Collectors;
 import lombok.Getter;
 
-public class RankingMayorCantidadReportes implements Ranking{
+public class RankeadorMayorCantidadReportes implements Rankeador {
   @Getter
   List<List<String>> listaRanking;
 
-  public RankingMayorCantidadReportes(List<Incidente> incidentesSemanales){
+  public RankeadorMayorCantidadReportes(List<Incidente> incidentesSemanales){
     listaRanking = new ArrayList<>();
     List<Incidente> incidentesFiltrados = filtraIncidentes(incidentesSemanales);
     crearLista(incidentesFiltrados);

@@ -1,18 +1,16 @@
 import domain.comunidades.Comunidad;
 import domain.incidentes.Incidente;
-import domain.informes.rankings.RankingMayorCantidadReportes;
-import domain.informes.rankings.RankingTiempoPromedioCierre;
+import domain.informes.rankings.RankeadorMayorCantidadReportes;
+import domain.informes.rankings.RankeadorTiempoPromedioCierre;
 import java.time.LocalDateTime;
-import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.mockito.Mockito.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class RankingTest {
+public class RankeadorTest {
 
 
 	@Test
@@ -49,7 +47,7 @@ public class RankingTest {
 		incidentesSemanales.add(incidente5);
 		incidentesSemanales.add(incidente6);
 
-		RankingMayorCantidadReportes ranking = new RankingMayorCantidadReportes(incidentesSemanales);
+		RankeadorMayorCantidadReportes ranking = new RankeadorMayorCantidadReportes(incidentesSemanales);
 
 		System.out.println(ranking.getListaRanking());
 		assertEquals(ranking.getListaRanking().get(0).get(1), "entidad de arriba");
@@ -59,7 +57,7 @@ public class RankingTest {
 
 	@Test
 	public void rankingmayorCantidadReportesFiltraListaIncidentes() {
-		RankingMayorCantidadReportes ranking = new RankingMayorCantidadReportes(null);
+		RankeadorMayorCantidadReportes ranking = new RankeadorMayorCantidadReportes(null);
 
 		Incidente incidente1 = mock(Incidente.class);
 		Incidente incidente2 = mock(Incidente.class);
@@ -117,7 +115,7 @@ public class RankingTest {
 		incidentesSemanales.add(incidente2);
 		incidentesSemanales.add(incidente3);
 
-		RankingTiempoPromedioCierre ranking = new RankingTiempoPromedioCierre(comunidad, incidentesSemanales);
+		RankeadorTiempoPromedioCierre ranking = new RankeadorTiempoPromedioCierre(comunidad, incidentesSemanales);
 
 		System.out.println(ranking.entradaTabla());
 		assertEquals(ranking.entradaTabla().get(0).get(1), "entidad de arriba");

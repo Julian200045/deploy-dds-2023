@@ -1,19 +1,18 @@
 package domain.informes.rankings;
 
 import domain.comunidades.Comunidad;
-import domain.incidentes.EstadoIncidente;
 import domain.incidentes.Incidente;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.Getter;
 
-public class RankingTiempoPromedioCierre implements Ranking{
+public class RankeadorTiempoPromedioCierre implements Rankeador {
   @Getter
   Comunidad comunidad;
   List<List<String>> listaRanking;
 
-  public RankingTiempoPromedioCierre(Comunidad comunidad, List<Incidente> incidentesSemanales){
+  public RankeadorTiempoPromedioCierre(Comunidad comunidad, List<Incidente> incidentesSemanales){
     this.comunidad = comunidad;
     listaRanking = new ArrayList<>();
     crearLista(incidentesSemanales);
