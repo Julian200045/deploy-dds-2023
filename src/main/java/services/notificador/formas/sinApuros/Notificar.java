@@ -1,10 +1,9 @@
-package services.notificador;
+package services.notificador.formas.sinApuros;
 
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
-import services.notificador.formas.FormasNotificar;
-import services.notificador.formas.SinApuros;
+import services.notificador.formas.sinApuros.SinApuros;
 
 public class Notificar implements Job {
 

@@ -1,4 +1,4 @@
-package services.notificador.formas;
+package services.notificador.formas.sinApuros;
 
 import domain.usuarios.Usuario;
 import org.quartz.JobDetail;
@@ -10,11 +10,9 @@ import org.quartz.impl.StdSchedulerFactory;
 import repositorios.notificaciones.RepoNotificaciones;
 import services.notificador.EstadoEnvio;
 import services.notificador.Notificacion;
-import services.notificador.Notificar;
+import services.notificador.formas.FormasNotificar;
 
 import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.util.Date;
 
 import static org.quartz.CronScheduleBuilder.cronSchedule;
 import static org.quartz.JobBuilder.newJob;
