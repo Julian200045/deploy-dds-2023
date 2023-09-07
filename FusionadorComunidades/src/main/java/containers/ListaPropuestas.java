@@ -3,7 +3,7 @@ package containers;
 import java.util.List;
 import lombok.Getter;
 
-public class ListaComunidades {
+public class ListaPropuestas {
   @Getter
-  List<Comunidad> comunidades;
+  List<List<Comunidad>> propuestas;
 }

@@ -1,14 +1,14 @@
-package analizadorComunidades.criteriosCoincidencias;
+package servicios.analizadorcomunidades.criterioscoincidencias;
 
 import containers.Comunidad;
-import lombok.Setter;
-
+import containers.PrestacionDeServicio;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import lombok.Setter;
 
-public class CriterioEstablecimientos implements CriterioCoincidencia{
+public class CriterioEstablecimientos implements CriterioCoincidencia {
   @Setter
   private Double porcentajeCoincidencia;
 
@@ -19,8 +19,8 @@ public class CriterioEstablecimientos implements CriterioCoincidencia{
   @Override
   public Boolean coinciden(Comunidad comunidad1, Comunidad comunidad2) {
 
-    List<Long> establecimientosComunidad1 = comunidad1.getPrestacionesDeServicio().stream().map(p -> p.getEstablecimiento()).toList();
-    List<Long> establecimientosComunidad2 = comunidad2.getPrestacionesDeServicio().stream().map(p -> p.getEstablecimiento()).toList();
+    List<Long> establecimientosComunidad1 = comunidad1.getPrestacionesDeServicio().stream().map(PrestacionDeServicio::getEstablecimiento).toList();
+    List<Long> establecimientosComunidad2 = comunidad2.getPrestacionesDeServicio().stream().map(PrestacionDeServicio::getEstablecimiento).toList();
 
     List<Long> establecimientosEnComun = new ArrayList<>(establecimientosComunidad1);
     establecimientosEnComun.retainAll(establecimientosComunidad2);

@@ -1,19 +1,20 @@
 package controllers;
 
-import analizadorComunidades.AnalizadorComunidades;
+import servicios.analizadorcomunidades.AnalizadorComunidades;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import containers.Comunidad;
 import containers.ListaComunidades;
+import dtos.RespuestaPropuestaFusion;
 import io.javalin.http.Context;
 import io.javalin.http.Handler;
-import org.jetbrains.annotations.NotNull;
-
 import java.util.List;
+import org.jetbrains.annotations.NotNull;
 
 public class SugerenciasFusionController implements Handler {
 
   AnalizadorComunidades analizadorComunidades;
-  public SugerenciasFusionController(AnalizadorComunidades analizadorComunidades){
+
+  public SugerenciasFusionController(AnalizadorComunidades analizadorComunidades) {
     this.analizadorComunidades = analizadorComunidades;
   }
 
@@ -23,10 +24,19 @@ public class SugerenciasFusionController implements Handler {
     ObjectMapper mapper = new ObjectMapper();
     String body = context.body();
 
-    ListaComunidades listaComunidades = mapper.readValue(body,ListaComunidades.class);
+    ListaComunidades listaComunidades = mapper.readValue(body, ListaComunidades.class);
 
     List<List<Comunidad>> propuestasFusion = analizadorComunidades.generarPropuestasFusion(listaComunidades.getComunidades());
 
-    context.json(propuestasFusion);
+    RespuestaPropuestaFusion respuestaPropuestaFusion = new RespuestaPropuestaFusion();
+    respuestaPropuestaFusion.setPropuestas(propuestasFusion);
+    if(propuestasFusion.isEmpty()) {
+      respuestaPropuestaFusion.setMensaje("No hubo coincidencias válidas entre las comunidades. No se logró generar ninguna propuesta de fusión.");
+      // quizás configurar un mensaje en las properties.
+    }
+    else {
+      respuestaPropuestaFusion.setMensaje("Propuestas de fusión generadas correctamente.");
+    }
+    context.json(respuestaPropuestaFusion);
   }
 }
