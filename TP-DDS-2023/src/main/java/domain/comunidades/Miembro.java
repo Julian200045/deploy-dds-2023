@@ -7,21 +7,43 @@ import domain.roles.Rol;
 import domain.roles.RolDelMiembro;
 import domain.servicios.Servicio;
 import domain.usuarios.Usuario;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+import javax.persistence.Transient;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Entity
+@Table(name = "miembro")
 public class Miembro {
+  @Id
+  @GeneratedValue
+  long id;
+  @Column(name= "nombre")
   String nombre;
+  @Column(name = "apellido")
   String apellido;
   @Getter
+  @OneToOne
   Usuario usuario;
+  @Transient
   RolDelMiembro rolDelMiembro;
+  @ManyToMany
   private List<Comunidad> comunidades; //ver como inicializar
 
   @Getter
+  @ManyToOne()
+  @JoinColumn(name = "localidad_id" , referencedColumnName = "id")
   Localidad localidadDeInteres;
 
 

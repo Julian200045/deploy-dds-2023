@@ -2,15 +2,30 @@ package domain.localizaciones;
 
 import domain.ubicaciones.Ubicacion;
 import java.util.List;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
 
-
+@Entity
+@Table(name = "provincia")
 public class Provincia {
-  public Integer id;
+  @Id
+  @GeneratedValue
+  public long id;
+  @Column
   public String nombre;
+  @ManyToOne
+  @JoinColumn(name = "ubicacion_id", referencedColumnName = "id")
   public Ubicacion ubicacion;
   @Getter
+  @OneToMany(mappedBy = "provincia")
   private List<Municipio> municipios;
 
 

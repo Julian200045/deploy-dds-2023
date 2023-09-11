@@ -6,34 +6,52 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.Transient;
 import lombok.Getter;
 import lombok.Setter;
 import services.notificador.formas.FormasNotificar;
 import services.notificador.MedioDeContacto;
 import services.notificador.Notificacion;
-
+@Entity
+@Table(name = "usuario")
 public class Usuario {
   @Getter
-  int id;
+  @Id
+  @GeneratedValue
+  long id;
   @Getter
+  @Column
   String nombre;
+  @Column
   String contrasenia;
+  @Transient
   Rol rol;
   @Getter
+  @Column
   String mail;
   @Getter
+  @Column
   String numeroCelular;
 
   @Getter
+  @Transient
   MedioDeContacto medioDeContacto;
 
   @Getter
   @Setter
+  @Transient
   FormasNotificar forma;
 
   @Getter
+  @Column
   LocalDateTime inicioHorarioDisponible;
   @Getter
+  @Column
   LocalDateTime finHorarioDisponible;
 
   public Usuario(int id, String nombre, String contrasenia, LocalDateTime inicioHorarioDisponible, LocalDateTime finHorarioDisponible) throws IOException {

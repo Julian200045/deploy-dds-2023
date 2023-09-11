@@ -5,27 +5,52 @@ import domain.comunidades.Miembro;
 import domain.entidades.Entidad;
 import domain.servicios.PrestacionDeServicio;
 import java.time.temporal.ChronoUnit;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import javax.persistence.Transient;
 import lombok.Data;
 import lombok.Getter;
 
 import java.time.LocalDateTime;
-
+@Entity
+@Table(name = "incidente")
 public class Incidente {
+  @Id
+  @GeneratedValue
+  long id;
+
   @Getter
+  @ManyToOne
+  @JoinColumn(name = "prestacion_id", referencedColumnName = "id")
   final private PrestacionDeServicio prestacionDeServicio;
   @Getter
+  @ManyToOne
+  @JoinColumn(name = "comunidad_id", referencedColumnName = "id")
   final private Comunidad comunidad;
   @Getter
+  @Column
   final private String observaciones;
   @Getter
+  @ManyToOne
+  @JoinColumn(name = "miembro_apertura_id", referencedColumnName = "id")
   final private Miembro miembroApertura;
   @Getter
+  @ManyToOne
+  @JoinColumn(name = "miembro_cierre_id", referencedColumnName = "id")
   private Miembro miembroCierre;
   @Getter
+  @Column
   private final LocalDateTime fechaYHoraDeApertura;
   @Getter
+  @Column
   private LocalDateTime getFechaYHoraDeCierre;
   @Getter
+  @Transient
   private EstadoIncidente estado;
 
   public Incidente(PrestacionDeServicio prestacionDeServicio, Comunidad comunidad, String observaciones, Miembro miembroApertura) {

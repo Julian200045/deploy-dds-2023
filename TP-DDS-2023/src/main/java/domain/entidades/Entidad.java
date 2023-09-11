@@ -5,14 +5,30 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import domain.localizaciones.Localidad;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.persistence.Transient;
 import lombok.Getter;
-
+@Entity
+@Table(name = "entidad")
 public class Entidad {
   @Getter
-  public int id;
+  @Id
+  @GeneratedValue
+  public long id;
   @Getter
+  @Column
   public String nombre;
+  @OneToMany(mappedBy = "entidad")
   private List<Establecimiento> establecimientos;
+  @ManyToOne
+  @JoinColumn(name = "tipo_id", referencedColumnName = "id")
   public TipoEntidad tipo;
 
   public Entidad(int id, String nombre,TipoEntidad tipo) {

@@ -1,10 +1,19 @@
 package domain.servicios;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import lombok.Getter;
-
+@Entity
+@Table(name = "servicio")
 public class Servicio {
   @Getter
-  public int id;
+  @Id
+  @GeneratedValue
+  public long id;
+  @Column
   public String nombre;
 
   public Servicio(int id, String nombre) {
