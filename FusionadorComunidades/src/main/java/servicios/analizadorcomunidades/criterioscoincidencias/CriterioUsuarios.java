@@ -1,14 +1,13 @@
-package analizadorComunidades.criteriosCoincidencias;
+package servicios.analizadorcomunidades.criterioscoincidencias;
 
 import containers.Comunidad;
-import lombok.Setter;
-
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import lombok.Setter;
 
-public class CriterioUsuarios implements CriterioCoincidencia{
+public class CriterioUsuarios implements CriterioCoincidencia {
   @Setter
   private Double porcentajeCoincidencia;
 

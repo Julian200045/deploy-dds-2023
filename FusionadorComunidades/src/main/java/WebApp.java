@@ -1,22 +1,28 @@
-import analizadorComunidades.AnalizadorComunidades;
-import analizadorComunidades.criteriosCoincidencias.CriterioCoincidencia;
-import analizadorComunidades.criteriosCoincidencias.CriterioConfianza;
-import analizadorComunidades.criteriosCoincidencias.CriterioEstablecimientos;
-import analizadorComunidades.criteriosCoincidencias.CriterioServicios;
-import analizadorComunidades.criteriosCoincidencias.CriterioUsuarios;
-import io.javalin.Javalin;
+import servicios.analizadorcomunidades.AnalizadorComunidades;
+import servicios.analizadorcomunidades.criterioscoincidencias.CriterioCoincidencia;
+import servicios.analizadorcomunidades.criterioscoincidencias.CriterioConfianza;
+import servicios.analizadorcomunidades.criterioscoincidencias.CriterioEstablecimientos;
+import servicios.analizadorcomunidades.criterioscoincidencias.CriterioServicios;
+import servicios.analizadorcomunidades.criterioscoincidencias.CriterioUsuarios;
+import controllers.FusionComunidadesController;
 import controllers.SugerenciasFusionController;
-import servicios.LectorPropiedades;
-
+import servicios.fusionadorcomunidades.FusionadorComunidades;
+import io.javalin.Javalin;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import servicios.LectorPropiedades;
 
 public class WebApp {
+  /**
+   *  Este metodo es el main de nuestro servicio WebApp, utilizando la infraestructura de Javalin.
+   * @param args Argumentos del main
+   * @throws IOException Tipo de excepción que arrojará en caso de fallar.
+   */
+  @SuppressWarnings("checkstyle:LineLength")
   public static void main(String[] args) throws IOException {
-
-    LectorPropiedades lectorPropiedades = new LectorPropiedades("src/main/resources/template/project.properties");
+    String pathPropiedades = "src/main/resources/template/project.properties";
+    LectorPropiedades lectorPropiedades = new LectorPropiedades(pathPropiedades);
 
     List<CriterioCoincidencia> criterioCoincidencias = Arrays.asList(
         new CriterioConfianza(),
@@ -25,11 +31,14 @@ public class WebApp {
         new CriterioUsuarios(lectorPropiedades.getPropiedadDouble("porcentaje-usuarios"))
     );
     AnalizadorComunidades analizadorComunidades = new AnalizadorComunidades(criterioCoincidencias);
+    FusionadorComunidades fusionadorComunidades = new FusionadorComunidades();
 
-    Integer port = Integer.parseInt(System.getProperty("port", "8080"));
+    int port = Integer.parseInt(System.getProperty("port", "8080"));
     Javalin app = Javalin.create().start(port);
 
     app.get("/sugerencias_fusiones", new SugerenciasFusionController(analizadorComunidades));
+
+    app.get("/fusion_comunidades", new FusionComunidadesController(fusionadorComunidades));
   }
 
 }
