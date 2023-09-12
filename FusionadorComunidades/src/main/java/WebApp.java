@@ -34,7 +34,7 @@ public class WebApp {
     FusionadorComunidades fusionadorComunidades = new FusionadorComunidades();
 
     int port = Integer.parseInt(System.getProperty("port", "8080"));
-    Javalin app = Javalin.create().start(port);
+    Javalin app = Javalin.create().start(0);
 
     app.get("/sugerencias_fusiones", new SugerenciasFusionController(analizadorComunidades));
 

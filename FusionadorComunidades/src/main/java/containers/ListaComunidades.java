@@ -5,5 +5,7 @@ import lombok.Getter;
 
 public class ListaComunidades {
   @Getter
-  List<Comunidad> comunidades;
+  List<Comunidad> comunidadesAFusionar;
+  @Getter
+  List<List<Comunidad>> propuestasAnteriores;
 }

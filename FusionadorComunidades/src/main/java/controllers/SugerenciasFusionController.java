@@ -7,6 +7,8 @@ import containers.ListaComunidades;
 import dtos.RespuestaPropuestaFusion;
 import io.javalin.http.Context;
 import io.javalin.http.Handler;
+
+import java.util.ArrayList;
 import java.util.List;
 import org.jetbrains.annotations.NotNull;
 
@@ -26,7 +28,8 @@ public class SugerenciasFusionController implements Handler {
 
     ListaComunidades listaComunidades = mapper.readValue(body, ListaComunidades.class);
 
-    List<List<Comunidad>> propuestasFusion = analizadorComunidades.generarPropuestasFusion(listaComunidades.getComunidades());
+    List<List<Comunidad>> propuestasFusion = new ArrayList<>(analizadorComunidades.generarPropuestasFusion(listaComunidades.getComunidadesAFusionar()));
+    propuestasFusion.removeAll(listaComunidades.getPropuestasAnteriores());
 
     RespuestaPropuestaFusion respuestaPropuestaFusion = new RespuestaPropuestaFusion();
     respuestaPropuestaFusion.setPropuestas(propuestasFusion);
