@@ -3,6 +3,8 @@ package controllers;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import containers.Comunidad;
 import containers.ListaPropuestas;
+import dtos.RespuestaFusionComunidades;
+import dtos.RespuestaPropuestaFusion;
 import servicios.fusionadorcomunidades.FusionadorComunidades;
 import io.javalin.http.Context;
 import io.javalin.http.Handler;
@@ -25,6 +27,9 @@ public class FusionComunidadesController implements Handler {
 
     ListaPropuestas listaPropuestas = mapper.readValue(body, ListaPropuestas.class);
     listaPropuestas.getPropuestas().forEach(propuesta -> fusiones.add(fusionadorComunidades.fusionarComunidades(propuesta)));
+
+    RespuestaFusionComunidades respuestaFusionComunidades = new RespuestaFusionComunidades();
+    respuestaFusionComunidades.setFusiones(fusiones);
 
     context.json(fusiones);
   }
