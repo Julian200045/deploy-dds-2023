@@ -1,3 +1,9 @@
+import io.javalin.openapi.plugin.OpenApiConfiguration;
+import io.javalin.openapi.plugin.OpenApiPlugin;
+import io.javalin.openapi.plugin.OpenApiPluginConfiguration;
+import io.javalin.openapi.plugin.SecurityConfiguration;
+import io.javalin.openapi.plugin.swagger.SwaggerConfiguration;
+import io.javalin.openapi.plugin.swagger.SwaggerPlugin;
 import servicios.analizadorcomunidades.AnalizadorComunidades;
 import servicios.analizadorcomunidades.criterioscoincidencias.CriterioCoincidencia;
 import servicios.analizadorcomunidades.criterioscoincidencias.CriterioConfianza;
@@ -34,9 +40,14 @@ public class WebApp {
     FusionadorComunidades fusionadorComunidades = new FusionadorComunidades();
 
     int port = Integer.parseInt(System.getProperty("port", "8080"));
-    Javalin app = Javalin.create().start(0);
+    Javalin app = Javalin.create(config -> {
+      OpenApiConfiguration openApiConfiguration = new OpenApiConfiguration();
+      openApiConfiguration.getInfo().setTitle("Javalin OpenAPI example");
+      config.plugins.register(new OpenApiPlugin(openApiConfiguration));
+      config.plugins.register(new SwaggerPlugin(new SwaggerConfiguration()));
+    }).start(port);
 
-    app.get("/sugerencias_fusiones", new SugerenciasFusionController(analizadorComunidades));
+    app.get("/sugerencias_fusiones", new SugerenciasFusionController(analizadorComunidades,lectorPropiedades.getPropiedad("mensaje-error-mapeo")));
 
     app.get("/fusion_comunidades", new FusionComunidadesController(fusionadorComunidades));
   }
