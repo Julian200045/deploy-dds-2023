@@ -8,14 +8,15 @@ public class EnviadorWPP {
 
         // Find your Account SID and Auth Token at twilio.com/console
         // and set the environment variables. See http://twil.io/secure
-        public static final String ACCOUNT_SID = "AC7d09492bf9ac11c70922c23192c422f2";
-        public static final String AUTH_TOKEN = "c720d5976d5bc6316b996d54cf182310";
+        LectorPropiedades lectorPropiedades = new LectorPropiedades("src/main/resources/template/project.properties");
+        public static final String ACCOUNT_SID = lectorPropiedades.getPropiedad("Wpp-Account-Sid");
+        public static final String AUTH_TOKEN = lectorPropiedades.getPropiedad("Wpp-Auth-Token");
 
         public static void enviar(Notificacion notificacion) {
             Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
             Message message = Message.creator(
-                            new com.twilio.type.PhoneNumber("whatsapp:+12344152261"), //nro del que envia
-                            new com.twilio.type.PhoneNumber("whatsapp:+14155238886"), //nro del receptor
+                            new com.twilio.type.PhoneNumber(lectorPropiedades.getPropiedad("Wpp-Nro-Saliente");), //nro del que envia
+                            new com.twilio.type.PhoneNumber(lectorPropiedades.getPropiedad("Wpp-Nro-Receptor");), //nro del receptor
                             notificacion.getMensaje())
                     .create();
 

@@ -8,8 +8,9 @@ import java.util.Properties;
 public class EnviadorMail {
 
         public static void enviar(Notificacion notificacion) {
-            final String userName = "tpdds2023g10@gmail.com"; //same fromMail
-            final String password = "ybddzazsnnaqzkyi";
+            LectorPropiedades lectorPropiedades = new LectorPropiedades("src/main/resources/template/project.properties");
+            final String userName = lectorPropiedades.getPropiedad("Mail-User"); //same fromMail
+            final String password = lectorPropiedades.getPropiedad("Mail-Pass");
             final String toEmail = notificacion.getUsuario().getMail();
 
             System.out.println("TLSEmail Start");
@@ -26,7 +27,7 @@ public class EnviadorMail {
             Session session = Session.getDefaultInstance(props, new javax.mail.Authenticator() {
                 protected PasswordAuthentication getPasswordAuthentication() {
 
-                    return new PasswordAuthentication("tpdds2023g10@gmail.com", "ybddzazsnnaqzkyi");
+                    return new PasswordAuthentication(lectorPropiedades.getPropiedad("Mail-User"), lectorPropiedades.getPropiedad("Mail-Pass"));
 
                 }
             });
