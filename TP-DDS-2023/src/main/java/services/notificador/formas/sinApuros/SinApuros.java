@@ -12,6 +12,7 @@ import services.notificador.EstadoEnvio;
 import services.notificador.Notificacion;
 import services.notificador.formas.FormasNotificar;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
 
 import static org.quartz.CronScheduleBuilder.cronSchedule;
@@ -26,7 +27,7 @@ public class SinApuros extends FormasNotificar {
     public SinApuros(RepoNotificaciones repoNotificaciones){
         this.repoNotificaciones = repoNotificaciones;
     }
-    public void notificar(Notificacion notificacion) throws SchedulerException {
+    public void notificar(Notificacion notificacion) throws SchedulerException, IOException {
         Usuario usuario = notificacion.getUsuario();
         if(usuario.estaDisponible(LocalDateTime.now())){
             enviarNotificacion(notificacion);
@@ -60,7 +61,11 @@ public class SinApuros extends FormasNotificar {
     public void notificarPendientes(){
         repoNotificaciones.getAllByEstado(EstadoEnvio.PENDIENTE).forEach(notificacion ->
             {
+                try {
                     enviarNotificacion(notificacion);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
 
             }
         );

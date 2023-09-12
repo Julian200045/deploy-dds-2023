@@ -1,13 +1,15 @@
 package services.notificador.enviadores;
+import services.LectorPropiedades;
 import services.notificador.Notificacion;
 
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import java.io.IOException;
 import java.util.Properties;
 public class EnviadorMail {
 
-        public static void enviar(Notificacion notificacion) {
+        public static void enviar(Notificacion notificacion) throws IOException {
             LectorPropiedades lectorPropiedades = new LectorPropiedades("src/main/resources/template/project.properties");
             final String userName = lectorPropiedades.getPropiedad("Mail-User"); //same fromMail
             final String password = lectorPropiedades.getPropiedad("Mail-Pass");
@@ -27,7 +29,7 @@ public class EnviadorMail {
             Session session = Session.getDefaultInstance(props, new javax.mail.Authenticator() {
                 protected PasswordAuthentication getPasswordAuthentication() {
 
-                    return new PasswordAuthentication(lectorPropiedades.getPropiedad("Mail-User"), lectorPropiedades.getPropiedad("Mail-Pass"));
+                    return new PasswordAuthentication(userName, password);
 
                 }
             });

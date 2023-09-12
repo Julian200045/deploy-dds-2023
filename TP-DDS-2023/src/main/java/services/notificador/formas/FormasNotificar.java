@@ -7,10 +7,12 @@ import services.notificador.Notificacion;
 import services.notificador.enviadores.EnviadorMail;
 import services.notificador.enviadores.EnviadorWPP;
 
+import java.io.IOException;
+
 public abstract class FormasNotificar {
 
-    public abstract void notificar(Notificacion notificacion) throws SchedulerException;
-    public void enviarNotificacion(Notificacion notificacion){
+    public abstract void notificar(Notificacion notificacion) throws SchedulerException, IOException;
+    public void enviarNotificacion(Notificacion notificacion) throws IOException {
         switch (notificacion.getUsuario().getMedioDeContacto()) {
             case WPP:
                 EnviadorWPP.enviar(notificacion);
