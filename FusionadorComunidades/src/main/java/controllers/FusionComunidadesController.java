@@ -3,7 +3,7 @@ package controllers;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import containers.Comunidad;
-import containers.ListaPropuestas;
+import containers.RequestPropuestasComunidad;
 import dtos.RespuestaFusionComunidades;
 import io.javalin.http.HttpStatus;
 import io.javalin.openapi.HttpMethod;
@@ -32,7 +32,7 @@ public class FusionComunidadesController implements Handler {
       path = "/fusion_comunidades",
       methods = HttpMethod.GET,
       tags = {"FusionComunidades"},
-      requestBody = @OpenApiRequestBody(content = {@OpenApiContent(from = ListaPropuestas.class)}),
+      requestBody = @OpenApiRequestBody(content = {@OpenApiContent(from = RequestPropuestasComunidad.class)}),
       responses = {
           @OpenApiResponse(status = "200", content = {@OpenApiContent(from = RespuestaFusionComunidades.class)}),
           @OpenApiResponse(status = "400", content = {@OpenApiContent(from = String.class)})
@@ -45,8 +45,8 @@ public class FusionComunidadesController implements Handler {
     List<Comunidad> fusiones = new ArrayList<>();
 
     try {
-      ListaPropuestas listaPropuestas = mapper.readValue(body, ListaPropuestas.class);
-      listaPropuestas.getPropuestas().forEach(propuesta -> fusiones.add(fusionadorComunidades.fusionarComunidades(propuesta)));
+      RequestPropuestasComunidad listaPropuestas = mapper.readValue(body, RequestPropuestasComunidad.class);
+      listaPropuestas.getPropuestas().forEach(propuesta -> fusiones.add(fusionadorComunidades.fusionarComunidades(propuesta.getComunidades())));
 
       RespuestaFusionComunidades respuestaFusionComunidades = new RespuestaFusionComunidades();
       respuestaFusionComunidades.setFusiones(fusiones);

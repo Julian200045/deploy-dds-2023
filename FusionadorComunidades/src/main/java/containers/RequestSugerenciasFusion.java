@@ -5,15 +5,15 @@ import java.util.List;
 import lombok.Data;
 
 @Data
-public class ListaComunidades {
+public class RequestSugerenciasFusion {
   List<Comunidad> comunidadesAFusionar;
-  List<List<Comunidad>> propuestasAExcluir;
+  List<List<Long>> propuestasAExcluir;
 
   public List<Comunidad> getComunidadesAFusionar() {
     return comunidadesAFusionar;
   }
 
-  public List<List<Comunidad>> getPropuestasAExcluir() {
+  public List<List<Long>> getPropuestasAExcluir() {
     return propuestasAExcluir;
   }
 }

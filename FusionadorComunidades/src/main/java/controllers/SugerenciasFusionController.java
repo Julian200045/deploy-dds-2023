@@ -3,7 +3,8 @@ package controllers;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import containers.Comunidad;
-import containers.ListaComunidades;
+import containers.Propuesta;
+import containers.RequestSugerenciasFusion;
 import dtos.RespuestaPropuestaFusion;
 import io.javalin.http.Context;
 import io.javalin.http.Handler;
@@ -30,11 +31,11 @@ public class SugerenciasFusionController implements Handler {
   }
 
   @OpenApi(
-      summary = "Toma todas las sugerencias de fusión",
+      summary = "Toma todas las sugerencias de fusiones",
       path = "/sugerencias_fusiones",
       methods = HttpMethod.GET,
       tags = {"SugerenciasFusion"},
-      requestBody = @OpenApiRequestBody(content = {@OpenApiContent(from = ListaComunidades.class)}),
+      requestBody = @OpenApiRequestBody(content = {@OpenApiContent(from = RequestSugerenciasFusion.class)}),
       responses = {
           @OpenApiResponse(status = "200", content = {@OpenApiContent(from = RespuestaPropuestaFusion.class)}),
           @OpenApiResponse(status = "400", content = {@OpenApiContent(from = String.class)})
@@ -47,10 +48,10 @@ public class SugerenciasFusionController implements Handler {
     String body = context.body();
 
     try {
-      ListaComunidades listaComunidades = mapper.readValue(body, ListaComunidades.class);
-      List<List<Comunidad>> propuestasFusion = new ArrayList<>(analizadorComunidades.generarPropuestasFusion(listaComunidades.getComunidadesAFusionar()));
+      RequestSugerenciasFusion requestSugerenciasFusion = mapper.readValue(body, RequestSugerenciasFusion.class);
+      List<Propuesta> propuestasFusion = new ArrayList<>(analizadorComunidades.generarPropuestasFusion(requestSugerenciasFusion.getComunidadesAFusionar()));
 
-      propuestasFusion.removeAll(listaComunidades.getPropuestasAExcluir());
+      propuestasFusion = excluirPropuestas(propuestasFusion,requestSugerenciasFusion.getPropuestasAExcluir());
 
       RespuestaPropuestaFusion respuestaPropuestaFusion = new RespuestaPropuestaFusion();
       respuestaPropuestaFusion.setPropuestas(propuestasFusion);
@@ -69,5 +70,13 @@ public class SugerenciasFusionController implements Handler {
       context.status(HttpStatus.BAD_REQUEST);
       context.result(mensajesDeError.get("mensaje-error-body"));
     }
+  }
+
+  private List<Propuesta> excluirPropuestas(List<Propuesta> propuestasGeneradas, List<List<Long>> propuestasAExcluir){
+    return propuestasGeneradas.stream().filter(propuestaGenerada -> {
+      List<Long> idsComunidadesDePropuesta = propuestaGenerada.getComunidades().stream().map(comunidad -> comunidad.getId()).toList();
+
+      return !propuestasAExcluir.stream().anyMatch(propuestaAExcluir -> propuestaAExcluir.containsAll(idsComunidadesDePropuesta));
+    }).toList();
   }
 }

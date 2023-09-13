@@ -2,12 +2,12 @@ package dtos;
 
 import containers.Comunidad;
 import java.util.List;
-import lombok.Getter;
-import lombok.Setter;
+
+import containers.Propuesta;
 
 public class RespuestaPropuestaFusion {
   String mensaje;
-  List<List<Comunidad>> propuestas;
+  List<Propuesta> propuestas;
 
   public String getMensaje() {
     return mensaje;
@@ -17,11 +17,11 @@ public class RespuestaPropuestaFusion {
     this.mensaje = mensaje;
   }
 
-  public List<List<Comunidad>> getPropuestas() {
+  public List<Propuesta> getPropuestas() {
     return propuestas;
   }
 
-  public void setPropuestas(List<List<Comunidad>> propuestas) {
+  public void setPropuestas(List<Propuesta> propuestas) {
     this.propuestas = propuestas;
   }
 }

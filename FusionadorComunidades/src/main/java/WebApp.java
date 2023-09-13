@@ -57,12 +57,6 @@ public class WebApp {
                       })
                       .withServer((openApiServer) -> {
                         openApiServer.setUrl(("http://localhost:8080/" + version + "/"));
-                        openApiServer.addVariable("port", "8080", new String[]{"7070", "8080"}, "Port of the server");
-                        openApiServer.addVariable("basePath", "", new String[]{"", "v1"}, "Base path of the server");
-                      })
-                      .withDefinitionProcessor(content -> { // you can add whatever you want to this document using your favourite json api
-                        content.set("test", new TextNode("Value"));
-                        return content.toPrettyString();
                       }))
           )
       );
