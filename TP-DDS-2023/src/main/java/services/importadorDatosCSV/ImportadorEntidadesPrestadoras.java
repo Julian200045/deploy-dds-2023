@@ -2,7 +2,7 @@ package services.importadorDatosCSV;
 
 import domain.entidades.Entidad;
 import repositorios.entidades.RepoEntidades;
-import repositorios.entidadesprestadoras.RepoEntidadesPrestadoras;
+import repositorios.entidades.entidadesprestadoras.RepoEntidadesPrestadoras;
 import repositorios.usuarios.RepoUsuarios;
 import domain.usuarios.Usuario;
 import java.util.ArrayList;

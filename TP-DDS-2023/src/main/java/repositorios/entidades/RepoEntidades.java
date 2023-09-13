@@ -2,6 +2,7 @@ package repositorios.entidades;
 
 import domain.entidades.Entidad;
 import domain.entidades.TipoEntidad;
+import io.github.flbulgarelli.jpa.extras.WithEntityManager;
 
 import java.util.List;
 

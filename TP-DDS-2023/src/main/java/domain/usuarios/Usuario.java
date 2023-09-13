@@ -6,12 +6,8 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.persistence.Transient;
+import javax.persistence.*;
+
 import lombok.Getter;
 import lombok.Setter;
 import services.notificador.formas.FormasNotificar;
@@ -29,7 +25,7 @@ public class Usuario {
   String nombre;
   @Column
   String contrasenia;
-  @Transient
+  @ManyToOne
   Rol rol;
   @Getter
   @Column

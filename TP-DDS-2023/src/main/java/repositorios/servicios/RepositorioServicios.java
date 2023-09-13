@@ -1,19 +1,44 @@
 package repositorios.servicios;
 
+import domain.organismos.OrganismoDeControl;
 import domain.servicios.Servicio;
+import io.github.flbulgarelli.jpa.extras.simple.WithSimplePersistenceUnit;
+
+import javax.persistence.EntityTransaction;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RepositorioServicios implements RepoServicios {
+public class RepositorioServicios implements RepoServicios, WithSimplePersistenceUnit {
   List<Servicio> servicios = new ArrayList<>();
 
-  public Servicio devolverPorId(int id) {
-    Servicio servicio;
-    servicio = servicios.stream().filter(entidad1 -> entidad1.getId() == id).toList().get(0); //rompe aca en caso de que se pida un id que no existe
-    return servicio;
+  public void add(Servicio servicio) {
+
+    EntityTransaction tx = entityManager().getTransaction();
+    tx.begin();
+    entityManager().persist(servicio);
+    tx.commit();
+    servicios.add(servicio);
   }
 
-  public void agregarServicio(int id, String nombre) {
-    servicios.add(new Servicio(id, nombre));
+  public void eliminar(Servicio servicio){
+    EntityTransaction tx = entityManager().getTransaction();
+    tx.begin();
+    entityManager().remove(servicio);
+    tx.commit();
+  }
+
+  public void modificar(Servicio servicio){
+    EntityTransaction tx = entityManager().getTransaction();
+    tx.begin();
+    entityManager().merge(servicio);
+    tx.commit();
+  }
+
+  public List<Servicio> getAll() {
+    return entityManager().createQuery("from" + Servicio.class.getName()).getResultList();
+  }
+
+  public Servicio devolverPorId(int id){
+    return entityManager().find(Servicio.class,id);
   }
 }

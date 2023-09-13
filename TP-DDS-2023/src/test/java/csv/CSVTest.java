@@ -6,9 +6,11 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import domain.entidades.Entidad;
 import domain.entidades.TipoEntidad;
 import java.time.LocalDateTime;
+
+import domain.servicios.Servicio;
 import repositorios.entidades.RepoEntidades;
-import repositorios.entidadesprestadoras.RepoEntidadesPrestadoras;
-import repositorios.entidadesprestadoras.RepositorioEntidadesPrestadoras;
+import repositorios.entidades.entidadesprestadoras.RepoEntidadesPrestadoras;
+import repositorios.entidades.entidadesprestadoras.RepositorioEntidadesPrestadoras;
 import repositorios.organismos.RepositorioOrganismoDeControl;
 import repositorios.servicios.RepoServicios;
 import repositorios.servicios.RepositorioServicios;
@@ -87,7 +89,8 @@ public class CSVTest {
 		when(lector.getDatos()).thenReturn(lista);
 
 		repoEntidadesPrestadoras.agregarEntidadPrestadora(1,"nombre",new Usuario(1,"messi", "contraseña", LocalDateTime.now(), LocalDateTime.now()), "messi", new ArrayList<Entidad>());
-		repoServicios.agregarServicio(1, "transporte");
+		Servicio servicio = new Servicio(1,"Transporte");
+		repoServicios.add(servicio);
 
 		repoUsuarios.nuevoUsuario(1,"messi","1234");
 

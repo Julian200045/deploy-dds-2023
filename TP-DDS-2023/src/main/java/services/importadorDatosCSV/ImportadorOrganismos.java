@@ -1,7 +1,7 @@
 package services.importadorDatosCSV;
 
 import domain.organismos.EntidadPrestadora;
-import repositorios.entidadesprestadoras.RepoEntidadesPrestadoras;
+import repositorios.entidades.entidadesprestadoras.RepoEntidadesPrestadoras;
 import repositorios.organismos.RepoOrganismoDeControl;
 import repositorios.servicios.RepoServicios;
 import repositorios.usuarios.RepoUsuarios;

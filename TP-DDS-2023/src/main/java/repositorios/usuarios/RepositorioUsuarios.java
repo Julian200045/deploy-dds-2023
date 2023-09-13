@@ -1,12 +1,17 @@
 package repositorios.usuarios;
 
+import domain.servicios.Servicio;
 import domain.usuarios.Usuario;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import io.github.flbulgarelli.jpa.extras.simple.WithSimplePersistenceUnit;
 import lombok.Getter;
 
-public class RepositorioUsuarios implements RepoUsuarios{
+import javax.persistence.EntityTransaction;
+
+public class RepositorioUsuarios implements RepoUsuarios, WithSimplePersistenceUnit {
 	@Getter
 	List<Usuario> usuarios = new ArrayList<>();
 
@@ -16,9 +21,34 @@ public class RepositorioUsuarios implements RepoUsuarios{
 		//usuarios.add(usuario);
 	}
 
+	public void add(Usuario usuario) {
+
+		EntityTransaction tx = entityManager().getTransaction();
+		tx.begin();
+		entityManager().persist(usuario);
+		tx.commit();
+		usuarios.add(usuario);
+	}
+
+	public void eliminar(Usuario usuario){
+		EntityTransaction tx = entityManager().getTransaction();
+		tx.begin();
+		entityManager().remove(usuario);
+		tx.commit();
+	}
+
+	public void modificar(Usuario usuario){
+		EntityTransaction tx = entityManager().getTransaction();
+		tx.begin();
+		entityManager().merge(usuario);
+		tx.commit();
+	}
+
+	public List<Usuario> getAll() {
+		return entityManager().createQuery("from" + Usuario.class.getName()).getResultList();
+	}
+
 	public Usuario devolverPorId(int id){
-		Usuario usuario;
-		usuario = usuarios.stream().filter(usuario1 -> usuario1.getId() == id).collect(Collectors.toList()).get(0); //rompe aca en caso de que se pida un id que no existe
-		return usuario;
+		return entityManager().find(Usuario.class,id);
 	}
 }

@@ -5,5 +5,5 @@ import domain.servicios.Servicio;
 public interface RepoServicios {
   Servicio devolverPorId(int id);
 
-  void agregarServicio(int id, String nombre);
+  void add(Servicio servicio);
 }
