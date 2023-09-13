@@ -56,15 +56,20 @@
 
         <!-- OpenApi plugin -->
         <dependency>
+            <groupId>io.javalin</groupId>
+            <artifactId>javalin-bundle</artifactId>
+            <version>5.6.2</version>
+        </dependency>
+        <dependency>
             <groupId>io.javalin.community.openapi</groupId>
             <artifactId>javalin-openapi-plugin</artifactId>
-            <version>${javalin.openapi.version}</version>
+            <version>5.6.2</version>
         </dependency>
         <!-- Swagger plugin -->
         <dependency>
             <groupId>io.javalin.community.openapi</groupId>
             <artifactId>javalin-swagger-plugin</artifactId>
-            <version>${javalin.openapi.version}</version>
+            <version>5.6.2</version>
         </dependency>
     </dependencies>
 
@@ -82,7 +87,7 @@
                             <annotationProcessorPath>
                                 <groupId>io.javalin.community.openapi</groupId>
                                 <artifactId>openapi-annotation-processor</artifactId>
-                                <version>${javalin.openapi.version}</version>
+                                <version>5.6.2</version>
                             </annotationProcessorPath>
                         </annotationProcessorPaths>
                     </configuration>

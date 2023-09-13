@@ -3,12 +3,18 @@ package containers;
 import java.util.List;
 
 import lombok.Data;
-import lombok.Getter;
 
 @Data
 public class ListaComunidades {
-  @Getter
   List<Comunidad> comunidadesAFusionar;
-  @Getter
-  List<List<Comunidad>> propuestasAnteriores;
+  List<List<Comunidad>> propuestasAExcluir;
+
+  public List<Comunidad> getComunidadesAFusionar() {
+    return comunidadesAFusionar;
+  }
+
+  public List<List<Comunidad>> getPropuestasAExcluir() {
+    return propuestasAExcluir;
+  }
 }
+

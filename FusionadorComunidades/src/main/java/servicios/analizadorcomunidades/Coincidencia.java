@@ -8,10 +8,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 class Coincidencia {
-  @Getter
   Comunidad comunidad;
-  @Getter
-  @Setter
   List<Coincidencia> coincidencias = new ArrayList<>();
 
   public Coincidencia(Comunidad comunidad) {
@@ -20,5 +17,17 @@ class Coincidencia {
 
   public Boolean esValida() {
     return coincidencias.stream().allMatch(c -> new HashSet<>(c.coincidencias).containsAll(coincidencias));
+  }
+
+  public List<Coincidencia> getCoincidencias() {
+    return coincidencias;
+  }
+
+  public void setCoincidencias(List<Coincidencia> coincidencias) {
+    this.coincidencias = coincidencias;
+  }
+
+  public Comunidad getComunidad() {
+    return comunidad;
   }
 }

@@ -1,27 +1,28 @@
-import io.javalin.openapi.plugin.OpenApiConfiguration;
+import com.fasterxml.jackson.databind.node.TextNode;
+import controllers.FusionComunidadesController;
+import controllers.SugerenciasFusionController;
+import io.javalin.Javalin;
 import io.javalin.openapi.plugin.OpenApiPlugin;
 import io.javalin.openapi.plugin.OpenApiPluginConfiguration;
-import io.javalin.openapi.plugin.SecurityConfiguration;
 import io.javalin.openapi.plugin.swagger.SwaggerConfiguration;
 import io.javalin.openapi.plugin.swagger.SwaggerPlugin;
+import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
+import servicios.LectorPropiedades;
 import servicios.analizadorcomunidades.AnalizadorComunidades;
 import servicios.analizadorcomunidades.criterioscoincidencias.CriterioCoincidencia;
 import servicios.analizadorcomunidades.criterioscoincidencias.CriterioConfianza;
 import servicios.analizadorcomunidades.criterioscoincidencias.CriterioEstablecimientos;
 import servicios.analizadorcomunidades.criterioscoincidencias.CriterioServicios;
 import servicios.analizadorcomunidades.criterioscoincidencias.CriterioUsuarios;
-import controllers.FusionComunidadesController;
-import controllers.SugerenciasFusionController;
 import servicios.fusionadorcomunidades.FusionadorComunidades;
-import io.javalin.Javalin;
-import java.io.IOException;
-import java.util.Arrays;
-import java.util.List;
-import servicios.LectorPropiedades;
 
 public class WebApp {
   /**
-   *  Este metodo es el main de nuestro servicio WebApp, utilizando la infraestructura de Javalin.
+   * Este metodo es el main de nuestro servicio WebApp, utilizando la infraestructura de Javalin.
+   *
    * @param args Argumentos del main
    * @throws IOException Tipo de excepción que arrojará en caso de fallar.
    */
@@ -29,6 +30,11 @@ public class WebApp {
   public static void main(String[] args) throws IOException {
     String pathPropiedades = "src/main/resources/template/project.properties";
     LectorPropiedades lectorPropiedades = new LectorPropiedades(pathPropiedades);
+
+    Map<String, String> mensajesDeError = Map.of(
+        "mensaje-error-mappeo", lectorPropiedades.getPropiedad("mensaje-error-mappeo"),
+        "mensaje-error-body", lectorPropiedades.getPropiedad("mensaje-error-body")
+    );
 
     List<CriterioCoincidencia> criterioCoincidencias = Arrays.asList(
         new CriterioConfianza(),
@@ -41,15 +47,34 @@ public class WebApp {
 
     int port = Integer.parseInt(System.getProperty("port", "8080"));
     Javalin app = Javalin.create(config -> {
-      OpenApiConfiguration openApiConfiguration = new OpenApiConfiguration();
-      openApiConfiguration.getInfo().setTitle("Javalin OpenAPI example");
-      config.plugins.register(new OpenApiPlugin(openApiConfiguration));
-      config.plugins.register(new SwaggerPlugin(new SwaggerConfiguration()));
+      config.plugins.register(new OpenApiPlugin(
+              new OpenApiPluginConfiguration()
+                  .withDocumentationPath("/openapi")
+                  .withDefinitionConfiguration((version, definition) -> definition
+                      .withOpenApiInfo((openApiInfo) -> {
+                        openApiInfo.setTitle("Servicio Fusionador de Comunidades");
+                        openApiInfo.setVersion("1.0.0");
+                      })
+                      .withServer((openApiServer) -> {
+                        openApiServer.setUrl(("http://localhost:8080/" + version + "/"));
+                        openApiServer.addVariable("port", "8080", new String[]{"7070", "8080"}, "Port of the server");
+                        openApiServer.addVariable("basePath", "", new String[]{"", "v1"}, "Base path of the server");
+                      })
+                      .withDefinitionProcessor(content -> { // you can add whatever you want to this document using your favourite json api
+                        content.set("test", new TextNode("Value"));
+                        return content.toPrettyString();
+                      }))
+          )
+      );
+
+      SwaggerConfiguration swaggerConfiguration = new SwaggerConfiguration();
+      swaggerConfiguration.setDocumentationPath("/openapi");
+      config.plugins.register(new SwaggerPlugin(swaggerConfiguration));
     }).start(port);
 
-    app.get("/sugerencias_fusiones", new SugerenciasFusionController(analizadorComunidades,lectorPropiedades.getPropiedad("mensaje-error-mapeo")));
+    app.get("/sugerencias_fusiones", new SugerenciasFusionController(analizadorComunidades, mensajesDeError));
 
-    app.get("/fusion_comunidades", new FusionComunidadesController(fusionadorComunidades));
+    app.get("/fusion_comunidades", new FusionComunidadesController(fusionadorComunidades, mensajesDeError));
   }
 
 }
