@@ -30,4 +30,8 @@ public class TipoEntidad {
     this.descripcion = descripcion;
     this.tiposDeEstablecimientosPermitidos = tiposDeEstablecimientosPermitidos;
   }
+
+  public TipoEntidad(){
+
+  }
 }

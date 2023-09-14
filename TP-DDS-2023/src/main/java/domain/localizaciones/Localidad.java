@@ -37,4 +37,8 @@ public class Localidad {
       municipio = municipioASetear;
     }
   }
+
+  public Localidad(){
+
+  }
 }

@@ -64,4 +64,8 @@ public class Usuario {
   public Boolean estaDisponible(LocalDateTime horario) {
     return horario.isAfter(inicioHorarioDisponible) && horario.isBefore(finHorarioDisponible);
   }
+
+  public Usuario(){
+
+  }
 }

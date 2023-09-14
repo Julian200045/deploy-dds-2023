@@ -32,4 +32,8 @@ public class Interes {
     this.entidad = entidad;
     this.miembro = miembro;
   }
+
+  public Interes(){
+
+  }
 }

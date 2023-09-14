@@ -20,4 +20,8 @@ public class TipoEstablecimiento {
   private String nombre;
   @Column
   private String descripcion;
+
+  public TipoEstablecimiento(){
+
+  }
 }

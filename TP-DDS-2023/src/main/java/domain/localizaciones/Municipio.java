@@ -50,4 +50,8 @@ public class Municipio{
       localidades = localidadesList;
     }
   }
+
+  public Municipio(){
+
+  }
 }

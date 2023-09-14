@@ -61,4 +61,8 @@ public class Establecimiento {
   //Provincia getProvinciaDeInteres(){
    // return localidad.getProvincia();
   //}
+
+  public Establecimiento(){
+
+  }
 }

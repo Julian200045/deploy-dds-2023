@@ -46,4 +46,8 @@ public class Entidad {
       establecimientos.add(establecimiento);
     }
   }
+
+  public Entidad(){
+
+  }
 }

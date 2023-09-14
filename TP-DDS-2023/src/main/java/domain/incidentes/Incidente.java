@@ -70,4 +70,8 @@ public class Incidente {
   public long tiempoDeCierre(){
     return ChronoUnit.HOURS.between(fechaYHoraDeApertura,LocalDateTime.now());
   }
+
+  public Incidente(){
+
+  }
 }

@@ -42,4 +42,7 @@ public class OrganismoDeControl {
     this.entidadesPrestadoras = entidades;
     this.servicio = servicio;
   }
+  public OrganismoDeControl(){
+
+  }
 }

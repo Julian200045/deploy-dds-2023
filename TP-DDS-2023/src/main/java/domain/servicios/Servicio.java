@@ -20,4 +20,8 @@ public class Servicio {
     this.id = id;
     this.nombre = nombre;
   }
+
+  public Servicio( {
+
+  }
 }

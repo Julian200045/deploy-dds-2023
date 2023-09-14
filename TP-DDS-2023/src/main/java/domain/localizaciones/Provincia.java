@@ -45,4 +45,8 @@ public class Provincia {
       municipios = municipiosList;
     }
   }
+
+  public Provincia(){
+
+  }
 }

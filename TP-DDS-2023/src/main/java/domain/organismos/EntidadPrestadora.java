@@ -38,4 +38,8 @@ public class EntidadPrestadora {
     this.emailResponsable = email;
     this.entidades = entidades;
   }
+
+  public EntidadPrestadora(){
+
+  }
 }
