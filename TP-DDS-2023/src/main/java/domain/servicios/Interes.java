@@ -1,6 +1,7 @@
 package domain.servicios;
 
 import domain.comunidades.Miembro;
+import domain.comunidades.Persona;
 import domain.entidades.Entidad;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -15,7 +16,7 @@ import lombok.Data;
 public class Interes {
   @Id
   @GeneratedValue
-  long id;
+  private long id;
   @ManyToOne
   @JoinColumn(name = "servicio_id", referencedColumnName = "id")
   private Servicio servicio;

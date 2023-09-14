@@ -8,8 +8,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 import lombok.Getter;
 
 @Entity
@@ -17,15 +17,12 @@ import lombok.Getter;
 public class Comunidad {
   @Id
   @GeneratedValue
-  long id;
+  private long id;
   @Getter
   @Column(name = "nombre")
   private String nombre;
-  @ManyToMany
+  @OneToMany(mappedBy = "miembro")
   private final List<Miembro> miembros = new ArrayList<>();
-
-  @ManyToMany
-  private final List<Miembro> administradores = new ArrayList<>();
   @ManyToMany
   private final List<PrestacionDeServicio> prestacionDeServicios = new ArrayList<>();
 
@@ -43,8 +40,8 @@ public class Comunidad {
     return prestacionDeServicios.contains(prestacionDeServicio);
   }
 
-  public Boolean esMiembro(Miembro miembro){
-    return miembros.contains(miembro);
+  public Boolean esMiembro(Persona persona){
+    return miembros.stream().anyMatch(miembro -> miembro.getPersona() == persona);
   }
 
   public void agregarMiembro(Miembro miembro){
@@ -52,5 +49,9 @@ public class Comunidad {
   }
   public List<Miembro> getMiembros(){
     return new ArrayList<>(miembros);
+  }
+
+  public Comunidad(){
+
   }
 }

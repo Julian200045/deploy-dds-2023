@@ -1,73 +1,43 @@
 package domain.comunidades;
 
-import domain.localizaciones.Localidad;
-import domain.localizaciones.Municipio;
-import domain.localizaciones.Provincia;
-import domain.roles.Rol;
-import domain.roles.RolDelMiembro;
-import domain.servicios.Servicio;
-import domain.usuarios.Usuario;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @Entity
 @Table(name = "miembro")
+@Setter
+@Getter
 public class Miembro {
-  @Id
-  @GeneratedValue
-  long id;
-  @Column(name= "nombre")
-  String nombre;
-  @Column(name = "apellido")
-  String apellido;
-  @Getter
-  @OneToOne
-  Usuario usuario;
-  @Transient
-  RolDelMiembro rolDelMiembro;
-  @ManyToMany
-  private List<Comunidad> comunidades; //ver como inicializar
+	@Id
+	@GeneratedValue
+	private long id;
 
-  @Getter
-  @ManyToOne()
-  @JoinColumn(name = "localidad_id" , referencedColumnName = "id")
-  Localidad localidadDeInteres;
+	@ManyToOne
+	@JoinColumn(name = "comunidad_id", referencedColumnName = "id")
+	private Comunidad comunidad;
 
+	@ManyToOne
+	@JoinColumn(name = "persona_id", referencedColumnName = "id")
+	private Persona persona;
 
-  public Miembro(String nombre, String apellido, Usuario usuario) {
-    this.nombre = nombre;
-    this.apellido = apellido;
-    this.usuario = usuario;
-  }
+	@Column
+	private boolean esAdmin;
 
-  public void unirseAComunidad(Comunidad comunidad){
-    if(!comunidad.esMiembro(this)){
-      comunidades.add(comunidad);
-      comunidad.agregarMiembro(this);
-    }
-  }
+	@Enumerated(EnumType.STRING)
+	private TipoMiembro tipoMiembro;
 
-  public List<Comunidad> comunidades(){
-    return new ArrayList<>(comunidades);
-  }
+	public Miembro(){
 
-  //Municipio getMunicipioDeInteres(){
-   // return localidadDeInteres.getMunicipio();
-  //}
-  //Provincia getProvinciaDeInteres(){
-    //return localidadDeInteres.getProvincia();
-  //}
+	}
 }

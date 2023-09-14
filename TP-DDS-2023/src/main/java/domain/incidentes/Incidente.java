@@ -2,12 +2,11 @@ package domain.incidentes;
 
 import domain.comunidades.Comunidad;
 import domain.comunidades.Miembro;
-import domain.entidades.Entidad;
+import domain.comunidades.Persona;
 import domain.servicios.PrestacionDeServicio;
 import java.time.temporal.ChronoUnit;
 import javax.persistence.*;
 
-import lombok.Data;
 import lombok.Getter;
 
 import java.time.LocalDateTime;

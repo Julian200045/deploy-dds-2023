@@ -1,7 +1,7 @@
 package services;
 
 import domain.comunidades.Comunidad;
-import domain.comunidades.Miembro;
+import domain.comunidades.Persona;
 import domain.incidentes.CreadorDeIncidentes;
 import domain.incidentes.Incidente;
 import domain.servicios.PrestacionDeServicio;
@@ -21,12 +21,12 @@ public class IncidentesService {
     this.servicioGeneradorNotificaciones = servicioGeneradorNotificaciones;
   }
 
-  public void darDeAltaIncidente(Miembro miembro, PrestacionDeServicio prestacion,String observaciones) throws SchedulerException {
+  public void darDeAltaIncidente(Persona miembro, PrestacionDeServicio prestacion, String observaciones) throws SchedulerException {
 
     List<Incidente> incidentes = CreadorDeIncidentes.darDeAltaIncidente(miembro,prestacion,observaciones);
     repoIncidentes.add(incidentes.toArray(new Incidente[0]));
 
-    Set<Miembro> miembrosANotificar = new HashSet<>();
+    Set<Persona> miembrosANotificar = new HashSet<>();
 
     incidentes.forEach(incidente -> {
       miembrosANotificar.addAll(miembrosInteresados(incidente));
@@ -38,7 +38,7 @@ public class IncidentesService {
 
   }
 
-  public void darDeBajaIncidentesDeLaPrestacion(Miembro miembro, PrestacionDeServicio prestacion){
+  public void darDeBajaIncidentesDeLaPrestacion(Persona miembro, PrestacionDeServicio prestacion){
 
     List<Incidente> incidentes = repoIncidentes.getByPrestacion(prestacion);
 
@@ -47,7 +47,7 @@ public class IncidentesService {
     List<Incidente> incidentesDeLasComunidadesDelMiembro = incidentes.stream().filter(incidente -> comunidadesDelMiembroCerrador.contains(incidente.getComunidad())).toList();
     incidentesDeLasComunidadesDelMiembro.forEach(incidente -> incidente.cerrar(miembro));
 
-    Set<Miembro> miembrosANotificar = new HashSet<>();
+    Set<Persona> miembrosANotificar = new HashSet<>();
 
     incidentes.forEach(incidente -> {
       miembrosANotificar.addAll(miembrosInteresados(incidente));
@@ -59,11 +59,11 @@ public class IncidentesService {
 
   }
 
-  List<Miembro> miembrosInteresados(Incidente incidente){
+  List<Persona> miembrosInteresados(Incidente incidente){
 
     List<Comunidad> comunidadesDelMiembroCerrador = incidente.getMiembroApertura().comunidades();
 
-    List<Miembro> listaMiembrosInteresados = new ArrayList<>();
+    List<Persona> listaMiembrosInteresados = new ArrayList<>();
     comunidadesDelMiembroCerrador.forEach(comunidad -> {
           listaMiembrosInteresados.addAll(comunidad.getMiembros());
         }

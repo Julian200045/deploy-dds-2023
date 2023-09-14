@@ -1,8 +1,6 @@
 package domain.servicios;
 
-import domain.comunidades.Miembro;
 import domain.establecimientos.Establecimiento;
-import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -34,5 +32,9 @@ public class PrestacionDeServicio {
     this.servicio = servicio;
     this.establecimiento = establecimiento;
     this.estaHabilitado = true;
+  }
+
+  public PrestacionDeServicio(){
+
   }
 }
