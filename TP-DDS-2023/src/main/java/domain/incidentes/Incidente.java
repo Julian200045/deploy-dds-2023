@@ -38,10 +38,10 @@ public class Incidente {
   @JoinColumn(name = "miembro_cierre_id", referencedColumnName = "id")
   private Miembro miembroCierre;
   @Getter
-  @Column
+  @Column(name = "horario_apertura", columnDefinition = "TIMESTAMP")
   private final LocalDateTime fechaYHoraDeApertura;
   @Getter
-  @Column
+  @Column(name = "horario_cierre", columnDefinition = "TIMESTAMP")
   private LocalDateTime getFechaYHoraDeCierre;
   @Getter
   @Enumerated(EnumType.STRING)

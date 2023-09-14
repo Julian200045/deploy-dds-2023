@@ -26,6 +26,7 @@ public class Usuario {
   @Column
   String contrasenia;
   @ManyToOne
+  @JoinColumn(name = "rol_id", referencedColumnName = "id")
   Rol rol;
   @Getter
   @Column
@@ -35,7 +36,7 @@ public class Usuario {
   String numeroCelular;
 
   @Getter
-  @Transient
+  @Enumerated(value = EnumType.STRING)
   MedioDeContacto medioDeContacto;
 
   @Getter
@@ -44,10 +45,10 @@ public class Usuario {
   FormasNotificar forma;
 
   @Getter
-  @Column
+  @Column(name = "inicio_horario_disponible", columnDefinition = "TIMESTAMP")
   LocalDateTime inicioHorarioDisponible;
   @Getter
-  @Column
+  @Column(name = "fin_horario_disponible", columnDefinition = "TIMESTAMP")
   LocalDateTime finHorarioDisponible;
 
   public Usuario(int id, String nombre, String contrasenia, LocalDateTime inicioHorarioDisponible, LocalDateTime finHorarioDisponible) throws IOException {
