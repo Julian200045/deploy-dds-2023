@@ -9,6 +9,6 @@ public class Permiso {
   @GeneratedValue
   public long id;
 
-  @Column
+  @Column(name = "nombre")
   public String nombre;
 }

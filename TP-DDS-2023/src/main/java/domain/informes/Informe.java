@@ -7,10 +7,10 @@ import java.time.LocalDate;
 import java.util.List;
 
 public class Informe implements InformeExportable {
-  Integer numeroInforme;
-  LocalDate fechaInicio;
-  LocalDate fechaFin;
-  List<Rankeador> rankings;
+  private Integer numeroInforme;
+  private LocalDate fechaInicio;
+  private LocalDate fechaFin;
+  private List<Rankeador> rankings;
 
   public Informe(Integer numeroInforme, LocalDate fechaInicio, LocalDate fechaFin, List<Rankeador> rankeadores) {
     this.numeroInforme = numeroInforme;

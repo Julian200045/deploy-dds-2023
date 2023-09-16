@@ -9,16 +9,16 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Table(name = "tipoEstablecimiento")
+@Table(name = "tipo_establecimiento")
 @Setter
 @Getter
 public class TipoEstablecimiento {
   @Id
   @GeneratedValue
-  long id;
-  @Column
+  private long id;
+  @Column(name = "nombre")
   private String nombre;
-  @Column
+  @Column(name = "nombre")
   private String descripcion;
 
   public TipoEstablecimiento(){

@@ -16,7 +16,7 @@ public class Localidad {
   @Id
   @GeneratedValue
   public Long id;
-  @Column
+  @Column(name = "nombre")
   public String nombre;
   @ManyToOne
   @JoinColumn(name = "ubicacion_id", referencedColumnName = "id")

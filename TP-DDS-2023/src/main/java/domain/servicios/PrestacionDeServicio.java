@@ -11,11 +11,11 @@ import javax.persistence.Table;
 import lombok.Getter;
 
 @Entity
-@Table(name = "prestacionDeServicio")
+@Table(name = "prestacion_Servicio")
 public class PrestacionDeServicio {
   @Id
   @GeneratedValue
-  long id;
+  private long id;
   @ManyToOne
   @JoinColumn(name = "servicio_id", referencedColumnName = "id")
   public Servicio servicio;
@@ -25,7 +25,7 @@ public class PrestacionDeServicio {
   public Establecimiento establecimiento;
 
   @Getter
-  @Column
+  @Column(name = "habilitado")
   public boolean estaHabilitado;
 
   public PrestacionDeServicio(Servicio servicio, Establecimiento establecimiento) {

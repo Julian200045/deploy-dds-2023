@@ -11,9 +11,10 @@ public class Rol {
   @Id
   @GeneratedValue
   public long id;
-  @Column
+  @Column(name = "nombre")
   public String nombre;
   @OneToMany
+  @JoinColumn(name = "rol_id", referencedColumnName = "id")
   public List<Permiso> permisos;
 
   public boolean tenesPermiso(Permiso permiso) {

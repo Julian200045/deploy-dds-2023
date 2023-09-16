@@ -15,30 +15,30 @@ import java.time.LocalDateTime;
 public class Incidente {
   @Id
   @GeneratedValue
-  long id;
+  private long id;
 
   @Getter
   @ManyToOne
   @JoinColumn(name = "prestacion_id", referencedColumnName = "id")
-  final private PrestacionDeServicio prestacionDeServicio;
+  private PrestacionDeServicio prestacionDeServicio;
   @Getter
   @ManyToOne
   @JoinColumn(name = "comunidad_id", referencedColumnName = "id")
-  final private Comunidad comunidad;
+  private Comunidad comunidad;
   @Getter
-  @Column
-  final private String observaciones;
+  @Column(name = "nombre")
+  private String observaciones;
   @Getter
   @ManyToOne
   @JoinColumn(name = "miembro_apertura_id", referencedColumnName = "id")
-  final private Miembro miembroApertura;
+  private Miembro miembroApertura;
   @Getter
   @ManyToOne
   @JoinColumn(name = "miembro_cierre_id", referencedColumnName = "id")
   private Miembro miembroCierre;
   @Getter
   @Column(name = "horario_apertura", columnDefinition = "TIMESTAMP")
-  private final LocalDateTime fechaYHoraDeApertura;
+  private LocalDateTime fechaYHoraDeApertura;
   @Getter
   @Column(name = "horario_cierre", columnDefinition = "TIMESTAMP")
   private LocalDateTime getFechaYHoraDeCierre;

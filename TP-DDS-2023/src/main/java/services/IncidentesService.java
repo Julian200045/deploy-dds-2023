@@ -12,7 +12,7 @@ import services.notificador.GeneradorNotificaciones;
 import java.util.*;
 
 public class IncidentesService {
-
+/*
   private RepoIncidentes repoIncidentes;
   private GeneradorNotificaciones servicioGeneradorNotificaciones;
 
@@ -70,5 +70,5 @@ public class IncidentesService {
     );
 
     return listaMiembrosInteresados;
-  }
+  }*/
 }

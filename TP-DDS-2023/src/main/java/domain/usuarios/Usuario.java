@@ -1,5 +1,6 @@
 package domain.usuarios;
 
+import Converters.FormasNotificarConverter;
 import domain.roles.Rol;
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -19,37 +20,38 @@ public class Usuario {
   @Getter
   @Id
   @GeneratedValue
-  long id;
+  private long id;
   @Getter
-  @Column
-  String nombre;
-  @Column
-  String contrasenia;
+  @Column(name = "nombre")
+  private String nombre;
+  @Column(name = "contrasenia")
+  private String contrasenia;
   @ManyToOne
   @JoinColumn(name = "rol_id", referencedColumnName = "id")
-  Rol rol;
+  private Rol rol;
   @Getter
-  @Column
-  String mail;
+  @Column(name = "mail")
+  private String mail;
   @Getter
-  @Column
-  String numeroCelular;
+  @Column(name = "num_celular")
+  private String numeroCelular;
 
   @Getter
   @Enumerated(value = EnumType.STRING)
-  MedioDeContacto medioDeContacto;
+  private MedioDeContacto medioDeContacto;
 
   @Getter
   @Setter
-  @Transient
-  FormasNotificar forma;
+  @Convert( converter =  FormasNotificarConverter.class)
+  @Column(name = "forma_notificar")
+  private FormasNotificar forma;
 
   @Getter
   @Column(name = "inicio_horario_disponible", columnDefinition = "TIMESTAMP")
-  LocalDateTime inicioHorarioDisponible;
+  private LocalDateTime inicioHorarioDisponible;
   @Getter
   @Column(name = "fin_horario_disponible", columnDefinition = "TIMESTAMP")
-  LocalDateTime finHorarioDisponible;
+  private LocalDateTime finHorarioDisponible;
 
   public Usuario(int id, String nombre, String contrasenia, LocalDateTime inicioHorarioDisponible, LocalDateTime finHorarioDisponible) throws IOException {
     this.id = id;

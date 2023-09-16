@@ -12,14 +12,14 @@ import lombok.Getter;
 
 import java.util.List;
 @Entity
-@Table(name = "tipoEntidad")
+@Table(name = "tipo_entidad")
 public class TipoEntidad {
   @Id
   @GeneratedValue
-  long id;
-  @Column
+  private long id;
+  @Column(name = "nombre")
   public String nombre;
-  @Column
+  @Column(name = "nombre")
   public String descripcion;
   @Getter
   @ManyToMany

@@ -19,7 +19,7 @@ public class Municipio{
   @Id
   @GeneratedValue
   public long id;
-  @Column
+  @Column(name = "nombre")
   public String nombre;
   @ManyToOne
   @JoinColumn(name = "ubicacion_id", referencedColumnName = "id")

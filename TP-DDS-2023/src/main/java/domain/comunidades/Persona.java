@@ -33,13 +33,13 @@ public class Persona {
   @OneToOne
   private Usuario usuario;
 
-  @OneToMany(mappedBy = "miembro")
+  @OneToMany(mappedBy = "persona")
   private List<Miembro> membresias;
   //@Transient
   //RolDelMiembro rolDelMiembro;
 
   @Getter
-  @ManyToOne()
+  @ManyToOne
   @JoinColumn(name = "localidad_id" , referencedColumnName = "id")
   private Localidad localidadDeInteres;
 

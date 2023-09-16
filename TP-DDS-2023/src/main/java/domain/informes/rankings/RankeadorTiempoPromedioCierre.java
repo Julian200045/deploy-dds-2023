@@ -10,7 +10,7 @@ import lombok.Getter;
 public class RankeadorTiempoPromedioCierre implements Rankeador {
   @Getter
   Comunidad comunidad;
-  List<List<String>> listaRanking;
+  private List<List<String>> listaRanking;
 
   public RankeadorTiempoPromedioCierre(Comunidad comunidad, List<Incidente> incidentesSemanales){
     this.comunidad = comunidad;

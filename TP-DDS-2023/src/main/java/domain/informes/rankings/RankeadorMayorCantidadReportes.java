@@ -10,7 +10,7 @@ import lombok.Getter;
 
 public class RankeadorMayorCantidadReportes implements Rankeador {
   @Getter
-  List<List<String>> listaRanking;
+  private List<List<String>> listaRanking;
 
   public RankeadorMayorCantidadReportes(List<Incidente> incidentesSemanales){
     listaRanking = new ArrayList<>();

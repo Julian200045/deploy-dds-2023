@@ -13,7 +13,7 @@ public class Servicio {
   @Id
   @GeneratedValue
   public long id;
-  @Column
+  @Column(name = "nombre")
   public String nombre;
 
   public Servicio(int id, String nombre) {
@@ -21,7 +21,7 @@ public class Servicio {
     this.nombre = nombre;
   }
 
-  public Servicio( {
+  public Servicio( ){
 
   }
 }

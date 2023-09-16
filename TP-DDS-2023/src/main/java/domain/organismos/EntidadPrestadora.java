@@ -13,23 +13,23 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import lombok.Getter;
 @Entity
-@Table(name = "entidadPrestadora")
+@Table(name = "entidad_prestadora")
 public class EntidadPrestadora {
   @Getter
   @Id
   @GeneratedValue
-  long id;
+  private long id;
   @Getter
-  @Column
-  String nombre;
+  @Column(name = "nombre")
+  private String nombre;
   @Getter
   @OneToOne
-  Usuario usuario;
-  @Column
-  String emailResponsable;
+  private Usuario usuario;
+  @Column(name = "email_responsable")
+  private String emailResponsable;
   @OneToMany
   @JoinColumn(name = "entidadPrestadora_id", referencedColumnName = "id")
-  List<Entidad> entidades;
+  private List<Entidad> entidades;
 
   public EntidadPrestadora(int id, String nombre, Usuario usuario, String email, List<Entidad> entidades) {
     this.id = id;

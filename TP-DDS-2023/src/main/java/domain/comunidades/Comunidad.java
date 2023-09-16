@@ -7,6 +7,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -21,10 +22,10 @@ public class Comunidad {
   @Getter
   @Column(name = "nombre")
   private String nombre;
-  @OneToMany(mappedBy = "miembro")
-  private final List<Miembro> miembros = new ArrayList<>();
+  @OneToMany(mappedBy = "comunidad")
+  private List<Miembro> miembros = new ArrayList<>();
   @ManyToMany
-  private final List<PrestacionDeServicio> prestacionDeServicios = new ArrayList<>();
+  private List<PrestacionDeServicio> prestacionDeServicios = new ArrayList<>();
 
 
 
