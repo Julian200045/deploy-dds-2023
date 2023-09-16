@@ -15,7 +15,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import lombok.Getter;
 @Entity
-@Table(name = "organismos_Control")
+@Table(name = "organismo_control")
 public class OrganismoDeControl {
   @Id
   @GeneratedValue

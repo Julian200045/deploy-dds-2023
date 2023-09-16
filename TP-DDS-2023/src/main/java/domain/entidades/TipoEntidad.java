@@ -19,7 +19,7 @@ public class TipoEntidad {
   private long id;
   @Column(name = "nombre")
   public String nombre;
-  @Column(name = "nombre")
+  @Column(name = "descripcion")
   public String descripcion;
   @Getter
   @ManyToMany

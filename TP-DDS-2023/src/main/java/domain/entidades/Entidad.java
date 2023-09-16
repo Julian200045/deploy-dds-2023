@@ -23,7 +23,7 @@ public class Entidad {
   @GeneratedValue
   public long id;
   @Getter
-  @Column
+  @Column(name = "nombre")
   public String nombre;
   @OneToMany(mappedBy = "entidad")
   private List<Establecimiento> establecimientos;

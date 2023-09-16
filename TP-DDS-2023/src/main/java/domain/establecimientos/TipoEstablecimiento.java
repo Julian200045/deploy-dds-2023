@@ -18,7 +18,7 @@ public class TipoEstablecimiento {
   private long id;
   @Column(name = "nombre")
   private String nombre;
-  @Column(name = "nombre")
+  @Column(name = "descripcion")
   private String descripcion;
 
   public TipoEstablecimiento(){
