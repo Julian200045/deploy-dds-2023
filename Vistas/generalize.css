@@ -1,0 +1,39 @@
+*{
+    font-family: sans-serif;
+}
+
+html{
+    height: 100%;
+}
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #1C58B2;
+    height:100%;
+    min-height: 100%;
+    position:relative;
+}
+.header {
+    background-color: #DAE4F2;
+    color: #333;
+    text-align: center;
+    padding: 10px 0;
+    height:70px;
+}
+.footer {
+    background-color: #DAE4F2;
+    color: #333;
+    text-align: center;
+    padding: 10px 0;
+    position: absolute;
+    bottom: 0;
+    height:30px;
+    width: 100%;
+}
+
+label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 5px;
+}

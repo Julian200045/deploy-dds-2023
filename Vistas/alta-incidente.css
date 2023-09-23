@@ -1,0 +1,125 @@
+*{
+    font-family: sans-serif;
+}
+
+html{
+    height: 100%;
+}
+
+.header {
+    background-color: #DAE4F2;
+    color: #333;
+    text-align: center;
+    padding: 10px 0;
+    height:70px;
+}
+
+.footer {
+    background-color: #DAE4F2;
+    color: #333;
+    text-align: center;
+    padding: 10px 0;
+    position: absolute;
+    bottom: 0;
+    height:30px;
+    width: 100%;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #1C58B2;
+    height:100%;
+    min-height: 100%;
+    position:relative;
+}
+
+.container {
+    margin: auto;
+    height: calc(100% - 140px);;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.incident-form {
+    color: #DAE4F2;
+    width: 100%;
+    max-width: 400px;
+    margin-top: 20px;
+}
+
+.incident-form select {
+    padding: 10px;
+    width: 422px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+    width: 100%;
+}
+
+label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 5px;
+}
+
+input[type="text"],
+
+textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    resize: none;
+}
+
+button {
+    background-color: #20CCC0;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #179188;
+}
+
+.establecimientos-list {
+    list-style: none;
+    color: #222;
+    padding: 0;
+    margin: 0;
+    position: absolute;
+    background-color: white;
+    max-height: 150px;
+    overflow-y: auto;
+    width: 105.5%;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    border-radius: 3px;
+}
+
+.establecimientos-list li {
+    padding: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.establecimientos-list li:hover {
+    background-color: #dddeee;
+}
+
+.form-group {
+    position: relative;
+}
+
+#establecimiento {
+    margin-top: 5px;
+}
