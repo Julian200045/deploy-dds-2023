@@ -1,7 +1,7 @@
-import com.fasterxml.jackson.databind.node.TextNode;
 import controllers.FusionComunidadesController;
 import controllers.SugerenciasFusionController;
 import io.javalin.Javalin;
+import io.javalin.config.JavalinConfig;
 import io.javalin.openapi.plugin.OpenApiPlugin;
 import io.javalin.openapi.plugin.OpenApiPluginConfiguration;
 import io.javalin.openapi.plugin.swagger.SwaggerConfiguration;
@@ -46,7 +46,16 @@ public class WebApp {
     FusionadorComunidades fusionadorComunidades = new FusionadorComunidades();
 
     int port = Integer.parseInt(System.getProperty("port", "8080"));
-    Javalin app = Javalin.create(config -> {
+
+    Javalin app = Javalin.create(config -> configOpenAPI(config)).start(port);
+
+    app.get("/sugerencias_fusiones", new SugerenciasFusionController(analizadorComunidades, mensajesDeError));
+
+    app.get("/fusion_comunidades", new FusionComunidadesController(fusionadorComunidades, mensajesDeError));
+  }
+
+
+  private static void configOpenAPI(JavalinConfig config){
       config.plugins.register(new OpenApiPlugin(
               new OpenApiPluginConfiguration()
                   .withDocumentationPath("/openapi")
@@ -64,11 +73,5 @@ public class WebApp {
       SwaggerConfiguration swaggerConfiguration = new SwaggerConfiguration();
       swaggerConfiguration.setDocumentationPath("/openapi");
       config.plugins.register(new SwaggerPlugin(swaggerConfiguration));
-    }).start(port);
-
-    app.get("/sugerencias_fusiones", new SugerenciasFusionController(analizadorComunidades, mensajesDeError));
-
-    app.get("/fusion_comunidades", new FusionComunidadesController(fusionadorComunidades, mensajesDeError));
   }
-
 }
