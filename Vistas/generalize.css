@@ -20,7 +20,15 @@ body {
     text-align: center;
     padding: 10px 0;
     height:70px;
+    display: flex;
 }
+
+label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 5px;
+}
+
 .footer {
     background-color: #DAE4F2;
     color: #333;
@@ -32,8 +40,28 @@ body {
     width: 100%;
 }
 
-label {
-    font-weight: bold;
-    display: block;
-    margin-bottom: 5px;
+button:hover {
+    background-color: #179188;
 }
+
+button {
+    background-color: #20CCC0;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 150px;
+    margin-top: 15px;
+}
+
+.logo {
+    max-height: auto;
+    margin-right: 20px;
+    margin-left: 10px;
+    display: flex;
+ }
+
+ .title{
+    color: #1C58B2;
+ }

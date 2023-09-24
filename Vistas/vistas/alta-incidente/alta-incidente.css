@@ -1,40 +1,3 @@
-*{
-    font-family: sans-serif;
-}
-
-html{
-    height: 100%;
-}
-
-.header {
-    background-color: #DAE4F2;
-    color: #333;
-    text-align: center;
-    padding: 10px 0;
-    height:70px;
-}
-
-.footer {
-    background-color: #DAE4F2;
-    color: #333;
-    text-align: center;
-    padding: 10px 0;
-    position: absolute;
-    bottom: 0;
-    height:30px;
-    width: 100%;
-}
-
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #1C58B2;
-    height:100%;
-    min-height: 100%;
-    position:relative;
-}
-
 .container {
     margin: auto;
     height: calc(100% - 140px);;
@@ -76,19 +39,6 @@ textarea {
     border: 1px solid #ccc;
     border-radius: 5px;
     resize: none;
-}
-
-button {
-    background-color: #20CCC0;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-button:hover {
-    background-color: #179188;
 }
 
 .establecimientos-list {
