@@ -20,7 +20,21 @@ body {
     text-align: center;
     padding: 10px 0;
     height:70px;
+    display: flex;
 }
+
+.logo {
+    max-height: auto;
+    margin-right: 20px;
+    margin-left: 10px;
+    display: flex;
+ }
+ 
+ img{
+     height: auto;
+     width: auto;
+ }
+
 .footer {
     background-color: #DAE4F2;
     color: #333;
