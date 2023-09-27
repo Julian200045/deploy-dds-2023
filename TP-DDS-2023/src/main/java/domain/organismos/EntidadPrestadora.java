@@ -3,6 +3,7 @@ package domain.organismos;
 import domain.entidades.Entidad;
 import domain.usuarios.Usuario;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -23,11 +24,11 @@ public class EntidadPrestadora {
   @Column(name = "nombre")
   private String nombre;
   @Getter
-  @OneToOne
+  @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
   private Usuario usuario;
   @Column(name = "email_responsable")
   private String emailResponsable;
-  @OneToMany
+  @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
   @JoinColumn(name = "entidadPrestadora_id", referencedColumnName = "id")
   private List<Entidad> entidades;
 
