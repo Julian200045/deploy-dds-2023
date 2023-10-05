@@ -1,7 +1,7 @@
-import domain.comunidades.Comunidad;
-import domain.incidentes.Incidente;
-import domain.informes.rankings.RankeadorMayorCantidadReportes;
-import domain.informes.rankings.RankeadorTiempoPromedioCierre;
+import models.entities.comunidades.Comunidad;
+import models.entities.incidentes.Incidente;
+import models.entities.informes.rankings.RankeadorMayorCantidadReportes;
+import models.entities.informes.rankings.RankeadorTiempoPromedioCierre;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;

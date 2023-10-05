@@ -1,12 +1,12 @@
 package pruebasDeContexto;
 
-import domain.informes.Informe;
-import domain.informes.rankings.Rankeador;
-import domain.informes.rankings.RankeadorMayorCantidadReportes;
-import services.exportadoresDeInformes.ExportadorDeInformes;
-import services.exportadoresDeInformes.exportadorDeInformesAPdf.AdapterExportadorDeInformesAPdf;
-import services.exportadoresDeInformes.exportadorDeInformesAPdf.ExportadorDeInformesAPdf;
-import services.exportadoresDeInformes.exportadorDeInformesAPdf.adaptersExportadorDeInformesAPdf.BoxablePdf;
+import models.entities.informes.Informe;
+import models.entities.informes.rankings.Rankeador;
+import models.entities.informes.rankings.RankeadorMayorCantidadReportes;
+import models.services.exportadoresDeInformes.ExportadorDeInformes;
+import models.services.exportadoresDeInformes.exportadorDeInformesAPdf.AdapterExportadorDeInformesAPdf;
+import models.services.exportadoresDeInformes.exportadorDeInformesAPdf.ExportadorDeInformesAPdf;
+import models.services.exportadoresDeInformes.exportadorDeInformesAPdf.adaptersExportadorDeInformesAPdf.BoxablePdf;
 
 import java.io.IOException;
 import java.util.ArrayList;

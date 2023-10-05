@@ -3,30 +3,30 @@ package csv;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import domain.entidades.Entidad;
-import domain.entidades.TipoEntidad;
+import models.entities.entidades.Entidad;
+import models.entities.entidades.TipoEntidad;
 import java.time.LocalDateTime;
 
-import domain.servicios.Servicio;
-import repositorios.entidades.RepoEntidades;
-import repositorios.entidades.entidadesprestadoras.RepoEntidadesPrestadoras;
-import repositorios.entidades.entidadesprestadoras.RepositorioEntidadesPrestadoras;
-import repositorios.organismos.RepositorioOrganismoDeControl;
-import repositorios.servicios.RepoServicios;
-import repositorios.servicios.RepositorioServicios;
-import repositorios.usuarios.RepoUsuarios;
-import domain.usuarios.Usuario;
-import services.csv.LectorCSV;
-import repositorios.entidades.RepositorioEntidades;
+import models.entities.servicios.Servicio;
+import models.repositorios.entidades.RepoEntidades;
+import models.repositorios.entidades.entidadesprestadoras.RepoEntidadesPrestadoras;
+import models.repositorios.entidades.entidadesprestadoras.RepositorioEntidadesPrestadoras;
+import models.repositorios.organismos.RepositorioOrganismoDeControl;
+import models.repositorios.servicios.RepoServicios;
+import models.repositorios.servicios.RepositorioServicios;
+import models.repositorios.usuarios.RepoUsuarios;
+import models.entities.usuarios.Usuario;
+import models.services.csv.LectorCSV;
+import models.repositorios.entidades.RepositorioEntidades;
 
-import repositorios.usuarios.RepositorioUsuarios;
+import models.repositorios.usuarios.RepositorioUsuarios;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
-import services.importadorDatosCSV.ImportadorEntidadesPrestadoras;
-import services.importadorDatosCSV.ImportadorOrganismos;
+import models.services.importadorDatosCSV.ImportadorEntidadesPrestadoras;
+import models.services.importadorDatosCSV.ImportadorOrganismos;
 
 import static org.mockito.Mockito.*;
 
