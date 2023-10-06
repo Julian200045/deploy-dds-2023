@@ -18,8 +18,8 @@ public class Router {
       get("incidentes/{id}", ((IncidentesController) FactoryController.controller("Incidentes"))::show);
       get("incidentes/{id}/editar", ((IncidentesController) FactoryController.controller("Incidentes"))::edit);
       post("incidentes", ((IncidentesController) FactoryController.controller("Incidentes"))::save);
-      post("servicios/{id}", ((IncidentesController) FactoryController.controller("Incidentes"))::update);
-      delete("servicios/{id}", ((IncidentesController) FactoryController.controller("Incidentes"))::delete); //TODO implementar mediante JS
+      post("incidentes/{id}", ((IncidentesController) FactoryController.controller("Incidentes"))::update);
+      delete("incidentes/{id}", ((IncidentesController) FactoryController.controller("Incidentes"))::delete); //TODO implementar mediante JS
     });
   }
 }

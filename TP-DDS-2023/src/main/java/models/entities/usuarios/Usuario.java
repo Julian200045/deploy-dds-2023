@@ -53,8 +53,7 @@ public class Usuario {
   @Column(name = "fin_horario_disponible", columnDefinition = "TIMESTAMP")
   private LocalDateTime finHorarioDisponible;
 
-  public Usuario(int id, String nombre, String contrasenia, LocalDateTime inicioHorarioDisponible, LocalDateTime finHorarioDisponible) throws IOException {
-    this.id = id;
+  public Usuario(String nombre, String contrasenia, LocalDateTime inicioHorarioDisponible, LocalDateTime finHorarioDisponible) throws IOException {
     this.contrasenia = contrasenia;
     this.nombre = nombre;
     this.medioDeContacto = null;
