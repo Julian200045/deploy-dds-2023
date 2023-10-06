@@ -16,8 +16,7 @@ public class Servicio {
   @Column(name = "nombre")
   public String nombre;
 
-  public Servicio(int id, String nombre) {
-    this.id = id;
+  public Servicio(String nombre) {
     this.nombre = nombre;
   }
 

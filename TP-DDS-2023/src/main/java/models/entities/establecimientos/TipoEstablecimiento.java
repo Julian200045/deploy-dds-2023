@@ -21,6 +21,10 @@ public class TipoEstablecimiento {
   @Column(name = "descripcion")
   private String descripcion;
 
+  public TipoEstablecimiento(String nombre, String descripcion) {
+    this.nombre = nombre;
+    this.descripcion = descripcion;
+  }
   public TipoEstablecimiento(){
 
   }

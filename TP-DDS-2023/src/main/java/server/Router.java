@@ -1,6 +1,7 @@
 package server;
 
 import controllers.*;
+import static io.javalin.apibuilder.ApiBuilder.*;
 
 public class Router {
 
@@ -9,6 +10,16 @@ public class Router {
       ctx.result("Hola mundo");
     });
 
-    Server.app().get("/incidentes", ((IncidentesController) FactoryController.controller("Incidentes"))::index);
+    //Server.app().get("/incidentes", ((IncidentesController) FactoryController.controller("Incidentes"))::index);
+
+    Server.app().routes(() -> {
+      get("incidentes", ((IncidentesController) FactoryController.controller("Incidentes"))::index);
+      get("incidentes/crear", ((IncidentesController) FactoryController.controller("Incidentes"))::create);
+      get("incidentes/{id}", ((IncidentesController) FactoryController.controller("Incidentes"))::show);
+      get("incidentes/{id}/editar", ((IncidentesController) FactoryController.controller("Incidentes"))::edit);
+      post("incidentes", ((IncidentesController) FactoryController.controller("Incidentes"))::save);
+      post("servicios/{id}", ((IncidentesController) FactoryController.controller("Incidentes"))::update);
+      delete("servicios/{id}", ((IncidentesController) FactoryController.controller("Incidentes"))::delete); //TODO implementar mediante JS
+    });
   }
 }

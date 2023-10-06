@@ -1,4 +1,4 @@
-import domain.establecimientos.TipoEstablecimiento;
+import models.entities.establecimientos.TipoEstablecimiento;
 import io.github.flbulgarelli.jpa.extras.simple.WithSimplePersistenceUnit;
 import javax.persistence.EntityManager;
 

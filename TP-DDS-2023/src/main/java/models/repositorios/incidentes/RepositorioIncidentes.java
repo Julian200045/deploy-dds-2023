@@ -39,8 +39,8 @@ public class RepositorioIncidentes implements RepoIncidentes, WithSimplePersiste
     tx.commit();
   }
 
-  public List<Incidente> getAll() {
-    return entityManager().createQuery("from" + Incidente.class.getName()).getResultList();
+  public List getAll() {
+    return entityManager().createQuery("from " + Incidente.class.getName()).getResultList();
   }
 
   public Incidente devolverPorId(int id){

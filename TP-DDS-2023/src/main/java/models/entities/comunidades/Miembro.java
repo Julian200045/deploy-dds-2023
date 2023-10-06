@@ -37,6 +37,12 @@ public class Miembro {
 	@Enumerated(EnumType.STRING)
 	private TipoMiembro tipoMiembro;
 
+	public Miembro(Comunidad comunidad, Persona persona, boolean esAdmin, TipoMiembro tipoMiembro) {
+		this.comunidad = comunidad;
+		this.persona = persona;
+		this.esAdmin = esAdmin;
+		this.tipoMiembro = tipoMiembro;
+	}
 	public Miembro(){
 
 	}

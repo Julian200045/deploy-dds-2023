@@ -89,7 +89,7 @@ public class CSVTest {
 		when(lector.getDatos()).thenReturn(lista);
 
 		repoEntidadesPrestadoras.agregarEntidadPrestadora(1,"nombre",new Usuario(1,"messi", "contraseña", LocalDateTime.now(), LocalDateTime.now()), "messi", new ArrayList<Entidad>());
-		Servicio servicio = new Servicio(1,"Transporte");
+		Servicio servicio = new Servicio("Transporte");
 		repoServicios.add(servicio);
 
 		repoUsuarios.nuevoUsuario(1,"messi","1234");
