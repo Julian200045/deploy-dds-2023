@@ -14,6 +14,7 @@ import lombok.Getter;
 @Entity
 @Table(name = "prestacion_Servicio")
 public class PrestacionDeServicio {
+  @Getter
   @Id
   @GeneratedValue
   private long id;

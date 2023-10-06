@@ -1,6 +1,7 @@
 package repositorios.incidentes;
 
 import domain.comunidades.Comunidad;
+import domain.entidades.Entidad;
 import domain.incidentes.EstadoIncidente;
 import domain.incidentes.Incidente;
 import domain.servicios.PrestacionDeServicio;
@@ -13,7 +14,6 @@ import java.util.List;
 public class RepositorioIncidentes implements RepoIncidentes, WithSimplePersistenceUnit {
 
   //Reemplazar a futuro con BD TODO
-  List<Incidente> incidentes;
   public void add(Incidente... incidente) {
     EntityTransaction tx = entityManager().getTransaction();
     tx.begin();
@@ -22,7 +22,6 @@ public class RepositorioIncidentes implements RepoIncidentes, WithSimplePersiste
       entityManager().persist(inci);
     }
     tx.commit();
-    incidentes.addAll(List.of(incidente));
   }
 
   public void eliminar(Incidente incidente){
@@ -49,14 +48,14 @@ public class RepositorioIncidentes implements RepoIncidentes, WithSimplePersiste
 
 
   public List<Incidente> getByEstado(EstadoIncidente estadoIncidente) {
-    return incidentes.stream().filter(incidente -> incidente.getEstado().equals(estadoIncidente) ).toList();
+    return entityManager().createQuery("from" + Incidente.class.getName() + "where estado = " + estadoIncidente.name()).getResultList();
   }
 
   public List<Incidente> getByComunidad(Comunidad comunidad){
-    return incidentes.stream().filter(incidente -> incidente.getComunidad().equals(comunidad)).toList();
+    return entityManager().createQuery("from" + Incidente.class.getName() + "join comunidad c on c.id = " + Long.toString(comunidad.getId()) ).getResultList();
   }
 
   public List<Incidente> getByPrestacion(PrestacionDeServicio prestacionDeServicio) {
-    return incidentes.stream().filter(incidente -> incidente.getPrestacionDeServicio().equals(prestacionDeServicio)).toList();
+    return entityManager().createQuery("from" + PrestacionDeServicio.class.getName() + "join prestacion_servicio p on p.id = " + Long.toString(prestacionDeServicio.getId()) ).getResultList();
   }
 }

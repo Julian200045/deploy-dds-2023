@@ -14,18 +14,12 @@ import services.notificador.Notificacion;
 import javax.persistence.EntityTransaction;
 
 public class RepositorioOrganismoDeControl implements RepoOrganismoDeControl, WithSimplePersistenceUnit {
-  @Getter
-  List<OrganismoDeControl> organismosDeControl = new ArrayList<>();
-  public void agregarOrganismoDeControl(String nombre, Usuario responsable, String email, Servicio servicio, List<EntidadPrestadora> entidades) {
-    organismosDeControl.add(new OrganismoDeControl(nombre, responsable, email, entidades, servicio));
-  }
 
   public void add(OrganismoDeControl organismoDeControl) {
     EntityTransaction tx = entityManager().getTransaction();
     tx.begin();
     entityManager().persist(organismoDeControl);
     tx.commit();
-    organismosDeControl.add(organismoDeControl);
   }
 
   public void eliminar(OrganismoDeControl organismoDeControl){

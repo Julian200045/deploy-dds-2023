@@ -12,22 +12,12 @@ import lombok.Getter;
 import javax.persistence.EntityTransaction;
 
 public class RepositorioUsuarios implements RepoUsuarios, WithSimplePersistenceUnit {
-	@Getter
-	List<Usuario> usuarios = new ArrayList<>();
-
-
-	public void nuevoUsuario(int id, String nombre, String contrasenia) throws java.io.IOException{
-		//Usuario usuario = new Usuario(id, nombre, contrasenia);
-		//usuarios.add(usuario);
-	}
 
 	public void add(Usuario usuario) {
-
 		EntityTransaction tx = entityManager().getTransaction();
 		tx.begin();
 		entityManager().persist(usuario);
 		tx.commit();
-		usuarios.add(usuario);
 	}
 
 	public void eliminar(Usuario usuario){

@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface RepoEntidades {
 
-  public void agregarEntidad(int id, String nombre, TipoEntidad tipo);
+  public void agregarEntidad(Entidad entidad);
 
   public Entidad devolverPorId(int id);
 

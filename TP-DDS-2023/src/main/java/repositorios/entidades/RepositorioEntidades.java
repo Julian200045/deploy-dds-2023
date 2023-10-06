@@ -13,16 +13,12 @@ import javax.persistence.EntityTransaction;
 
 
 public class RepositorioEntidades implements RepoEntidades, WithSimplePersistenceUnit {
-  @Getter
-  List<Entidad> entidades = new ArrayList<>();
 
-  public void agregarEntidad(int id, String nombre, TipoEntidad tipo) {
-    Entidad entidad = new Entidad(id, nombre,tipo);
+  public void agregarEntidad(Entidad entidad) {
     EntityTransaction tx = entityManager().getTransaction();
     tx.begin();
     entityManager().persist(entidad);
     tx.commit();
-    entidades.add(entidad);
   }
 
   public void eliminar(Entidad entidad){

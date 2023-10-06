@@ -18,6 +18,7 @@ import lombok.Getter;
 @Entity
 @Table(name = "comunidad")
 public class Comunidad {
+  @Getter
   @Id
   @GeneratedValue
   private long id;

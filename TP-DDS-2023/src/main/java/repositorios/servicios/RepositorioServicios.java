@@ -9,15 +9,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class RepositorioServicios implements RepoServicios, WithSimplePersistenceUnit {
-  List<Servicio> servicios = new ArrayList<>();
 
   public void add(Servicio servicio) {
-
     EntityTransaction tx = entityManager().getTransaction();
     tx.begin();
     entityManager().persist(servicio);
     tx.commit();
-    servicios.add(servicio);
   }
 
   public void eliminar(Servicio servicio){

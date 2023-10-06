@@ -1,12 +1,15 @@
 package repositorios.organismos;
 
 import domain.organismos.EntidadPrestadora;
+import domain.organismos.OrganismoDeControl;
 import domain.servicios.Servicio;
 import domain.usuarios.Usuario;
 
 import java.util.List;
 
 public interface RepoOrganismoDeControl {
-  void agregarOrganismoDeControl(String nombre, Usuario responsable, String email, Servicio servicio, List<EntidadPrestadora> entidades);
+  public void add(OrganismoDeControl organismoDeControl);
+  public void modificar(OrganismoDeControl organismoDeControl);
+  public void eliminar(OrganismoDeControl organismoDeControl);
 
 }
