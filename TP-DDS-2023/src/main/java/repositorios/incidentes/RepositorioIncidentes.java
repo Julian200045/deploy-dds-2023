@@ -48,7 +48,7 @@ public class RepositorioIncidentes implements RepoIncidentes, WithSimplePersiste
 
 
   public List<Incidente> getByEstado(EstadoIncidente estadoIncidente) {
-    return entityManager().createQuery("from" + Incidente.class.getName() + "where estado = " + estadoIncidente.name()).getResultList();
+    return entityManager().createQuery("from" + Incidente.class.getName() + "where estado = " + estadoIncidente.toString()).getResultList();
   }
 
   public List<Incidente> getByComunidad(Comunidad comunidad){

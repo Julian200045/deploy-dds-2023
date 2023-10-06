@@ -11,10 +11,9 @@ import java.util.Arrays;
 import java.util.List;
 
 public class RepositorioNotificaciones implements RepoNotificaciones, WithSimplePersistenceUnit {
-  List<Notificacion> notificaciones = new ArrayList<>();
 
   public List<Notificacion> getAllByEstado(EstadoEnvio estadoEnvio) {
-    return notificaciones.stream().filter(notificacion -> notificacion.getEstadoEnvio().equals(estadoEnvio)).toList();
+    return entityManager().createQuery("from" + Notificacion.class.getName() + "where estadoEnvio = " + estadoEnvio.toString() ).getResultList();
   }
 
 
@@ -23,7 +22,6 @@ public class RepositorioNotificaciones implements RepoNotificaciones, WithSimple
     tx.begin();
     entityManager().persist(notificacion);
     tx.commit();
-    notificaciones.add(notificacion);
   }
 
   public void eliminar(Notificacion notificacion){
