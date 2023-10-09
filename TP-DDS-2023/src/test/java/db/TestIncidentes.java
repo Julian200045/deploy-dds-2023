@@ -30,6 +30,6 @@ public class TestIncidentes implements WithSimplePersistenceUnit {
         new Miembro(comunidad1, new Persona("Tomas", "Gomez", new Usuario("tomas","1234", LocalDateTime.now(), LocalDateTime.now())), false, TipoMiembro.AFECTADO)
         );
     RepositorioIncidentes repositorioIncidentes = new RepositorioIncidentes();
-    repositorioIncidentes.add(incidente);
+    repositorioIncidentes.guardar(incidente);
   }
 }

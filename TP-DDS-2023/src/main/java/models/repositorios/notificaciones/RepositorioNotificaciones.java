@@ -1,50 +1,69 @@
 package models.repositorios.notificaciones;
 
-import models.entities.incidentes.Incidente;
 import io.github.flbulgarelli.jpa.extras.simple.WithSimplePersistenceUnit;
+import java.util.Collections;
+import java.util.List;
+import javax.persistence.EntityTransaction;
+import javax.persistence.NoResultException;
+import javax.persistence.Query;
+import models.entities.incidentes.Incidente;
+import models.repositorios.ICrudRepository;
 import models.services.notificador.EstadoEnvio;
 import models.services.notificador.Notificacion;
 
-import javax.persistence.EntityTransaction;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+public class RepositorioNotificaciones implements ICrudRepository, WithSimplePersistenceUnit {
 
-public class RepositorioNotificaciones implements RepoNotificaciones, WithSimplePersistenceUnit {
-  List<Notificacion> notificaciones = new ArrayList<>();
-
-  public List<Notificacion> getAllByEstado(EstadoEnvio estadoEnvio) {
-    return notificaciones.stream().filter(notificacion -> notificacion.getEstadoEnvio().equals(estadoEnvio)).toList();
+  public List buscarPorEstado(EstadoEnvio estadoEnvio) {
+    if (estadoEnvio == null) {
+      throw new IllegalArgumentException("El estado del envio no puede ser nulo.");
+    }
+    String jpql = "SELECT n FROM Notificacion n WHERE n.estadoEnvio = :parametro";
+    Query query = entityManager().createQuery(jpql);
+    query.setParameter("parametro", estadoEnvio);
+    try {
+      return query.getResultList();
+    } catch (NoResultException e) {
+      return Collections.emptyList();
+    }
   }
 
-
-  public void add(Notificacion notificacion) {
+  @Override
+  public void guardar(Object... notificacion) {
     EntityTransaction tx = entityManager().getTransaction();
-    tx.begin();
-    entityManager().persist(notificacion);
+    if (!tx.isActive())
+      tx.begin();
+    for (Object o :
+        notificacion) {
+      entityManager().persist(o);
+    }
     tx.commit();
-    notificaciones.add(notificacion);
   }
 
-  public void eliminar(Notificacion notificacion){
+  @Override
+  public void eliminar(Object notificacion) {
     EntityTransaction tx = entityManager().getTransaction();
-    tx.begin();
+    if (!tx.isActive())
+      tx.begin();
     entityManager().remove(notificacion);
     tx.commit();
   }
 
-  public void modificar(Notificacion notificacion){
+  @Override
+  public void actualizar(Object notificacion) {
     EntityTransaction tx = entityManager().getTransaction();
-    tx.begin();
+    if (!tx.isActive())
+      tx.begin();
     entityManager().merge(notificacion);
     tx.commit();
   }
 
-  public List<Notificacion> getAll() {
-    return entityManager().createQuery("from" + Notificacion.class.getName()).getResultList();
+  @Override
+  public List buscarTodos() {
+    return entityManager().createQuery("from " + Incidente.class.getName()).getResultList();
   }
 
-  public Notificacion devolverPorId(int id){
-    return entityManager().find(Notificacion.class,id);
+  @Override
+  public Notificacion buscar(Long id) {
+    return entityManager().find(Notificacion.class, id);
   }
 }

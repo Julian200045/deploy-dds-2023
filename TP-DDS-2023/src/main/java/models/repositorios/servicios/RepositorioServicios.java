@@ -1,44 +1,51 @@
 package models.repositorios.servicios;
 
-import models.entities.organismos.OrganismoDeControl;
-import models.entities.servicios.Servicio;
 import io.github.flbulgarelli.jpa.extras.simple.WithSimplePersistenceUnit;
-
-import javax.persistence.EntityTransaction;
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.EntityTransaction;
+import models.entities.servicios.Servicio;
+import models.repositorios.ICrudRepository;
 
-public class RepositorioServicios implements RepoServicios, WithSimplePersistenceUnit {
+public class RepositorioServicios implements ICrudRepository, WithSimplePersistenceUnit {
   List<Servicio> servicios = new ArrayList<>();
 
-  public void add(Servicio servicio) {
-
+  public void guardar(Object... servicio) {
     EntityTransaction tx = entityManager().getTransaction();
-    tx.begin();
-    entityManager().persist(servicio);
+    if (!tx.isActive())
+      tx.begin();
+    for (Object o :
+        servicio) {
+      entityManager().persist(o);
+    }
     tx.commit();
-    servicios.add(servicio);
   }
 
-  public void eliminar(Servicio servicio){
+  @Override
+  public void eliminar(Object servicio) {
     EntityTransaction tx = entityManager().getTransaction();
-    tx.begin();
+    if (!tx.isActive())
+      tx.begin();
     entityManager().remove(servicio);
     tx.commit();
   }
 
-  public void modificar(Servicio servicio){
+  @Override
+  public void actualizar(Object servicio) {
     EntityTransaction tx = entityManager().getTransaction();
-    tx.begin();
+    if (!tx.isActive())
+      tx.begin();
     entityManager().merge(servicio);
     tx.commit();
   }
 
-  public List<Servicio> getAll() {
-    return entityManager().createQuery("from" + Servicio.class.getName()).getResultList();
+  @Override
+  public List buscarTodos() {
+    return entityManager().createQuery("from " + Servicio.class.getName()).getResultList();
   }
 
-  public Servicio devolverPorId(int id){
-    return entityManager().find(Servicio.class,id);
+  @Override
+  public Object buscar(Long id) {
+    return entityManager().find(Servicio.class, id);
   }
 }

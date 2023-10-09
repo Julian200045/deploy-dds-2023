@@ -1,63 +1,103 @@
 package models.repositorios.incidentes;
 
+import io.github.flbulgarelli.jpa.extras.simple.WithSimplePersistenceUnit;
+import java.util.Collections;
+import java.util.List;
+import javax.persistence.EntityTransaction;
+import javax.persistence.NoResultException;
+import javax.persistence.Query;
 import models.entities.comunidades.Comunidad;
 import models.entities.incidentes.EstadoIncidente;
 import models.entities.incidentes.Incidente;
 import models.entities.servicios.PrestacionDeServicio;
-import io.github.flbulgarelli.jpa.extras.simple.WithSimplePersistenceUnit;
+import models.repositorios.ICrudRepository;
 
-import javax.persistence.EntityTransaction;
-import java.util.Arrays;
-import java.util.List;
+public class RepositorioIncidentes implements ICrudRepository, WithSimplePersistenceUnit {
 
-public class RepositorioIncidentes implements RepoIncidentes, WithSimplePersistenceUnit {
-
-  //Reemplazar a futuro con BD TODO
-  List<Incidente> incidentes;
-  public void add(Incidente... incidente) {
+  @Override
+  public void guardar(Object... incidente) {
     EntityTransaction tx = entityManager().getTransaction();
-    tx.begin();
-    for (Incidente inci:
-         Arrays.asList(incidente)) {
+    if (!tx.isActive())
+      tx.begin();
+    for (Object inci :
+        incidente) {
       entityManager().persist(inci);
     }
     tx.commit();
-    incidentes.addAll(List.of(incidente));
   }
 
-  public void eliminar(Incidente incidente){
+  @Override
+  public void eliminar(Object incidente) {
     EntityTransaction tx = entityManager().getTransaction();
-    tx.begin();
+    if (!tx.isActive())
+      tx.begin();
     entityManager().remove(incidente);
     tx.commit();
   }
 
-  public void modificar(Incidente incidente){
+  @Override
+  public void actualizar(Object incidente) {
     EntityTransaction tx = entityManager().getTransaction();
-    tx.begin();
+    if (!tx.isActive())
+      tx.begin();
     entityManager().merge(incidente);
     tx.commit();
   }
 
-  public List getAll() {
+  @Override
+  public List buscarTodos() {
     return entityManager().createQuery("from " + Incidente.class.getName()).getResultList();
   }
 
-  public Incidente devolverPorId(int id){
-    return entityManager().find(Incidente.class,id);
+  @Override
+  public Object buscar(Long id) {
+    return entityManager().find(Incidente.class, id);
   }
 
 
-  public List<Incidente> getByEstado(EstadoIncidente estadoIncidente) {
-    return incidentes.stream().filter(incidente -> incidente.getEstado().equals(estadoIncidente) ).toList();
+  public List buscarPorEstado(EstadoIncidente estadoIncidente) {
+    if (estadoIncidente == null) {
+      throw new IllegalArgumentException("El estado del incidente no puede ser nulo.");
+    }
+    String jpql = "SELECT i FROM Incidente i WHERE i.estado = :parametro";
+    Query query = entityManager().createQuery(jpql);
+    query.setParameter("parametro", estadoIncidente);
+
+    try {
+        return query.getResultList();
+    } catch (NoResultException e) {
+        return Collections.emptyList();
+    }
   }
 
 
-  public List<Incidente> getByComunidad(Comunidad comunidad){
-    return incidentes.stream().filter(incidente -> incidente.getComunidad().equals(comunidad)).toList();
+  public List buscarPorComunidad(Comunidad comunidad) {
+    if (comunidad == null) {
+      throw new IllegalArgumentException("La comunidad no puede ser nula.");
+    }
+    String jpql = "SELECT i FROM Incidente i WHERE i.comunidad = :parametro";
+    Query query = entityManager().createQuery(jpql);
+    query.setParameter("parametro", comunidad);
+
+    try {
+      return query.getResultList();
+    } catch (NoResultException e) {
+      return Collections.emptyList();
+    }
   }
 
-  public List<Incidente> getByPrestacion(PrestacionDeServicio prestacionDeServicio) {
-    return incidentes.stream().filter(incidente -> incidente.getPrestacionDeServicio().equals(prestacionDeServicio)).toList();
+  public List buscarPorPrestacion(PrestacionDeServicio prestacionDeServicio) {
+    if (prestacionDeServicio == null) {
+      throw new IllegalArgumentException("La prestacion de servicio no puede ser nula.");
+    }
+    String jpql = "SELECT i FROM Incidente i WHERE i.prestacionDeServicio = :parametro";
+    Query query = entityManager().createQuery(jpql);
+    query.setParameter("parametro", prestacionDeServicio);
+
+    try {
+      return query.getResultList();
+    } catch (NoResultException e) {
+      return Collections.emptyList();
+    }
   }
 }

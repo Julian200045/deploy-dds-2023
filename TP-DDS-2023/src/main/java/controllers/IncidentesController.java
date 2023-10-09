@@ -23,7 +23,7 @@ public class IncidentesController implements ICrudViewsHandler {
     //String filtroPorNombre = context.queryParam("filtro");
     // this.repositorioDeIncidente.getAll(filtroPorNombre);
 
-    List<Incidente> incidentes = this.repositorioDeIncidentes.getAll();
+    List<Incidente> incidentes = this.repositorioDeIncidentes.buscarTodos();
 
     model.put("incidentes", incidentes);
 

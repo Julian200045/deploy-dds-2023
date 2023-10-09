@@ -1,52 +1,62 @@
 package models.repositorios.organismos;
 
+import io.github.flbulgarelli.jpa.extras.simple.WithSimplePersistenceUnit;
+import java.util.ArrayList;
+import java.util.List;
+import javax.persistence.EntityTransaction;
+import lombok.Getter;
+import models.entities.incidentes.Incidente;
 import models.entities.organismos.EntidadPrestadora;
 import models.entities.organismos.OrganismoDeControl;
 import models.entities.servicios.Servicio;
 import models.entities.usuarios.Usuario;
-import java.util.ArrayList;
-import java.util.List;
+import models.repositorios.ICrudRepository;
 
-import io.github.flbulgarelli.jpa.extras.simple.WithSimplePersistenceUnit;
-import lombok.Getter;
-import models.services.notificador.Notificacion;
-
-import javax.persistence.EntityTransaction;
-
-public class RepositorioOrganismoDeControl implements RepoOrganismoDeControl, WithSimplePersistenceUnit {
+public class RepositorioOrganismoDeControl implements ICrudRepository, WithSimplePersistenceUnit {
   @Getter
   List<OrganismoDeControl> organismosDeControl = new ArrayList<>();
+
   public void agregarOrganismoDeControl(String nombre, Usuario responsable, String email, Servicio servicio, List<EntidadPrestadora> entidades) {
     organismosDeControl.add(new OrganismoDeControl(nombre, responsable, email, entidades, servicio));
   }
 
-  public void add(OrganismoDeControl organismoDeControl) {
+  @Override
+  public void guardar(Object... organismoDeControl) {
     EntityTransaction tx = entityManager().getTransaction();
-    tx.begin();
-    entityManager().persist(organismoDeControl);
+    if (!tx.isActive())
+      tx.begin();
+    for (Object o :
+        organismoDeControl) {
+      entityManager().persist(o);
+    }
     tx.commit();
-    organismosDeControl.add(organismoDeControl);
   }
 
-  public void eliminar(OrganismoDeControl organismoDeControl){
+  @Override
+  public void eliminar(Object organismoDeControl) {
     EntityTransaction tx = entityManager().getTransaction();
-    tx.begin();
+    if (!tx.isActive())
+      tx.begin();
     entityManager().remove(organismoDeControl);
     tx.commit();
   }
 
-  public void modificar(OrganismoDeControl organismoDeControl){
+  @Override
+  public void actualizar(Object organismoDeControl) {
     EntityTransaction tx = entityManager().getTransaction();
-    tx.begin();
+    if (!tx.isActive())
+      tx.begin();
     entityManager().merge(organismoDeControl);
     tx.commit();
   }
 
-  public List<OrganismoDeControl> getAll() {
-    return entityManager().createQuery("from" + OrganismoDeControl.class.getName()).getResultList();
+  @Override
+  public List buscarTodos() {
+    return entityManager().createQuery("from " + Incidente.class.getName()).getResultList();
   }
 
-  public OrganismoDeControl devolverPorId(int id){
-    return entityManager().find(OrganismoDeControl.class,id);
+  @Override
+  public Object buscar(Long id) {
+    return entityManager().find(OrganismoDeControl.class, id);
   }
 }

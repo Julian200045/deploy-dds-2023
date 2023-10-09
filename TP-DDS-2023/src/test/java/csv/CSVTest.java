@@ -35,7 +35,7 @@ public class CSVTest {
 	RepoEntidades repoEntidades = new RepositorioEntidades();
 	RepoUsuarios repoUsuarios = new RepositorioUsuarios();
 	RepoServicios repoServicios = new RepositorioServicios();
-	RepoEntidadesPrestadoras repoEntidadesPrestadoras = new RepositorioEntidadesPrestadoras();
+	RepositorioEntidadesPrestadoras repoEntidadesPrestadoras = new RepositorioEntidadesPrestadoras();
 
 	@Test
 	public void lectorLeeAlIniciar() throws java.io.IOException, com.opencsv.exceptions.CsvValidationException{
@@ -99,9 +99,4 @@ public class CSVTest {
 		assertEquals("afip", repositorioOrganismoDeControl.getOrganismosDeControl().get(0).getNombre());
 		assertEquals("messi", repositorioOrganismoDeControl.getOrganismosDeControl().get(0).getUsuario().getNombre());
 	}
-
-
-
-
-
 }

@@ -1,32 +1,50 @@
 package models.repositorios.entidades.entidadesprestadoras;
 
-import models.entities.entidades.Entidad;
-import models.entities.organismos.EntidadPrestadora;
-import models.entities.usuarios.Usuario;
-import java.util.ArrayList;
+import io.github.flbulgarelli.jpa.extras.simple.WithSimplePersistenceUnit;
 import java.util.List;
-import lombok.Getter;
+import javax.persistence.EntityTransaction;
+import models.entities.incidentes.Incidente;
+import models.repositorios.ICrudRepository;
 
-public class RepositorioEntidadesPrestadoras implements RepoEntidadesPrestadoras {
-  @Getter
-  List<EntidadPrestadora> entidadesPrestadoras = new ArrayList<>();
-
-  public void agregarEntidadPrestadora(int id, String nombre, Usuario responsable, String email, List<Entidad> entidades) {
-    entidadesPrestadoras.add(new EntidadPrestadora(id, nombre, responsable, email, entidades));
+public class RepositorioEntidadesPrestadoras implements ICrudRepository, WithSimplePersistenceUnit {
+  @Override
+  public Object buscar(Long id) {
+    return entityManager().find(Incidente.class, id);
   }
 
-  public EntidadPrestadora devolverPorId(int id) {
-    EntidadPrestadora entidad;
-
-    entidad = entidadesPrestadoras.stream().filter(entidad1 -> entidad1.getId() == id).toList().get(0);
-    return entidad;
+  @Override
+  public List buscarTodos() {
+    return entityManager().createQuery("from " + Incidente.class.getName()).getResultList();
   }
 
-  public List<EntidadPrestadora> devolverPorIds(List<Integer> ids) {
-    List<EntidadPrestadora> listaEntidades = new ArrayList<>();
-    for (int i = 0; i < ids.size(); i++) {
-      listaEntidades.add(devolverPorId(ids.get(i)));
+  @Override
+  public void guardar(Object... o) {
+    EntityTransaction tx = entityManager().getTransaction();
+    if (!tx.isActive())
+      tx.begin();
+    for (Object entidadPrestadora :
+        o) {
+      entityManager().persist(entidadPrestadora);
     }
-    return listaEntidades;
+    tx.commit();
   }
+
+  @Override
+  public void actualizar(Object entidadPrestadora) {
+    EntityTransaction tx = entityManager().getTransaction();
+    if (!tx.isActive())
+      tx.begin();
+    entityManager().merge(entidadPrestadora);
+    tx.commit();
+  }
+
+  @Override
+  public void eliminar(Object entidadPrestadora) {
+    EntityTransaction tx = entityManager().getTransaction();
+    if (!tx.isActive())
+      tx.begin();
+    entityManager().remove(entidadPrestadora);
+    tx.commit();
+  }
+
 }

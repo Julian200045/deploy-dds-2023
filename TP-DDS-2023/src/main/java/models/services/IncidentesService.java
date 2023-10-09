@@ -1,16 +1,5 @@
 package models.services;
 
-import models.entities.comunidades.Comunidad;
-import models.entities.comunidades.Persona;
-import models.entities.incidentes.CreadorDeIncidentes;
-import models.entities.incidentes.Incidente;
-import models.entities.servicios.PrestacionDeServicio;
-import org.quartz.SchedulerException;
-import models.repositorios.incidentes.RepoIncidentes;
-import models.services.notificador.GeneradorNotificaciones;
-
-import java.util.*;
-
 public class IncidentesService {
 /*
   private RepoIncidentes repoIncidentes;
