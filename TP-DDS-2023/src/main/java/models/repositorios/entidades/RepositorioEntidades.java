@@ -1,12 +1,9 @@
 package models.repositorios.entidades;
 
 import io.github.flbulgarelli.jpa.extras.simple.WithSimplePersistenceUnit;
-import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityTransaction;
-import lombok.Getter;
 import models.entities.entidades.Entidad;
-import models.entities.entidades.TipoEntidad;
 import models.entities.incidentes.Incidente;
 import models.repositorios.ICrudRepository;
 

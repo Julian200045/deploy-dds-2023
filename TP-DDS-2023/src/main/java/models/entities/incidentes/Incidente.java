@@ -51,14 +51,17 @@ public class Incidente {
   @Enumerated(EnumType.STRING)
   private EstadoIncidente estado;
 
+  public Incidente(){
+
+  }
   public Incidente(PrestacionDeServicio prestacionDeServicio, Comunidad comunidad, String observaciones, Miembro miembroApertura) {
     this.prestacionDeServicio = prestacionDeServicio;
     this.comunidad = comunidad;
     this.observaciones = observaciones;
     this.miembroApertura = miembroApertura;
 
-    fechaYHoraDeApertura = LocalDateTime.now();
-    estado = EstadoIncidente.ABIERTO;
+    this.fechaYHoraDeApertura = LocalDateTime.now();
+    this.estado = EstadoIncidente.ABIERTO;
   }
 
   public void cerrar(Miembro miembro){
@@ -74,9 +77,5 @@ public class Incidente {
 
   public long tiempoDeCierre(){
     return ChronoUnit.HOURS.between(fechaYHoraDeApertura,LocalDateTime.now());
-  }
-
-  public Incidente(){
-
   }
 }

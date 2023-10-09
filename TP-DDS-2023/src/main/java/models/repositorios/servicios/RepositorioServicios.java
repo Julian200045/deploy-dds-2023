@@ -8,8 +8,6 @@ import models.entities.servicios.Servicio;
 import models.repositorios.ICrudRepository;
 
 public class RepositorioServicios implements ICrudRepository, WithSimplePersistenceUnit {
-  List<Servicio> servicios = new ArrayList<>();
-
   public void guardar(Object... servicio) {
     EntityTransaction tx = entityManager().getTransaction();
     if (!tx.isActive())

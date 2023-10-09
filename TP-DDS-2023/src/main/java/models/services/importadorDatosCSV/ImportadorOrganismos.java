@@ -1,7 +1,7 @@
 package models.services.importadorDatosCSV;
 
 import models.entities.organismos.EntidadPrestadora;
-import models.repositorios.entidades.entidadesprestadoras.RepoEntidadesPrestadoras;
+import models.repositorios.entidadesprestadoras.RepoEntidadesPrestadoras;
 import models.repositorios.organismos.RepoOrganismoDeControl;
 import models.repositorios.servicios.RepoServicios;
 import models.repositorios.usuarios.RepoUsuarios;

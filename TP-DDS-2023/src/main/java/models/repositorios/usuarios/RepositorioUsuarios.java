@@ -9,13 +9,6 @@ import models.entities.usuarios.Usuario;
 import models.repositorios.ICrudRepository;
 
 public class RepositorioUsuarios implements ICrudRepository, WithSimplePersistenceUnit {
-  @Getter
-  List<Usuario> usuarios = new ArrayList<>();
-
-  public void nuevoUsuario(int id, String nombre, String contrasenia) throws java.io.IOException {
-    //Usuario usuario = new Usuario(id, nombre, contrasenia);
-    //usuarios.add(usuario);
-  }
 
   @Override
   public void guardar(Object... usuario) {

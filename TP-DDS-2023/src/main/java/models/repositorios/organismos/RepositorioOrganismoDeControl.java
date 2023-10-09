@@ -13,12 +13,6 @@ import models.entities.usuarios.Usuario;
 import models.repositorios.ICrudRepository;
 
 public class RepositorioOrganismoDeControl implements ICrudRepository, WithSimplePersistenceUnit {
-  @Getter
-  List<OrganismoDeControl> organismosDeControl = new ArrayList<>();
-
-  public void agregarOrganismoDeControl(String nombre, Usuario responsable, String email, Servicio servicio, List<EntidadPrestadora> entidades) {
-    organismosDeControl.add(new OrganismoDeControl(nombre, responsable, email, entidades, servicio));
-  }
 
   @Override
   public void guardar(Object... organismoDeControl) {

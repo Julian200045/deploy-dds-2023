@@ -1,4 +1,4 @@
-package models.repositorios.entidades.entidadesprestadoras;
+package models.repositorios.entidadesprestadoras;
 
 import io.github.flbulgarelli.jpa.extras.simple.WithSimplePersistenceUnit;
 import java.util.List;

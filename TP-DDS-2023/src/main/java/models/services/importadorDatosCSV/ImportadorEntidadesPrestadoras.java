@@ -2,7 +2,7 @@ package models.services.importadorDatosCSV;
 
 import models.entities.entidades.Entidad;
 import models.repositorios.entidades.RepoEntidades;
-import models.repositorios.entidades.entidadesprestadoras.RepoEntidadesPrestadoras;
+import models.repositorios.entidadesprestadoras.RepoEntidadesPrestadoras;
 import models.repositorios.usuarios.RepoUsuarios;
 import models.entities.usuarios.Usuario;
 import java.util.ArrayList;

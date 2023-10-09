@@ -54,7 +54,6 @@ public class RepositorioIncidentes implements ICrudRepository, WithSimplePersist
     return entityManager().find(Incidente.class, id);
   }
 
-
   public List buscarPorEstado(EstadoIncidente estadoIncidente) {
     if (estadoIncidente == null) {
       throw new IllegalArgumentException("El estado del incidente no puede ser nulo.");
@@ -69,7 +68,6 @@ public class RepositorioIncidentes implements ICrudRepository, WithSimplePersist
         return Collections.emptyList();
     }
   }
-
 
   public List buscarPorComunidad(Comunidad comunidad) {
     if (comunidad == null) {

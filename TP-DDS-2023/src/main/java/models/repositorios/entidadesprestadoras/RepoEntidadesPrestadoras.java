@@ -1,4 +1,4 @@
-package models.repositorios.entidades.entidadesprestadoras;
+package models.repositorios.entidadesprestadoras;
 
 import models.entities.entidades.Entidad;
 import models.entities.organismos.EntidadPrestadora;
