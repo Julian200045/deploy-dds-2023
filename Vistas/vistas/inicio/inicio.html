@@ -14,7 +14,7 @@
         <h1 class="title">Inicio</h1>
     </div>
     <div class="container">
-        <div class="table-title">Incidentes</div>
+        <h1>Incidentes</h1>
         <div class="searcher-container">
             <div class="searcher">
                 <div class="form-group">
@@ -26,17 +26,17 @@
             </div>
             <div class="searcher">
                 <div class="form-group ">
-                    <label for="establecimiento searcher-label">Establecimiento:</label>
-                    <input type="text" id="establecimiento" placeholder="">
-                    <ul class="establecimientos-list" id="suggestions">
+                    <label for="servicio searcher-label">Servicio:</label>
+                    <input type="text" id="servicio" placeholder="">
+                    <ul class="servicios-list" id="suggestions">
                     </ul>
                 </div>
             </div>
             <div class="searcher">
                 <div class="form-group">
-                    <label for="establecimiento searcher-label">Establecimiento:</label>
-                    <input type="text" id="establecimiento" placeholder="">
-                    <ul class="establecimientos-list" id="suggestions">
+                    <label for="comunidad searcher-label">Comunidad:</label>
+                    <input type="text" id="comunidad" placeholder="">
+                    <ul class="comunidads-list" id="suggestions">
                     </ul>
                 </div>
             </div>
@@ -44,7 +44,9 @@
                 <label for="abiertos"> Abiertos</label>
                 <input type="checkbox" id="abiertos" name="abiertos" value="Bike">
             </div>
-        </div>
+            <div class="search-button-container">
+                <button id="boton-buscar">Buscar</button>
+            </div>
         </div>
         <div class="table-container">
             <div class="table">
@@ -58,18 +60,18 @@
                 <div class="table-row">Servicio 1</div>
                 <div class="table-row">Comunidad 1</div>
                 <div class="table-row">Observaciones 1</div>
-                <div class="table-row img-container"><img src="../../resources/tick.png" alt=""></div>
+                <div class="table-row img-container"><img class="tick" src="../../resources/tick.png" alt=""></div>
         
                 <div class="table-row">Establecimiento 2</div>
                 <div class="table-row">Servicio 2</div>
                 <div class="table-row">Comunidad 2</div>
                 <div class="table-row">Observaciones 2</div>
-                <div class="table-row img-container"><img src="../../resources/tick.png" alt=""></div>
+                <div class="table-row img-container"><img class="tick" src="../../resources/tick.png" alt=""></div>
             </div>
         </div>
     
         <div class="button-container">
-            <button id="boton-resuelto">Dar de alta un incidente</button>
+            <button id="boton-navigate-alta-incidente">Dar de alta un incidente</button>
         </div>
     </div>
 <body>

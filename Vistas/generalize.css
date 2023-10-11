@@ -23,6 +23,10 @@ body {
     display: flex;
 }
 
+h1{
+    color: #DAE4F2;
+}
+
 label {
     font-weight: bold;
     display: block;
@@ -52,7 +56,10 @@ button {
     border-radius: 5px;
     cursor: pointer;
     width: 150px;
-    margin-top: 15px;
+}
+
+button:hover {
+    background-color: #5ae0d7;
 }
 
 .logo {
