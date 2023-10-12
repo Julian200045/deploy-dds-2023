@@ -1,23 +1,38 @@
-.button {
-    display: block;
-    padding: 30px 5px;
-    margin: 10px 0;
-    border: none;
-    /*border-radius: 20px;*/
-
-
-}
-
- .button-container {
-    text-align: center;
-
-}
-
 .container {
     margin: auto;
-    width: auto;
     height: calc(100% - 140px);;
     display: flex;
     align-items: center;
     justify-content: center;
+
+}
+
+.form-group {
+    margin-bottom: 20px;
+    width: 100%;
+}
+
+label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 5px;
+
+}
+
+.entidad-form {
+    color: #DAE4F2;
+    width: 100%;
+    max-width: 400px;
+    margin-top: 20px;
+}
+
+.entidad-form select {
+    padding: 10px;
+    width: 422px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.entidad-form button{
+    padding: 10px 10px;
 }
