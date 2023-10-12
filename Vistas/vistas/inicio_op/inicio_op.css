@@ -1,0 +1,23 @@
+.button {
+    display: block;
+    padding: 30px 5px;
+    margin: 10px 0;
+    border: none;
+    /*border-radius: 20px;*/
+
+
+}
+
+ .button-container {
+    text-align: center;
+
+}
+
+.container {
+    margin: auto;
+    width: auto;
+    height: calc(100% - 140px);;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
