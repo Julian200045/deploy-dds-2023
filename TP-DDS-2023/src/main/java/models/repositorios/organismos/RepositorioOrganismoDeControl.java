@@ -1,15 +1,10 @@
 package models.repositorios.organismos;
 
 import io.github.flbulgarelli.jpa.extras.simple.WithSimplePersistenceUnit;
-import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityTransaction;
-import lombok.Getter;
 import models.entities.incidentes.Incidente;
-import models.entities.organismos.EntidadPrestadora;
 import models.entities.organismos.OrganismoDeControl;
-import models.entities.servicios.Servicio;
-import models.entities.usuarios.Usuario;
 import models.repositorios.ICrudRepository;
 
 public class RepositorioOrganismoDeControl implements ICrudRepository, WithSimplePersistenceUnit {

@@ -11,6 +11,7 @@ import javax.persistence.*;
 
 import lombok.Getter;
 import lombok.Setter;
+import models.services.notificador.formas.EnElMomento;
 import models.services.notificador.formas.FormasNotificar;
 import models.services.notificador.MedioDeContacto;
 import models.services.notificador.Notificacion;
@@ -26,7 +27,7 @@ public class Usuario {
   private String nombre;
   @Column(name = "contrasenia")
   private String contrasenia;
-  @ManyToOne
+  @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "rol_id", referencedColumnName = "id")
   private Rol rol;
   @Getter
@@ -57,6 +58,7 @@ public class Usuario {
     this.contrasenia = contrasenia;
     this.nombre = nombre;
     this.medioDeContacto = null;
+    this.forma = new EnElMomento();
 
     this.inicioHorarioDisponible = inicioHorarioDisponible;
     this.finHorarioDisponible = finHorarioDisponible;

@@ -13,7 +13,7 @@ public class Rol {
   public long id;
   @Column(name = "nombre")
   public String nombre;
-  @OneToMany
+  @OneToMany(fetch = FetchType.LAZY)
   @JoinColumn(name = "rol_id", referencedColumnName = "id")
   public List<Permiso> permisos;
 

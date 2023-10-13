@@ -1,16 +1,15 @@
 package models.entities.entidades;
 
-import models.entities.establecimientos.TipoEstablecimiento;
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 import lombok.Getter;
+import models.entities.establecimientos.TipoEstablecimiento;
 
-import java.util.List;
 @Entity
 @Table(name = "tipo_entidad")
 public class TipoEntidad {
@@ -31,7 +30,7 @@ public class TipoEntidad {
     this.tiposDeEstablecimientosPermitidos = tiposDeEstablecimientosPermitidos;
   }
 
-  public TipoEntidad(){
+  public TipoEntidad() {
 
   }
 }

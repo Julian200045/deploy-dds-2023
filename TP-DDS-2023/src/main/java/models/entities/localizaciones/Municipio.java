@@ -3,6 +3,7 @@ package models.entities.localizaciones;
 import models.entities.ubicaciones.Ubicacion;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -21,15 +22,15 @@ public class Municipio{
   public long id;
   @Column(name = "nombre")
   public String nombre;
-  @ManyToOne
+  @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "ubicacion_id", referencedColumnName = "id")
   public Ubicacion ubicacion;
   @Getter
-  @ManyToOne
+  @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "provincia_id", referencedColumnName = "id")
   private Provincia provincia;
   @Getter
-  @OneToMany(mappedBy = "municipio")
+  @OneToMany(mappedBy = "municipio", fetch = FetchType.LAZY)
   private List<Localidad> localidades;
 
   public Municipio(int id, String nombre, Ubicacion ubicacion) {

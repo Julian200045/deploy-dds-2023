@@ -4,6 +4,7 @@ import models.entities.ubicaciones.Ubicacion;
 import javax.persistence.Column;
 import javax.persistence.Convert;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -18,11 +19,11 @@ public class Localidad {
   public Long id;
   @Column(name = "nombre")
   public String nombre;
-  @ManyToOne
+  @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "ubicacion_id", referencedColumnName = "id")
   public Ubicacion ubicacion;
   @Getter
-  @ManyToOne
+  @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "municipio_id", referencedColumnName = "id")
   private Municipio municipio;
 

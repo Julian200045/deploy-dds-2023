@@ -1,10 +1,12 @@
 package models.entities.comunidades;
 
+import javax.persistence.CascadeType;
 import models.entities.localizaciones.Localidad;
 import models.entities.roles.RolDelMiembro;
 import models.entities.usuarios.Usuario;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -18,6 +20,7 @@ import lombok.Getter;
 
 import java.util.ArrayList;
 import java.util.List;
+import lombok.Setter;
 
 @Entity
 @Table(name = "persona")
@@ -29,17 +32,17 @@ public class Persona {
   private String nombre;
   @Column(name = "apellido")
   private String apellido;
+
+  @Setter
   @Getter
-  @OneToOne
+  @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE}, fetch = FetchType.LAZY)
   private Usuario usuario;
 
-  @OneToMany(mappedBy = "persona")
+  @OneToMany(mappedBy = "persona", cascade = {CascadeType.MERGE, CascadeType.REMOVE}, fetch = FetchType.LAZY)
   private List<Miembro> membresias;
-  //@Transient
-  //RolDelMiembro rolDelMiembro;
 
   @Getter
-  @ManyToOne
+  @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "localidad_id" , referencedColumnName = "id")
   private Localidad localidadDeInteres;
 

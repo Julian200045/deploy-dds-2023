@@ -4,6 +4,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -23,18 +24,19 @@ public class Miembro {
 	@GeneratedValue
 	private long id;
 
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "comunidad_id", referencedColumnName = "id")
 	private Comunidad comunidad;
 
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "persona_id", referencedColumnName = "id")
 	private Persona persona;
 
-	@Column
+	@Column(name = "es_admin")
 	private boolean esAdmin;
 
 	@Enumerated(EnumType.STRING)
+	@Column(name = "tipo_miembro")
 	private TipoMiembro tipoMiembro;
 
 	public Miembro(Comunidad comunidad, Persona persona, boolean esAdmin, TipoMiembro tipoMiembro) {

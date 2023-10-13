@@ -4,6 +4,7 @@ import models.entities.comunidades.Miembro;
 import models.entities.comunidades.Persona;
 import models.entities.entidades.Entidad;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -17,13 +18,13 @@ public class Interes {
   @Id
   @GeneratedValue
   private long id;
-  @ManyToOne
+  @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "servicio_id", referencedColumnName = "id")
   private Servicio servicio;
-  @ManyToOne
+  @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "entidad_id", referencedColumnName = "id")
   private Entidad entidad;
-  @ManyToOne
+  @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "miembro_id", referencedColumnName = "id")
   private Miembro miembro;
 

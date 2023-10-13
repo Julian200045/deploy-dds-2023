@@ -28,7 +28,7 @@ public class LectorCSV implements CSVService {
     csvReader.close();
   } */
 
-  public LectorCSV(String pathPropiedades, String tipoCSV)throws java.io.FileNotFoundException, java.io.IOException, com.opencsv.exceptions.CsvValidationException{
+  public LectorCSV(String pathPropiedades, String tipoCSV) throws java.io.FileNotFoundException, java.io.IOException, com.opencsv.exceptions.CsvValidationException {
     LectorPropiedades lectorPropiedades = new LectorPropiedades(pathPropiedades);
     direccionCSV = lectorPropiedades.getPropiedad(tipoCSV);
 

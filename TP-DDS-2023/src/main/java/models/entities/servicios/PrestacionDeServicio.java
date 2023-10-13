@@ -3,6 +3,7 @@ package models.entities.servicios;
 import models.entities.establecimientos.Establecimiento;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -13,14 +14,15 @@ import lombok.Getter;
 @Entity
 @Table(name = "prestacion_Servicio")
 public class PrestacionDeServicio {
+  @Getter
   @Id
   @GeneratedValue
   private long id;
-  @ManyToOne
+  @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "servicio_id", referencedColumnName = "id")
   public Servicio servicio;
   @Getter
-  @ManyToOne
+  @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "establecimiento_id", referencedColumnName = "id")
   public Establecimiento establecimiento;
 
