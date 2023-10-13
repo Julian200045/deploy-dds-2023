@@ -3,6 +3,7 @@ package domain.servicios;
 import domain.establecimientos.Establecimiento;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -16,11 +17,11 @@ public class PrestacionDeServicio {
   @Id
   @GeneratedValue
   private long id;
-  @ManyToOne
+  @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "servicio_id", referencedColumnName = "id")
   public Servicio servicio;
   @Getter
-  @ManyToOne
+  @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "establecimiento_id", referencedColumnName = "id")
   public Establecimiento establecimiento;
 

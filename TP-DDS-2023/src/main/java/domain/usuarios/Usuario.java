@@ -26,7 +26,7 @@ public class Usuario {
   private String nombre;
   @Column(name = "contrasenia")
   private String contrasenia;
-  @ManyToOne
+  @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "rol_id", referencedColumnName = "id")
   private Rol rol;
   @Getter

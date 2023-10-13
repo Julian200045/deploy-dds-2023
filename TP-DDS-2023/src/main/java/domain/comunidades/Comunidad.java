@@ -3,8 +3,10 @@ package domain.comunidades;
 import domain.servicios.PrestacionDeServicio;
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -22,12 +24,10 @@ public class Comunidad {
   @Getter
   @Column(name = "nombre")
   private String nombre;
-  @OneToMany(mappedBy = "comunidad")
+  @OneToMany(mappedBy = "comunidad", cascade = {CascadeType.REMOVE}, fetch = FetchType.LAZY)
   private List<Miembro> miembros = new ArrayList<>();
-  @ManyToMany
+  @ManyToMany(fetch = FetchType.LAZY)
   private List<PrestacionDeServicio> prestacionDeServicios = new ArrayList<>();
-
-
 
   public Comunidad(String nombre) {
     this.nombre = nombre;
@@ -47,6 +47,7 @@ public class Comunidad {
 
   public void agregarMiembro(Miembro miembro){
     miembros.add(miembro);
+    miembro.setComunidad(this);
   }
   public List<Miembro> getMiembros(){
     return new ArrayList<>(miembros);

@@ -5,8 +5,10 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import domain.localizaciones.Localidad;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -25,9 +27,9 @@ public class Entidad {
   @Getter
   @Column(name = "nombre")
   public String nombre;
-  @OneToMany(mappedBy = "entidad")
+  @OneToMany(mappedBy = "entidad", cascade = {CascadeType.MERGE, CascadeType.REMOVE}, fetch = FetchType.LAZY)
   private List<Establecimiento> establecimientos;
-  @ManyToOne
+  @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "tipo_id", referencedColumnName = "id")
   public TipoEntidad tipo;
 
@@ -44,6 +46,7 @@ public class Entidad {
   public void agregarEstablecimiento(Establecimiento establecimiento){
     if(tipo.getTiposDeEstablecimientosPermitidos().contains(establecimiento.tipo)){
       establecimientos.add(establecimiento);
+      establecimiento.setEntidad(this);
     }
   }
 
