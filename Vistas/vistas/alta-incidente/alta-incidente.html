@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="../../normalize.css">
+    <link rel="stylesheet" href="../../generalize.css">
+    <link rel="stylesheet" href="./alta-incidente.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alta de incidente</title>
+</head>
+<body>
+    <div class="header">
+        <div class="logo"><img  src="../../resources/logo.png"></div>
+        <h1 class="title">Alta de Incidente</h1>
+    </div>
+    <main class="container">
+        <form class="incident-form">
+            <div class="form-group">
+                <label for="establecimiento">Establecimiento:</label>
+                <input type="text" id="establecimiento" placeholder="Escribe el nombre del establecimiento">
+                <ul class="establecimientos-list" id="suggestions">
+                </ul>
+            </div>
+            <div class="form-group">
+                <label for="servicio">Servicio:</label>
+                <select id="servicio" disabled>
+                    <option value="" selected>Selecciona un establecimiento primero</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="observaciones">Observaciones:</label>
+                <textarea id="observaciones" rows="4" placeholder="Escribe tus observaciones"></textarea>
+            </div>
+            <button type="submit">Dar de Alta</button>
+        </form>
+    </main>
+    <div class="footer">
+        &copy; 2023 - Grupo 10
+    </div>
+
+    <script>
+        const inputEstablecimiento = document.getElementById('establecimiento');
+        const suggestionsList = document.getElementById('suggestions');
+
+        const selectServicio = document.getElementById('servicio')
+
+        // todo esto se sacaria de la base de datos
+        const establecimientos = [
+            'hola',
+            'buenas',
+            'UTN - Haedo',
+            'UTN - BA',
+        ];
+        const serviciosPorEstablecimiento = {
+            'hola': ['Servicio A1', 'Servicio A2', 'Servicio A3'],
+            'buenas': ['Servicio B1', 'Servicio B2'],
+            'UTN - Haedo': ['Servicio C1', 'Servicio C2', 'Servicio C3', 'Servicio C4'],
+            'UTN - BA': ['Servicio D1'],
+        };
+
+        function showSuggestions(input) {
+            const inputValue = input.value.toLowerCase();
+
+            if (inputValue === '') {
+                suggestionsList.innerHTML = '';
+                return;
+            }
+
+            const filteredEstablecimientos = establecimientos.filter(establecimiento =>
+                establecimiento.toLowerCase().startsWith(inputValue)
+            );
+
+            suggestionsList.innerHTML = '';
+
+            filteredEstablecimientos.forEach(establecimiento => {
+                const suggestionItem = document.createElement('li');
+                suggestionItem.textContent = establecimiento;
+                suggestionsList.appendChild(suggestionItem);
+
+                suggestionItem.addEventListener('click', () => {
+                    inputEstablecimiento.value = establecimiento;
+                    suggestionsList.innerHTML = '';
+                    selectServicio.disabled = false;
+
+                    cargarOpcionesDeServicios(establecimiento);
+                });
+            });
+        }
+
+        function cargarOpcionesDeServicios(establecimientoSeleccionado) {
+            const servicios = serviciosPorEstablecimiento[establecimientoSeleccionado] || [];
+            selectServicio.innerHTML = '';
+
+            servicios.forEach(servicio => {
+                const option = document.createElement('option');
+                option.value = servicio;
+                option.textContent = servicio;
+                selectServicio.appendChild(option);
+            });
+        }
+
+        inputEstablecimiento.addEventListener('input', () => {
+            showSuggestions(inputEstablecimiento);
+            console.log("hola");
+            if(inputEstablecimiento.value === '') {
+                selectServicio.innerHTML = '<option value="" selected>Selecciona un establecimiento primero</option>';
+                selectServicio.disabled = true;
+                console.log("soy re gay");
+            }
+            console.log("me la re como");
+        });
+    </script>
+</body>
+</html>
