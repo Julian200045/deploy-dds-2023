@@ -42,4 +42,11 @@ public class Miembro {
 	public Miembro(){
 
 	}
+
+	public Miembro(long id, Comunidad comunidad, Persona persona, TipoMiembro tipoMiembro) {
+		this.id = id;
+		this.comunidad = comunidad;
+		this.persona = persona;
+		this.tipoMiembro = tipoMiembro;
+	}
 }

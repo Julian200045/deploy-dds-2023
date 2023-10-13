@@ -25,6 +25,7 @@ import lombok.Setter;
 @Entity
 @Table(name = "persona")
 public class Persona {
+  @Getter
   @Id
   @GeneratedValue
   private long id;
@@ -46,6 +47,9 @@ public class Persona {
   @JoinColumn(name = "localidad_id" , referencedColumnName = "id")
   private Localidad localidadDeInteres;
 
+  @Getter
+  @Setter
+  private Double gradoConfianza;
 
   public Persona(String nombre, String apellido, Usuario usuario) {
     this.nombre = nombre;
@@ -69,6 +73,14 @@ public class Persona {
 
   public Persona(){
 
+  }
+
+  // Para testear
+  public Persona(long id, String nombre, String apellido) {
+    this.id = id;
+    this.nombre = nombre;
+    this.apellido = apellido;
+    this.gradoConfianza = 5D;
   }
 
   //Municipio getMunicipioDeInteres(){

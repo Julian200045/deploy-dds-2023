@@ -14,6 +14,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import lombok.Getter;
+import lombok.Setter;
 
 @Entity
 @Table(name = "comunidad")
@@ -29,6 +30,10 @@ public class Comunidad {
   private List<Miembro> miembros = new ArrayList<>();
   @ManyToMany(fetch = FetchType.LAZY)
   private List<PrestacionDeServicio> prestacionDeServicios = new ArrayList<>();
+
+  @Getter
+  @Setter
+  private Double gradoConfianza = 0D;
 
   public Comunidad(String nombre) {
     this.nombre = nombre;

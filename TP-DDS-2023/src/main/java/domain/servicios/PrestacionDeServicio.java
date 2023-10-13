@@ -18,6 +18,8 @@ public class PrestacionDeServicio {
   @Id
   @GeneratedValue
   private long id;
+
+  @Getter
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "servicio_id", referencedColumnName = "id")
   public Servicio servicio;
