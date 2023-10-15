@@ -1,4 +1,4 @@
-package services.calculadorConfianza.moldes;
+package models.services.calculadorConfianza.moldes;
 
 import java.util.List;
 

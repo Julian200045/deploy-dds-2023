@@ -1,6 +1,8 @@
 package models.entities.servicios;
 
 import models.entities.establecimientos.Establecimiento;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -20,11 +22,11 @@ public class PrestacionDeServicio {
   private long id;
 
   @Getter
-  @ManyToOne(fetch = FetchType.LAZY)
+  @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST})
   @JoinColumn(name = "servicio_id", referencedColumnName = "id")
   public Servicio servicio;
   @Getter
-  @ManyToOne(fetch = FetchType.LAZY)
+  @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST})
   @JoinColumn(name = "establecimiento_id", referencedColumnName = "id")
   public Establecimiento establecimiento;
 

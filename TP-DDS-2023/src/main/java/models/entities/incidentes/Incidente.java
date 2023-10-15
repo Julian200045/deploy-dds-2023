@@ -5,6 +5,7 @@ import models.entities.comunidades.Miembro;
 import models.entities.servicios.PrestacionDeServicio;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -35,11 +36,11 @@ public class Incidente {
   @Column(name = "nombre")
   private String observaciones;
   @Getter
-  @ManyToOne
+  @ManyToOne(cascade = {CascadeType.MERGE})
   @JoinColumn(name = "miembro_apertura_id", referencedColumnName = "id")
   private Miembro miembroApertura;
   @Getter
-  @ManyToOne
+  @ManyToOne(cascade = {CascadeType.MERGE})
   @JoinColumn(name = "miembro_cierre_id", referencedColumnName = "id")
   private Miembro miembroCierre;
   @Getter

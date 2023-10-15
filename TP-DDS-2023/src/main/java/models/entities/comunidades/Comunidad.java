@@ -26,9 +26,9 @@ public class Comunidad {
   @Getter
   @Column(name = "nombre")
   private String nombre;
-  @OneToMany(mappedBy = "comunidad", cascade = {CascadeType.REMOVE}, fetch = FetchType.LAZY)
+  @OneToMany(mappedBy = "comunidad", cascade = {CascadeType.REMOVE, CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY)
   private List<Miembro> miembros = new ArrayList<>();
-  @ManyToMany(fetch = FetchType.LAZY)
+  @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST})
   private List<PrestacionDeServicio> prestacionDeServicios = new ArrayList<>();
 
   @Getter

@@ -1,4 +1,4 @@
-package services.calculadorConfianza.requests;
+package models.services.calculadorConfianza.requests;
 
 public class UsuarioMolde {
   Long id;

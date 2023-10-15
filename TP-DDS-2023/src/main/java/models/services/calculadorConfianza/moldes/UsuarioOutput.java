@@ -1,4 +1,4 @@
-package services.calculadorConfianza.moldes;
+package models.services.calculadorConfianza.moldes;
 
 public class UsuarioOutput {
   Long id;

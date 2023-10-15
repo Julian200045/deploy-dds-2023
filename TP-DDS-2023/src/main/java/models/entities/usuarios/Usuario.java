@@ -45,7 +45,7 @@ public class Usuario {
   @Setter
   @Convert( converter =  FormasNotificarConverter.class)
   @Column(name = "forma_notificar")
-  private FormasNotificar forma;
+  private FormasNotificar forma = new EnElMomento();;
 
   @Getter
   @Column(name = "inicio_horario_disponible", columnDefinition = "TIMESTAMP")
@@ -58,7 +58,6 @@ public class Usuario {
     this.contrasenia = contrasenia;
     this.nombre = nombre;
     this.medioDeContacto = null;
-    this.forma = new EnElMomento();
 
     this.inicioHorarioDisponible = inicioHorarioDisponible;
     this.finHorarioDisponible = finHorarioDisponible;

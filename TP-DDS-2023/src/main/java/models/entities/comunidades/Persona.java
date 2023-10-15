@@ -39,8 +39,8 @@ public class Persona {
   @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE}, fetch = FetchType.LAZY)
   private Usuario usuario;
 
-  @OneToMany(mappedBy = "persona", cascade = {CascadeType.MERGE, CascadeType.REMOVE}, fetch = FetchType.LAZY)
-  private List<Miembro> membresias;
+  @OneToMany(mappedBy = "persona", cascade = { CascadeType.REMOVE,CascadeType.MERGE,CascadeType.PERSIST}, fetch = FetchType.EAGER)
+  private List<Miembro> membresias = new ArrayList<>();
 
   @Getter
   @ManyToOne(fetch = FetchType.LAZY)
@@ -55,6 +55,7 @@ public class Persona {
     this.nombre = nombre;
     this.apellido = apellido;
     this.usuario = usuario;
+    this.gradoConfianza = 5D;
   }
 
   public void unirseAComunidad(Comunidad comunidad){
@@ -75,14 +76,13 @@ public class Persona {
 
   }
 
-  // Para testear
-  public Persona(long id, String nombre, String apellido) {
-    this.id = id;
-    this.nombre = nombre;
-    this.apellido = apellido;
-    this.gradoConfianza = 5D;
+  public List<Miembro> getMembresias() {
+    return new ArrayList<>(membresias);
   }
 
+  public void agregarMembresia(Miembro miembro){
+    membresias.add(miembro);
+  }
   //Municipio getMunicipioDeInteres(){
    // return localidadDeInteres.getMunicipio();
   //}

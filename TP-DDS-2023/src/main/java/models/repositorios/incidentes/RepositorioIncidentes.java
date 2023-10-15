@@ -22,6 +22,7 @@ public class RepositorioIncidentes implements ICrudRepository, WithSimplePersist
     for (Object inci :
         incidente) {
       entityManager().persist(inci);
+      System.out.println("Entre a guardar el incidente");
     }
     tx.commit();
   }

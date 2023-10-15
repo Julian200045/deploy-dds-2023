@@ -1,20 +1,36 @@
 package models.services;
 
+import models.entities.comunidades.Comunidad;
+import models.entities.comunidades.Miembro;
+import models.entities.comunidades.Persona;
+import models.entities.incidentes.CreadorDeIncidentes;
+import models.entities.incidentes.Incidente;
+import models.entities.servicios.PrestacionDeServicio;
+import models.repositorios.incidentes.RepositorioIncidentes;
+import models.services.notificador.GeneradorNotificaciones;
+import org.quartz.SchedulerException;
+
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 public class IncidentesService {
-/*
-  private RepoIncidentes repoIncidentes;
+
+  private RepositorioIncidentes repoIncidentes;
   private GeneradorNotificaciones servicioGeneradorNotificaciones;
 
-  public IncidentesService(RepoIncidentes repoIncidentes, GeneradorNotificaciones servicioGeneradorNotificaciones){
+  public IncidentesService(RepositorioIncidentes repoIncidentes, GeneradorNotificaciones servicioGeneradorNotificaciones){
     this.repoIncidentes = repoIncidentes;
     this.servicioGeneradorNotificaciones = servicioGeneradorNotificaciones;
   }
 
-  public void darDeAltaIncidente(Persona miembro, PrestacionDeServicio prestacion, String observaciones) throws SchedulerException {
+  public void darDeAltaIncidente(Miembro miembro, PrestacionDeServicio prestacion, String observaciones) throws SchedulerException {
 
     List<Incidente> incidentes = CreadorDeIncidentes.darDeAltaIncidente(miembro,prestacion,observaciones);
-    repoIncidentes.add(incidentes.toArray(new Incidente[0]));
-
+    repoIncidentes.guardar(incidentes.toArray());
+    System.out.println("Guarde los incidentes");
+    System.out.println(incidentes);
     Set<Persona> miembrosANotificar = new HashSet<>();
 
     incidentes.forEach(incidente -> {
@@ -27,14 +43,17 @@ public class IncidentesService {
 
   }
 
-  public void darDeBajaIncidentesDeLaPrestacion(Persona miembro, PrestacionDeServicio prestacion){
+  public void darDeBajaIncidentesDeLaPrestacion(Miembro miembro, PrestacionDeServicio prestacion){
 
-    List<Incidente> incidentes = repoIncidentes.getByPrestacion(prestacion);
+    List<Incidente> incidentes = repoIncidentes.buscarPorPrestacion(prestacion);
 
-    List<Comunidad> comunidadesDelMiembroCerrador = miembro.comunidades();
+    List<Comunidad> comunidadesDelMiembroCerrador = miembro.getPersona().comunidades();
 
     List<Incidente> incidentesDeLasComunidadesDelMiembro = incidentes.stream().filter(incidente -> comunidadesDelMiembroCerrador.contains(incidente.getComunidad())).toList();
-    incidentesDeLasComunidadesDelMiembro.forEach(incidente -> incidente.cerrar(miembro));
+    incidentesDeLasComunidadesDelMiembro.forEach(incidente -> {
+      incidente.cerrar(miembro);
+      repoIncidentes.actualizar(incidente);
+    });
 
     Set<Persona> miembrosANotificar = new HashSet<>();
 
@@ -50,14 +69,14 @@ public class IncidentesService {
 
   List<Persona> miembrosInteresados(Incidente incidente){
 
-    List<Comunidad> comunidadesDelMiembroCerrador = incidente.getMiembroApertura().comunidades();
+    List<Comunidad> comunidadesDelMiembroCerrador = incidente.getMiembroApertura().getPersona().getMembresias().stream().map(miembro -> miembro.getComunidad()).toList();
 
     List<Persona> listaMiembrosInteresados = new ArrayList<>();
     comunidadesDelMiembroCerrador.forEach(comunidad -> {
-          listaMiembrosInteresados.addAll(comunidad.getMiembros());
+          listaMiembrosInteresados.addAll(comunidad.getMiembros().stream().map(miembro -> miembro.getPersona()).toList());
         }
     );
 
     return listaMiembrosInteresados;
-  }*/
+  }
 }

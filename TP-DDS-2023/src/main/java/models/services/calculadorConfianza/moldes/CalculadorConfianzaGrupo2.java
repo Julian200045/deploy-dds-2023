@@ -1,10 +1,9 @@
-package services.calculadorConfianza.moldes;
+package models.services.calculadorConfianza.moldes;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
-import retrofit2.http.Query;
-import services.calculadorConfianza.requests.RequestCalculadorConfianza;
+import models.services.calculadorConfianza.requests.RequestCalculadorConfianza;
 
 
 public interface CalculadorConfianzaGrupo2 {
