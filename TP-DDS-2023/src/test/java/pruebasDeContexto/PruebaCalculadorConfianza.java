@@ -1,5 +1,6 @@
 package pruebasDeContexto;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import models.entities.comunidades.Comunidad;
 import models.entities.comunidades.Miembro;
 import models.entities.comunidades.Persona;
@@ -17,6 +18,7 @@ import models.repositorios.prestaciondeservicios.RepositorioPrestacionesDeServic
 import models.services.IncidentesService;
 import models.services.calculadorConfianza.CalculadorConfianza;
 import models.services.calculadorConfianza.CalculadorConfianzaService;
+import models.services.calculadorConfianza.moldes.InformeConfianza;
 import models.services.calculadorConfianza.requests.GeneradorRequestCalculadorConfianza;
 import models.services.calculadorConfianza.requests.RequestCalculadorConfianza;
 import models.services.notificador.GeneradorNotificaciones;
@@ -39,7 +41,6 @@ public class PruebaCalculadorConfianza {
     Comunidad comunidad = new Comunidad("Comunidad prueba");
 
     repositorioComunidades.guardar(comunidad);
-    System.out.println("Se crean comunidad");
 
     Usuario usuario = new Usuario("tomas","1234", LocalDateTime.now(), LocalDateTime.now());
 
@@ -70,7 +71,6 @@ public class PruebaCalculadorConfianza {
     repositorioComunidades.actualizar(comunidad);
 
     repositorioPersona.guardar(persona1,persona2,persona3,persona4,persona5);
-    System.out.println("Se guardan personas");
 
     Servicio servicio = new Servicio("Servicio1");
     Establecimiento establecimiento = new Establecimiento("Establecimiento1",null,null);
@@ -78,21 +78,21 @@ public class PruebaCalculadorConfianza {
     PrestacionDeServicio prestacionDeServicio = new PrestacionDeServicio(servicio,establecimiento);
 
     repositorioPrestacionesDeServicio.guardar(prestacionDeServicio);
-    System.out.println("Se guardan prestacion");
 
     comunidad.agregarPrestacionDeInteres(prestacionDeServicio);
 
     repositorioComunidades.actualizar(comunidad);
-    System.out.println("Se guardan comunidades");
 
     GeneradorNotificaciones generadorNotificaciones = new GeneradorNotificaciones(repositorioNotificaciones);
     IncidentesService incidentesService = new IncidentesService(repositorioIncidentes,generadorNotificaciones);
 
-    incidentesService.darDeAltaIncidente(miembro1,prestacionDeServicio,"Observacion de prueba");
+    incidentesService.darDeAltaIncidente(miembro1,prestacionDeServicio,"Observacion de carozo");
+    incidentesService.darDeAltaIncidente(miembro2,prestacionDeServicio,"Observacion de pepe");
+
+    incidentesService.darDeBajaIncidentesDeLaPrestacion(miembro1,prestacionDeServicio);
 
     RequestCalculadorConfianza request = generador.generar(comunidad);
-    calculadorConfianza.calcularConfianza(request);
+    InformeConfianza informeConfianza = calculadorConfianza.calcularConfianza(request);
 
-    System.out.println(request);
   }
 }

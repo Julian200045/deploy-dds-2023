@@ -1,5 +1,8 @@
 package models.services.calculadorConfianza.requests;
 
+import lombok.Getter;
+
+@Getter
 public class IncidenteMolde {
   Long id;
   String id_establecimiento;

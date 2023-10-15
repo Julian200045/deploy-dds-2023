@@ -1,5 +1,8 @@
 package models.services.calculadorConfianza.moldes;
 
+import lombok.Getter;
+
+@Getter
 public class UsuarioOutput {
   Long id;
   Long puntaje_inicial;
