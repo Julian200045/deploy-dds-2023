@@ -1,6 +1,6 @@
 package controllers;
 
-import models.repositorios.incidentes.RepositorioIncidentes;
+import models.repositorios.RepositorioIncidentes;
 
 public class FactoryController {
 

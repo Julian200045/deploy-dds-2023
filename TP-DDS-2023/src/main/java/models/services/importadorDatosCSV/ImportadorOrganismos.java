@@ -6,10 +6,10 @@ import models.entities.organismos.EntidadPrestadora;
 import models.entities.organismos.OrganismoDeControl;
 import models.entities.servicios.Servicio;
 import models.entities.usuarios.Usuario;
-import models.repositorios.entidadesprestadoras.RepositorioEntidadesPrestadoras;
-import models.repositorios.organismos.RepositorioOrganismoDeControl;
-import models.repositorios.servicios.RepositorioServicios;
-import models.repositorios.usuarios.RepositorioUsuarios;
+import models.repositorios.RepositorioEntidadesPrestadoras;
+import models.repositorios.RepositorioOrganismoDeControl;
+import models.repositorios.RepositorioServicios;
+import models.repositorios.RepositorioUsuarios;
 import models.services.csv.LectorCSV;
 
 public class ImportadorOrganismos implements ImportadorDatosCSV {

@@ -11,17 +11,14 @@ import java.util.List;
 import models.entities.entidades.Entidad;
 import models.entities.entidades.TipoEntidad;
 import models.entities.organismos.EntidadPrestadora;
-import models.entities.servicios.Servicio;
 import models.entities.usuarios.Usuario;
-import models.repositorios.entidades.RepositorioEntidades;
-import models.repositorios.entidadesprestadoras.RepositorioEntidadesPrestadoras;
-import models.repositorios.organismos.RepositorioOrganismoDeControl;
-import models.repositorios.servicios.RepositorioServicios;
-import models.repositorios.tipoentidad.RepositorioTipoEntidad;
-import models.repositorios.usuarios.RepositorioUsuarios;
+import models.repositorios.RepositorioEntidades;
+import models.repositorios.RepositorioEntidadesPrestadoras;
+import models.repositorios.RepositorioServicios;
+import models.repositorios.RepositorioTipoEntidad;
+import models.repositorios.RepositorioUsuarios;
 import models.services.csv.LectorCSV;
 import models.services.importadorDatosCSV.ImportadorEntidadesPrestadoras;
-import models.services.importadorDatosCSV.ImportadorOrganismos;
 import org.junit.jupiter.api.Test;
 
 public class CSVTest {
@@ -54,7 +51,7 @@ public class CSVTest {
     ImportadorEntidadesPrestadoras importadorEntidadesPrestadoras = new ImportadorEntidadesPrestadoras(lector, repoEntidades, repoUsuarios, repositorioEntidadesPrestadoras);
 
     List<String[]> lista = new ArrayList<>();
-    String[] array = {"afip", "1", "messi@hotmail.com", "1", "2", "3"};
+    String[] array = {"afip", "5", "messi@hotmail.com", "1", "2", "3"};
     TipoEntidad tipoBancario = new TipoEntidad("Bancaria", "Entidad bancaria", new ArrayList<>());
     lista.add(array);
     repositorioTipoEntidad.guardar(tipoBancario);
@@ -71,12 +68,19 @@ public class CSVTest {
     repoUsuarios.guardar(usuario1);
 
     importadorEntidadesPrestadoras.cargarDatos();
-    assertEquals(1, repositorioEntidadesPrestadoras.buscarTodos().size());
-    EntidadPrestadora afip = (EntidadPrestadora) repositorioEntidadesPrestadoras.buscarTodos().get(0);
+    List<EntidadPrestadora> entidadesPrestadoras = repositorioEntidadesPrestadoras.buscarTodos();
+    assertEquals(1, entidadesPrestadoras.size());
+  }
+
+  @Test
+  public void seLeeCorrectamnteElCSVCreado() {
+    RepositorioEntidadesPrestadoras repositorioEntidadesPrestadoras = new RepositorioEntidadesPrestadoras();
+    EntidadPrestadora afip = (EntidadPrestadora) repositorioEntidadesPrestadoras.buscar(6L);
     assertEquals("afip", afip.getNombre());
     assertEquals("messi", afip.getUsuario().getNombre());
   }
-/*
+
+  /*
   @Test
   public void losOrganismosSeCreanSegunCSV() throws java.io.IOException, com.opencsv.exceptions.CsvValidationException {
 
@@ -85,7 +89,7 @@ public class CSVTest {
     ImportadorOrganismos importadorOrganismos = new ImportadorOrganismos(lector, repoEntidadesPrestadoras, repoUsuarios, repoServicios, repositorioOrganismoDeControl);
 
     List<String[]> lista = new ArrayList<>();
-    String[] array = {"afip", "1", "messi@hotmail.com", "1", "1"};
+    String[] array = {"afip", "5", "messi@hotmail.com", "1", "1"};
     lista.add(array);
     when(lector.getDatos()).thenReturn(lista);
 
@@ -99,5 +103,5 @@ public class CSVTest {
     assertEquals(1, repositorioOrganismoDeControl.getOrganismosDeControl().size());
     assertEquals("afip", repositorioOrganismoDeControl.getOrganismosDeControl().get(0).getNombre());
     assertEquals("messi", repositorioOrganismoDeControl.getOrganismosDeControl().get(0).getUsuario().getNombre());
-  }¨*/
+  }*/
 }

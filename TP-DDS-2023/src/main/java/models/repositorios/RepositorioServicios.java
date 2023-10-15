@@ -1,7 +1,6 @@
-package models.repositorios.servicios;
+package models.repositorios;
 
 import io.github.flbulgarelli.jpa.extras.simple.WithSimplePersistenceUnit;
-import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityTransaction;
 import models.entities.servicios.Servicio;
