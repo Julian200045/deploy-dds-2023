@@ -30,12 +30,6 @@ public class CalculadorConfianza implements CalculadorConfianzaService{
     Call<InformeConfianza> requestInformeConfianza = calculadorConfianza.calcularConfianza(request);
     Response<InformeConfianza> responseInformeConfianza = requestInformeConfianza.execute();
 
-    System.out.println(requestInformeConfianza.request());
-
-    System.out.println(responseInformeConfianza.body());
-    System.out.println(responseInformeConfianza.code());
-    System.out.println(responseInformeConfianza.raw());
-
     return responseInformeConfianza.body();
   }
 }

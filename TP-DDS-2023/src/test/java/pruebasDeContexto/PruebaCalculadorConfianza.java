@@ -1,6 +1,8 @@
 package pruebasDeContexto;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
+import com.google.gson.JsonParser;
 import models.entities.comunidades.Comunidad;
 import models.entities.comunidades.Miembro;
 import models.entities.comunidades.Persona;
@@ -94,5 +96,8 @@ public class PruebaCalculadorConfianza {
     RequestCalculadorConfianza request = generador.generar(comunidad);
     InformeConfianza informeConfianza = calculadorConfianza.calcularConfianza(request);
 
+    Gson gson = new Gson();
+
+    System.out.println(gson.toJson(informeConfianza));
   }
 }

@@ -1,6 +1,4 @@
 package models.services.calculadorConfianza.requests;
-
-
 import models.entities.comunidades.Comunidad;
 import models.entities.incidentes.Incidente;
 import models.repositorios.incidentes.RepositorioIncidentes;
