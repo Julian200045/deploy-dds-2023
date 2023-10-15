@@ -1,14 +1,11 @@
 package pruebasDeContexto;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
-import com.google.gson.JsonParser;
 import models.entities.comunidades.Comunidad;
 import models.entities.comunidades.Miembro;
 import models.entities.comunidades.Persona;
 import models.entities.comunidades.TipoMiembro;
 import models.entities.establecimientos.Establecimiento;
-import models.entities.incidentes.Incidente;
 import models.entities.servicios.PrestacionDeServicio;
 import models.entities.servicios.Servicio;
 import models.entities.usuarios.Usuario;
