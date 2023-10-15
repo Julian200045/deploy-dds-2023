@@ -1,8 +1,7 @@
 package models.services.notificador;
 
 import models.entities.usuarios.Usuario;
-import models.repositorios.notificaciones.RepoNotificaciones;
-import models.repositorios.notificaciones.RepositorioNotificaciones;
+import models.repositorios.RepositorioNotificaciones;
 
 public class GeneradorNotificaciones {
 

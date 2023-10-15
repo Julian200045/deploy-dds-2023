@@ -1,4 +1,4 @@
-package models.repositorios.entidades;
+package models.repositorios;
 
 import io.github.flbulgarelli.jpa.extras.simple.WithSimplePersistenceUnit;
 import java.util.List;
@@ -45,6 +45,6 @@ public class RepositorioEntidades implements ICrudRepository, WithSimplePersiste
 
   @Override
   public List buscarTodos() {
-    return entityManager().createQuery("from " + Incidente.class.getName()).getResultList();
+    return entityManager().createQuery("from " + Entidad.class.getName()).getResultList();
   }
 }

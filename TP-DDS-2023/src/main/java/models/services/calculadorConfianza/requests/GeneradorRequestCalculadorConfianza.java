@@ -1,7 +1,7 @@
 package models.services.calculadorConfianza.requests;
 import models.entities.comunidades.Comunidad;
 import models.entities.incidentes.Incidente;
-import models.repositorios.incidentes.RepositorioIncidentes;
+import models.repositorios.RepositorioIncidentes;
 
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -10,7 +10,7 @@ public class GeneradorRequestCalculadorConfianza {
   RepositorioIncidentes repoIncidentes = new RepositorioIncidentes();
   final static DateTimeFormatter FORMATTER = DateTimeFormatter.ISO_DATE_TIME;
   public RequestCalculadorConfianza generar(Comunidad comunidad){
-    List<Incidente> incidentes = (List<Incidente>) repoIncidentes.buscarPorComunidad(comunidad);
+    List<Incidente> incidentes = repoIncidentes.buscarPorComunidad(comunidad);
     List<IncidenteMolde> incidentesMolde = incidentes.stream().map(incidente ->
         new IncidenteMolde(incidente.getId(),
             Long.toString(incidente.getPrestacionDeServicio().getEstablecimiento().getId()),

@@ -1,9 +1,8 @@
-package models.repositorios.organismos;
+package models.repositorios;
 
 import io.github.flbulgarelli.jpa.extras.simple.WithSimplePersistenceUnit;
 import java.util.List;
 import javax.persistence.EntityTransaction;
-import models.entities.incidentes.Incidente;
 import models.entities.organismos.OrganismoDeControl;
 import models.repositorios.ICrudRepository;
 
@@ -41,7 +40,7 @@ public class RepositorioOrganismoDeControl implements ICrudRepository, WithSimpl
 
   @Override
   public List buscarTodos() {
-    return entityManager().createQuery("from " + Incidente.class.getName()).getResultList();
+    return entityManager().createQuery("from " + OrganismoDeControl.class.getName()).getResultList();
   }
 
   @Override
