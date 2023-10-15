@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import models.entities.incidentes.Incidente;
-import models.repositorios.incidentes.RepositorioIncidentes;
+import models.repositorios.RepositorioIncidentes;
 import server.utils.ICrudViewsHandler;
 
 public class IncidentesController implements ICrudViewsHandler {

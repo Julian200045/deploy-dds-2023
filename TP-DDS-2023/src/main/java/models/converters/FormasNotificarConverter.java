@@ -12,10 +12,10 @@ public class FormasNotificarConverter implements AttributeConverter<FormasNotifi
 	public String convertToDatabaseColumn(FormasNotificar formasNotificar) {
 		String medioEnBase = null;
 
-		if(formasNotificar.getClass().getName().equals("EnElMomento")) {
+		if(formasNotificar.getClass().getSimpleName().equals("EnElMomento")) {
 			medioEnBase = "enElMomento";
 		}
-		else if(formasNotificar.getClass().getName().equals("SinApuros")) {
+		else if(formasNotificar.getClass().getSimpleName().equals("SinApuros")) {
 			medioEnBase = "sinApuros";
 		}
 		return medioEnBase;

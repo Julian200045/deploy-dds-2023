@@ -1,4 +1,4 @@
-package models.repositorios.incidentes;
+package models.repositorios;
 
 import io.github.flbulgarelli.jpa.extras.simple.WithSimplePersistenceUnit;
 import java.util.Collections;

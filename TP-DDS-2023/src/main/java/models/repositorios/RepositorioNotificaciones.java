@@ -1,4 +1,4 @@
-package models.repositorios.notificaciones;
+package models.repositorios;
 
 import io.github.flbulgarelli.jpa.extras.simple.WithSimplePersistenceUnit;
 import java.util.Collections;
@@ -59,7 +59,7 @@ public class RepositorioNotificaciones implements ICrudRepository, WithSimplePer
 
   @Override
   public List buscarTodos() {
-    return entityManager().createQuery("from " + Incidente.class.getName()).getResultList();
+    return entityManager().createQuery("from " + Notificacion.class.getName()).getResultList();
   }
 
   @Override

@@ -5,9 +5,9 @@ import java.util.List;
 import models.entities.entidades.Entidad;
 import models.entities.organismos.EntidadPrestadora;
 import models.entities.usuarios.Usuario;
-import models.repositorios.entidades.RepositorioEntidades;
-import models.repositorios.entidadesprestadoras.RepositorioEntidadesPrestadoras;
-import models.repositorios.usuarios.RepositorioUsuarios;
+import models.repositorios.RepositorioEntidades;
+import models.repositorios.RepositorioEntidadesPrestadoras;
+import models.repositorios.RepositorioUsuarios;
 import models.services.csv.LectorCSV;
 
 public class ImportadorEntidadesPrestadoras {

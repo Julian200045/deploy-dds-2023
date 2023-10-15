@@ -1,4 +1,4 @@
-package models.repositorios.tipoentidad;
+package models.repositorios;
 
 import io.github.flbulgarelli.jpa.extras.simple.WithSimplePersistenceUnit;
 import java.util.List;

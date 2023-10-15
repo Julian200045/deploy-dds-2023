@@ -13,7 +13,7 @@ import models.entities.servicios.PrestacionDeServicio;
 import models.entities.servicios.Servicio;
 import models.entities.ubicaciones.Ubicacion;
 import models.entities.usuarios.Usuario;
-import models.repositorios.incidentes.RepositorioIncidentes;
+import models.repositorios.RepositorioIncidentes;
 import org.junit.jupiter.api.Test;
 
 public class TestIncidentes implements WithSimplePersistenceUnit {
