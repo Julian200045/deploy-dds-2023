@@ -9,6 +9,7 @@ public class FactoryController {
 
     switch (nombre) {
       case "Incidentes": controller = new IncidentesController(new RepositorioIncidentes()); break;
+      case "Inicio": controller = new InicioController(new RepositorioIncidentes()); break;
     }
 
     return controller;

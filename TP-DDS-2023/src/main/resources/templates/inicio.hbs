@@ -1,16 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="stylesheet" href="../../normalize.css">
-    <link rel="stylesheet" href="../../generalize.css">
-    <link rel="stylesheet" href="./inicio.css">
+    <link rel="stylesheet" href="/css/normalize.css">
+    <link rel="stylesheet" href="/css/generalize.css">
+    <link rel="stylesheet" href="/css/inicio.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Inicio</title>
 </head>
 <body>
     <div class="header">
-        <div class="logo"><img  src="../../resources/logo.png"></div>
+        <div class="logo"><img  src="/img/logo.png"></div>
         <h1 class="title">Inicio</h1>
     </div>
     <div class="container">
@@ -42,10 +42,10 @@
             </div>
             <div class="checkbox-container">
                 <label for="abiertos"> Abiertos</label>
-                <input type="checkbox" id="abiertos" name="abiertos" value="Bike">
+                <input type="checkbox" id="abiertos" name="abiertos">
             </div>
             <div class="search-button-container">
-                <button id="boton-buscar">Buscar</button>
+                <button onclick="buscarIncidentes()" type="submit" id="boton-buscar">Buscar</button>
             </div>
         </div>
         <div class="table-container">
@@ -55,26 +55,24 @@
                 <div class="table-header">Comunidad</div>
                 <div class="table-header">Observaciones</div>
                 <div class="table-header img-container">Dar de Baja</div>
-        
-                <div class="table-row">Establecimiento 1</div>
-                <div class="table-row">Servicio 1</div>
-                <div class="table-row">Comunidad 1</div>
-                <div class="table-row">Observaciones 1</div>
-                <div class="table-row img-container"><img class="tick" src="../../resources/tick.png" alt=""></div>
-        
-                <div class="table-row">Establecimiento 2</div>
-                <div class="table-row">Servicio 2</div>
-                <div class="table-row">Comunidad 2</div>
-                <div class="table-row">Observaciones 2</div>
-                <div class="table-row img-container"><img class="tick" src="../../resources/tick.png" alt=""></div>
-            </div>
+
+                {{#each incidentes}}
+
+                    <div class="table-row">{{this.establecimiento}}</div>
+                    <div class="table-row">{{this.servicio}}</div>
+                    <div class="table-row">{{this.comunidad}}</div>
+                    <div class="table-row">{{this.observaciones}}</div>
+                    <div class="table-row img-container"><img class="tick" src="/img/tick.png" alt=""></div>
+               
+                {{/each}}
+
+                </div>
         </div>
     
         <div class="button-container">
             <button id="boton-navigate-alta-incidente">Dar de alta un incidente</button>
         </div>
     </div>
-<body>
-
+<script src="/js/inicio.js"></script>
 </body>
 </html>

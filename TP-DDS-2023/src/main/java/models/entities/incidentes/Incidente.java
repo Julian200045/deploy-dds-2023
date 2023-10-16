@@ -33,7 +33,7 @@ public class Incidente {
   @JoinColumn(name = "comunidad_id", referencedColumnName = "id")
   private Comunidad comunidad;
   @Getter
-  @Column(name = "nombre")
+  @Column(name = "observaciones")
   private String observaciones;
   @Getter
   @ManyToOne(cascade = {CascadeType.MERGE})
