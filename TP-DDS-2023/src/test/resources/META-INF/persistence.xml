@@ -8,14 +8,32 @@
     <persistence-unit name="simple-persistence-unit" transaction-type="RESOURCE_LOCAL">
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
 
-
+        <class>models.entities.incidentes.Incidente</class>
+        <class>models.entities.comunidades.Persona</class>
+        <class>models.entities.comunidades.Miembro</class>
+        <class>models.entities.comunidades.Comunidad</class>
+        <class>models.entities.servicios.PrestacionDeServicio</class>
+        <class>models.entities.servicios.Servicio</class>
+        <class>models.entities.localizaciones.Localidad</class>
+        <class>models.entities.localizaciones.Municipio</class>
+        <class>models.entities.localizaciones.Provincia</class>
+        <class>models.entities.usuarios.Usuario</class>
+        <class>models.entities.roles.Rol</class>
+        <class>models.entities.roles.RolDelMiembro</class>
+        <class>models.entities.establecimientos.Establecimiento</class>
+        <class>models.entities.ubicaciones.Ubicacion</class>
+        <class>models.entities.entidades.Entidad</class>
+        <class>models.entities.entidades.TipoEntidad</class>
+        <class>models.entities.establecimientos.TipoEstablecimiento</class>
+        <class>models.entities.permisos.Permiso</class>
         <properties>
+
             <property name="hibernate.archive.autodetection" value="class"/>
 
             <property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver" />
             <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/prueba?serverTimezone=UTC " />
             <property name="hibernate.connection.username" value="root" />
-            <property name="hibernate.connection.password" value="123456" />
+            <property name="hibernate.connection.password" value="12345" />
             <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL8Dialect" />
 
             <!-- <property name="hibernate.connection.driver_class" value="org.hsqldb.jdbcDriver"/>
@@ -27,7 +45,7 @@
             <property name="hibernate.show_sql" value="true"/>
             <property name="hibernate.format_sql" value="true"/>
             <property name="use_sql_comments" value="true"/>
-            <property name="hibernate.hbm2ddl.auto" value="update"/>
+            <property name="hibernate.hbm2ddl.auto" value="create"/>
         </properties>
 
     </persistence-unit>

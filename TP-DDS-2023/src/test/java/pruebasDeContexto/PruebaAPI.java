@@ -1,8 +1,8 @@
 package pruebasDeContexto;
 
-import domain.localizaciones.Provincia;
-import services.localizacionesService.LocalizacionesService;
-import services.localizacionesService.georef.ServicioGeoref;
+import models.entities.localizaciones.Provincia;
+import models.services.localizacionesService.LocalizacionesService;
+import models.services.localizacionesService.georef.ServicioGeoref;
 
 import java.io.IOException;
 
