@@ -21,37 +21,35 @@
     margin-bottom: 10px;
 }
 
-#boton-resuelto {
+#boton-buscar{
+    background-color: #20CCC0;
+    color: #111;
+    border:1px solid #222;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100px;
+    height: 60px;
+}
+
+#boton-buscar:hover{
+     background-color: #5ae0d7;
+}
+
+#boton-navigate-alta-incidente {
     background-color: #20CCC0;
     color: #111;
     border:1px solid #222;
     padding: 10px 20px;
     border-radius: 5px;
     cursor: pointer;
-    margin-right: 100px;
 }
 
-#boton-resuelto:hover {
+#boton-navigate-alta-incidente:hover {
     background-color: #5ae0d7;
 }
 
-#boton-no-resuelto {
-    background-color: #c53333;
-    color: #111;
-    border: 1px solid #222;
-    padding: 10px 20px;
-    border-radius: 5px;
-    cursor: pointer;
-    margin-right: 50px;
-}
-
-#boton-no-resuelto:hover {
-    background-color: #db4b4b;
-}
-
 .table-container{
-    margin-bottom: 20px;
-    margin-right: auto;
+    margin-bottom: 30px;
     display: flex;
     justify-content: center;
     flex-direction: column;
@@ -64,7 +62,7 @@
 
 .table {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    grid-template-columns: 2fr 2fr 2fr 2fr 1.5fr;
     border: 1px solid #ccc;
     border-radius:5px;
     max-width: 100%;
@@ -95,7 +93,7 @@
     justify-content: center;
 }
 
-img{
+.tick{
     height: 22px;
     width:22px;
 }
@@ -106,6 +104,10 @@ img{
     justify-content: flex-start;
 }
 
+.searcher{
+    margin: 20px 50px 20px 0;
+}
+
 label{
     color: #DAE4F2;
 }
@@ -114,7 +116,7 @@ label{
     display: flex;
     justify-content: space-around;
     align-items: center;
-    margin-left: 40px;
+    margin-left: 0px;
     width: 100px;
 }
 
@@ -124,4 +126,11 @@ input[type="text"] {
     border: 1px solid #ccc;
     border-radius: 5px;
     resize: none;
+}
+
+.search-button-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 20px;
 }
