@@ -9,7 +9,6 @@ import services.fusionadorComunidades.moldes.ListaFusionesComunidades;
 import services.fusionadorComunidades.moldes.ListaPropuestasFusion;
 import services.fusionadorComunidades.request.RequestPropuestasComunidad;
 import services.fusionadorComunidades.request.RequestSugerenciasFusion;
-import services.localizacionesService.georef.moldes.GeorefService;
 
 public class ServicioFusionador {
 	private static ServicioFusionador instancia = null;

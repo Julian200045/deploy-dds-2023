@@ -1,6 +1,5 @@
 package services.fusionadorComunidades.moldes;
 
-import domain.servicios.PrestacionDeServicio;
 
 public class PrestacionDeServicioMolde {
 	public int id;
