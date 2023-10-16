@@ -1,6 +1,7 @@
 package controllers;
 
 import models.repositorios.RepositorioIncidentes;
+import models.repositorios.RepositorioUsuarios;
 
 public class FactoryController {
 
@@ -9,6 +10,7 @@ public class FactoryController {
 
     switch (nombre) {
       case "Incidentes": controller = new IncidentesController(new RepositorioIncidentes()); break;
+      case "AdminUsuarios": controller = new UsuariosController(new RepositorioUsuarios()); break;
     }
 
     return controller;
