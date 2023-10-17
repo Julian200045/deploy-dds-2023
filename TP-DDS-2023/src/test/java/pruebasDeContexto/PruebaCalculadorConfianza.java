@@ -73,11 +73,16 @@ public class PruebaCalculadorConfianza {
     Servicio servicio = new Servicio("Servicio1");
     Establecimiento establecimiento = new Establecimiento("Establecimiento1", null, null);
 
+    Servicio servicio2 = new Servicio("Servicio2");
+
     PrestacionDeServicio prestacionDeServicio = new PrestacionDeServicio(servicio, establecimiento);
+    PrestacionDeServicio prestacionDeServicio2 = new PrestacionDeServicio(servicio2, establecimiento);
 
     repositorioPrestacionesDeServicio.guardar(prestacionDeServicio);
+    repositorioPrestacionesDeServicio.guardar(prestacionDeServicio2);
 
     comunidad.agregarPrestacionDeInteres(prestacionDeServicio);
+    comunidad.agregarPrestacionDeInteres(prestacionDeServicio2);
 
     repositorioComunidades.actualizar(comunidad);
 
@@ -85,15 +90,15 @@ public class PruebaCalculadorConfianza {
     IncidentesService incidentesService = new IncidentesService(repositorioIncidentes, generadorNotificaciones);
 
     incidentesService.darDeAltaIncidente(miembro1, prestacionDeServicio, "Observacion de carozo");
-    incidentesService.darDeAltaIncidente(miembro2, prestacionDeServicio, "Observacion de pepe");
+    incidentesService.darDeAltaIncidente(miembro2, prestacionDeServicio2, "Observacion de pepe");
 
-    incidentesService.darDeBajaIncidentesDeLaPrestacion(miembro1, prestacionDeServicio);
+    //incidentesService.darDeBajaIncidentesDeLaPrestacion(miembro1, prestacionDeServicio);
 
-    RequestCalculadorConfianza request = generador.generar(comunidad);
-    InformeConfianza informeConfianza = calculadorConfianza.calcularConfianza(request);
+    //RequestCalculadorConfianza request = generador.generar(comunidad);
+    //InformeConfianza informeConfianza = calculadorConfianza.calcularConfianza(request);
 
-    Gson gson = new Gson();
+    //Gson gson = new Gson();
 
-    System.out.println(gson.toJson(informeConfianza));
+    //System.out.println(gson.toJson(informeConfianza));
   }
 }

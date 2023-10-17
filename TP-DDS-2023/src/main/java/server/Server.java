@@ -32,6 +32,11 @@ public class Server {
       config.staticFiles.add(staticFiles -> {
         staticFiles.hostedPath = "/";
         staticFiles.directory = "/public";
+        config.plugins.enableCors(cors -> {
+          cors.add(it -> {
+            it.anyHost();
+          });
+        });
       });
     };
   }

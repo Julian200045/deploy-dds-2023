@@ -50,6 +50,45 @@ public class RepositorioIncidentes implements ICrudRepository, WithSimplePersist
     return entityManager().createQuery("from " + Incidente.class.getName()).getResultList();
   }
 
+  public List buscarTodosFiltrados(String establecimiento, String servicio, String comunidad, String estado){
+    String jpql = "SELECT i from Incidente i join i.prestacionDeServicio p join p.establecimiento e join p.servicio s join i.comunidad c where e.nombre LIKE '"+establecimiento+"%' and s.nombre LIKE '"+servicio+"%' and c.nombre LIKE '"+comunidad+"%'";
+    Query query = entityManager().createQuery(jpql);
+
+    return query.getResultList();
+  }
+
+  public List buscarPorEstablecimiento(long idEstablecimiento){
+
+    String jpql = "SELECT i from Incidente i join prestacion on prestacion.id = i.prestacion_id where prestacion.establecimiento_id = :id_establecimiento";
+    Query query = entityManager().createQuery(jpql);
+    query.setParameter("id_establecimiento",idEstablecimiento);
+    return query.getResultList();
+  }
+
+  public List buscarPorServicio(long idServicio){
+
+    String jpql = "SELECT i from Incidente i join prestacion on prestacion.id = i.prestacion_id where prestacion.servicio_id = :id_servicio";
+    Query query = entityManager().createQuery(jpql);
+    query.setParameter("id_servicio",idServicio);
+    return query.getResultList();
+  }
+
+  public List buscarPorComunidad(long idComunidad){
+
+    String jpql = "SELECT i from Incidente i where i.comunidad_id = :id_comunidad";
+    Query query = entityManager().createQuery(jpql);
+    query.setParameter("id_comunidad",idComunidad);
+    return query.getResultList();
+  }
+
+  public List buscarPorEstado(String estado){
+
+    String jpql = "SELECT i from Incidente i where i.estado = :estado";
+    Query query = entityManager().createQuery(jpql);
+    query.setParameter("estado",estado);
+    return query.getResultList();
+  }
+
   @Override
   public Object buscar(Long id) {
     return entityManager().find(Incidente.class, id);

@@ -25,6 +25,7 @@ public class Establecimiento {
   @Id
   @GeneratedValue
   long id;
+  @Getter
   @Column(name = "nombre")
   private String nombre;
   @ManyToOne(fetch = FetchType.LAZY)

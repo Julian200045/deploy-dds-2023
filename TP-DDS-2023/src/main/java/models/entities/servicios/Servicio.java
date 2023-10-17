@@ -12,9 +12,11 @@ public class Servicio {
   @Getter
   @Id
   @GeneratedValue
-  public long id;
+  private long id;
+
+  @Getter
   @Column(name = "nombre")
-  public String nombre;
+  private String nombre;
 
   public Servicio(String nombre) {
     this.nombre = nombre;
