@@ -2,6 +2,7 @@ package models.repositorios;
 
 import io.github.flbulgarelli.jpa.extras.simple.WithSimplePersistenceUnit;
 import models.entities.comunidades.Persona;
+import models.entities.usuarios.Usuario;
 import models.repositorios.ICrudRepository;
 
 import javax.persistence.EntityTransaction;
@@ -26,7 +27,7 @@ public class RepositorioPersonas implements ICrudRepository, WithSimplePersisten
     if (idUsuario == null) {
       throw new IllegalArgumentException("El id del usuario no puede ser nulo.");
     }
-    String jpql = "SELECT p FROM Persona p WHERE p.usuario = :parametro";
+    String jpql = "SELECT p FROM Persona p WHERE p.usuario.id = :parametro";
     Query query = entityManager().createQuery(jpql);
     query.setParameter("parametro", idUsuario);
 
@@ -61,5 +62,22 @@ public class RepositorioPersonas implements ICrudRepository, WithSimplePersisten
     if (!tx.isActive()) tx.begin();
     entityManager().remove(persona);
     tx.commit();
+  }
+
+  public Object buscarPorUsuario(Usuario usuarioEnSesion) {
+    if (usuarioEnSesion == null) {
+      throw new IllegalArgumentException("El usuario no puede ser nulo.");
+    }
+
+    String jpql = "SELECT p FROM Persona p WHERE p.usuario = :parametro";
+    Query query = entityManager().createQuery(jpql);
+    query.setParameter("parametro", usuarioEnSesion);
+
+    try {
+      return query.getSingleResult();
+    } catch (NoResultException e) {
+      return Collections.emptyList();
+    }
+
   }
 }
