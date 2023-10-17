@@ -24,12 +24,10 @@ public class IncidentesService {
     this.servicioGeneradorNotificaciones = servicioGeneradorNotificaciones;
   }
 
-  public void darDeAltaIncidente(Miembro miembro, PrestacionDeServicio prestacion, String observaciones) throws SchedulerException {
+  public void darDeAltaIncidente(Persona persona, PrestacionDeServicio prestacion, String observaciones) throws SchedulerException {
 
-    List<Incidente> incidentes = CreadorDeIncidentes.darDeAltaIncidente(miembro, prestacion, observaciones);
+    List<Incidente> incidentes = CreadorDeIncidentes.darDeAltaIncidente(persona, prestacion, observaciones);
     repoIncidentes.guardar(incidentes.toArray());
-    System.out.println("Guarde los incidentes");
-    System.out.println(incidentes);
     Set<Persona> miembrosANotificar = new HashSet<>();
 
     incidentes.forEach(incidente -> {
@@ -42,15 +40,15 @@ public class IncidentesService {
 
   }
 
-  public void darDeBajaIncidentesDeLaPrestacion(Miembro miembro, PrestacionDeServicio prestacion) {
+  public void darDeBajaIncidentesDeLaPrestacion(Persona persona, PrestacionDeServicio prestacion) {
 
     List<Incidente> incidentes = repoIncidentes.buscarPorPrestacion(prestacion);
 
-    List<Comunidad> comunidadesDelMiembroCerrador = miembro.getPersona().comunidades();
+    List<Comunidad> comunidadesDelMiembroCerrador = persona.comunidades();
 
     List<Incidente> incidentesDeLasComunidadesDelMiembro = incidentes.stream().filter(incidente -> comunidadesDelMiembroCerrador.contains(incidente.getComunidad())).toList();
     incidentesDeLasComunidadesDelMiembro.forEach(incidente -> {
-      incidente.cerrar(miembro);
+      incidente.cerrar(persona.getMembresiaDeComunidad(incidente.getComunidad()));
       repoIncidentes.actualizar(incidente);
     });
 

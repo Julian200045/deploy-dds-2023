@@ -39,7 +39,7 @@ public class Persona {
   @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE}, fetch = FetchType.LAZY)
   private Usuario usuario;
 
-  @OneToMany(mappedBy = "persona", cascade = { CascadeType.REMOVE,CascadeType.MERGE,CascadeType.PERSIST}, fetch = FetchType.EAGER)
+  @OneToMany(mappedBy = "persona", cascade = { CascadeType.REMOVE,CascadeType.PERSIST}, fetch = FetchType.EAGER)
   private List<Miembro> membresias = new ArrayList<>();
 
   @Getter
@@ -51,19 +51,14 @@ public class Persona {
   @Setter
   private Double gradoConfianza;
 
+  public Persona(){
+  }
+
   public Persona(String nombre, String apellido, Usuario usuario) {
     this.nombre = nombre;
     this.apellido = apellido;
     this.usuario = usuario;
     this.gradoConfianza = 5D;
-  }
-
-  public void unirseAComunidad(Comunidad comunidad){
-    if(!comunidad.esMiembro(this)){
-      Miembro miembro = new Miembro();
-      miembro.setComunidad(comunidad);
-      comunidad.agregarMiembro(miembro);
-    }
   }
 
   public List<Comunidad> comunidades(){
@@ -72,14 +67,13 @@ public class Persona {
     return comunidads;
   }
 
-  public Persona(){
-
-  }
-
   public List<Miembro> getMembresias() {
     return new ArrayList<>(membresias);
   }
 
+  public Miembro getMembresiaDeComunidad(Comunidad comunidad){
+    return membresias.stream().filter(miembro -> miembro.getComunidad().equals(comunidad)).findFirst().get();
+  }
   public void agregarMembresia(Miembro miembro){
     membresias.add(miembro);
   }

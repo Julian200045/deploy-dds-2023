@@ -14,7 +14,8 @@ import models.entities.usuarios.Usuario;
 import models.repositorios.RepositorioIncidentes;
 import models.repositorios.RepositorioNotificaciones;
 import models.repositorios.comunidades.RepositorioComunidades;
-import models.repositorios.personas.RepositorioPersona;
+import models.repositorios.personas.RepositorioPersonas;
+import models.repositorios.personas.RepositorioPersonas;
 import models.repositorios.prestaciondeservicios.RepositorioPrestacionesDeServicio;
 import models.services.IncidentesService;
 import models.services.calculadorConfianza.CalculadorConfianza;
@@ -31,14 +32,16 @@ public class PruebaCalculadorConfianza {
     CalculadorConfianzaService calculadorConfianza = new CalculadorConfianza("src/main/resources/template/project.properties");
     GeneradorRequestCalculadorConfianza generador = new GeneradorRequestCalculadorConfianza();
     RepositorioPrestacionesDeServicio repositorioPrestacionesDeServicio = new RepositorioPrestacionesDeServicio();
-    RepositorioPersona repositorioPersona = new RepositorioPersona();
+    RepositorioPersonas repositorioPersona = new RepositorioPersonas();
     RepositorioIncidentes repositorioIncidentes = new RepositorioIncidentes();
     RepositorioNotificaciones repositorioNotificaciones = new RepositorioNotificaciones();
     RepositorioComunidades repositorioComunidades = new RepositorioComunidades();
 
     Comunidad comunidad = new Comunidad("Comunidad prueba");
+    Comunidad comunidad2 = new Comunidad("Pepitos house");
 
     repositorioComunidades.guardar(comunidad);
+    repositorioComunidades.guardar(comunidad2);
 
     Usuario usuario = new Usuario("tomas", "1234", LocalDateTime.now(), LocalDateTime.now());
 
@@ -49,26 +52,16 @@ public class PruebaCalculadorConfianza {
     Persona persona5 = new Persona("Juan5", "Carlos5", usuario);
 
     Miembro miembro1 = new Miembro(comunidad, persona1, TipoMiembro.AFECTADO);
+    Miembro miembro11 = new Miembro(comunidad2, persona1, TipoMiembro.AFECTADO);
     Miembro miembro2 = new Miembro(comunidad, persona2, TipoMiembro.AFECTADO);
     Miembro miembro3 = new Miembro(comunidad, persona3, TipoMiembro.AFECTADO);
     Miembro miembro4 = new Miembro(comunidad, persona4, TipoMiembro.AFECTADO);
     Miembro miembro5 = new Miembro(comunidad, persona5, TipoMiembro.AFECTADO);
 
-    persona1.agregarMembresia(miembro1);
-    persona2.agregarMembresia(miembro2);
-    persona3.agregarMembresia(miembro3);
-    persona4.agregarMembresia(miembro4);
-    persona5.agregarMembresia(miembro5);
-
-    comunidad.agregarMiembro(miembro1);
-    comunidad.agregarMiembro(miembro2);
-    comunidad.agregarMiembro(miembro3);
-    comunidad.agregarMiembro(miembro4);
-    comunidad.agregarMiembro(miembro5);
+    repositorioPersona.guardar(persona1, persona2, persona3, persona4, persona5);
 
     repositorioComunidades.actualizar(comunidad);
-
-    repositorioPersona.guardar(persona1, persona2, persona3, persona4, persona5);
+    repositorioComunidades.actualizar(comunidad2);
 
     Servicio servicio = new Servicio("Servicio1");
     Establecimiento establecimiento = new Establecimiento("Establecimiento1", null, null);
@@ -83,14 +76,19 @@ public class PruebaCalculadorConfianza {
 
     comunidad.agregarPrestacionDeInteres(prestacionDeServicio);
     comunidad.agregarPrestacionDeInteres(prestacionDeServicio2);
+    comunidad2.agregarPrestacionDeInteres(prestacionDeServicio);
+    comunidad2.agregarPrestacionDeInteres(prestacionDeServicio2);
+
 
     repositorioComunidades.actualizar(comunidad);
+    repositorioComunidades.actualizar(comunidad2);
+
 
     GeneradorNotificaciones generadorNotificaciones = new GeneradorNotificaciones(repositorioNotificaciones);
     IncidentesService incidentesService = new IncidentesService(repositorioIncidentes, generadorNotificaciones);
 
-    incidentesService.darDeAltaIncidente(miembro1, prestacionDeServicio, "Observacion de carozo");
-    incidentesService.darDeAltaIncidente(miembro2, prestacionDeServicio2, "Observacion de pepe");
+    incidentesService.darDeAltaIncidente(persona1, prestacionDeServicio, "Observacion de carozo");
+    incidentesService.darDeAltaIncidente(persona2, prestacionDeServicio2, "Observacion de pepe");
 
     //incidentesService.darDeBajaIncidentesDeLaPrestacion(miembro1, prestacionDeServicio);
 

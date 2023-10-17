@@ -98,6 +98,25 @@
     width:22px;
 }
 
+tick_main{
+}
+
+.tick_container .tick_hover{
+    display: none;
+    position: relative;
+    top: 0;
+    left: 0;
+    z-index: 99;
+}
+
+.tick_container:hover .tick_hover{
+    display: inline;
+}
+
+.tick_container:hover .tick_main{
+    display: none;
+}
+
 .searcher-container{
     display: flex;
     flex-direction: row;

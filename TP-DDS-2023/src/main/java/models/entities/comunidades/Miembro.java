@@ -30,7 +30,7 @@ public class Miembro {
 	@JoinColumn(name = "comunidad_id", referencedColumnName = "id")
 	private Comunidad comunidad;
 
-	@ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE})
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "persona_id", referencedColumnName = "id")
 	private Persona persona;
 
@@ -47,6 +47,9 @@ public class Miembro {
 		this.comunidad = comunidad;
 		this.persona = persona;
 		this.tipoMiembro = tipoMiembro;
+
+		comunidad.agregarMiembro(this);
+		persona.agregarMembresia(this);
 	}
 	public Miembro(){
 

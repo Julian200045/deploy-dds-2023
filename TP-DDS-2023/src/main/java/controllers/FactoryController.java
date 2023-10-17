@@ -1,6 +1,11 @@
 package controllers;
 
 import models.repositorios.RepositorioIncidentes;
+import models.repositorios.RepositorioNotificaciones;
+import models.repositorios.RepositorioUsuarios;
+import models.repositorios.personas.RepositorioPersonas;
+import models.services.IncidentesService;
+import models.services.notificador.GeneradorNotificaciones;
 
 public class FactoryController {
 
@@ -8,8 +13,11 @@ public class FactoryController {
     Object controller = null;
 
     switch (nombre) {
-      case "Incidentes": controller = new IncidentesController(new RepositorioIncidentes()); break;
-      case "Inicio": controller = new InicioController(new RepositorioIncidentes()); break;
+      case "Inicio": controller = new InicioController(new RepositorioIncidentes(),
+                                                       new RepositorioPersonas(),
+                                                       new IncidentesService(new RepositorioIncidentes(),new GeneradorNotificaciones(new RepositorioNotificaciones()))
+                                                       ); break;
+      case "AltaIncidente": controller = new AltaIncidenteController(new RepositorioIncidentes()); break;
     }
 
     return controller;
