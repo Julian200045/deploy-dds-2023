@@ -21,14 +21,11 @@ public class UsuariosController implements ICrudViewsHandler  {
     public void index(Context context) {
         Map<String, Object> model = new HashMap<>();
 
-        //String filtroPorNombre = context.queryParam("filtro");
-        // this.repositorioDeIncidente.getAll(filtroPorNombre);
-
         List<Usuario> usuarios = this.repositorioUsuarios.buscarTodos();
 
         model.put("usuarios", usuarios);
 
-        context.render("administracionUsuarios.hbs", model);
+        context.render("administracion_usuarios.hbs", model);
     }
 
     @Override

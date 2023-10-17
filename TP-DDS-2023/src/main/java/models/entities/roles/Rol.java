@@ -17,6 +17,13 @@ public class Rol {
   @JoinColumn(name = "rol_id", referencedColumnName = "id")
   public List<Permiso> permisos;
 
+
+  public Rol(String nombre){
+    this.nombre = nombre;
+  }
+  public Rol(){
+
+  }
   public boolean tenesPermiso(Permiso permiso) {
 
     return permisos.contains(permiso);

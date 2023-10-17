@@ -40,7 +40,7 @@ public class PruebaCalculadorConfianza {
 
     repositorioComunidades.guardar(comunidad);
 
-    Usuario usuario = new Usuario("tomas", "1234", LocalDateTime.now(), LocalDateTime.now());
+    Usuario usuario = new Usuario("tomas", "1234","asas","123334", LocalDateTime.now(), LocalDateTime.now());
 
     Persona persona1 = new Persona("Juan1", "Carlos1", usuario);
     Persona persona2 = new Persona("Juan2", "Carlos2", usuario);

@@ -29,11 +29,15 @@ public class Usuario {
   private String contrasenia;
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "rol_id", referencedColumnName = "id")
+  @Setter
+  @Getter
   private Rol rol;
   @Getter
+  @Setter
   @Column(name = "mail")
   private String mail;
   @Getter
+  @Setter
   @Column(name = "num_celular")
   private String numeroCelular;
 
@@ -54,10 +58,12 @@ public class Usuario {
   @Column(name = "fin_horario_disponible", columnDefinition = "TIMESTAMP")
   private LocalDateTime finHorarioDisponible;
 
-  public Usuario(String nombre, String contrasenia, LocalDateTime inicioHorarioDisponible, LocalDateTime finHorarioDisponible) throws IOException {
+  public Usuario(String nombre, String contrasenia, String mail, String celular, LocalDateTime inicioHorarioDisponible, LocalDateTime finHorarioDisponible) throws IOException {
     this.contrasenia = contrasenia;
     this.nombre = nombre;
     this.medioDeContacto = null;
+    this.mail=mail;
+    this.numeroCelular=celular;
 
     this.inicioHorarioDisponible = inicioHorarioDisponible;
     this.finHorarioDisponible = finHorarioDisponible;
