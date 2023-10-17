@@ -1,6 +1,5 @@
 package pruebasDeContexto;
 
-import com.google.gson.Gson;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import models.entities.comunidades.Comunidad;
@@ -13,16 +12,13 @@ import models.entities.servicios.Servicio;
 import models.entities.usuarios.Usuario;
 import models.repositorios.RepositorioIncidentes;
 import models.repositorios.RepositorioNotificaciones;
-import models.repositorios.comunidades.RepositorioComunidades;
-import models.repositorios.personas.RepositorioPersonas;
-import models.repositorios.personas.RepositorioPersonas;
-import models.repositorios.prestaciondeservicios.RepositorioPrestacionesDeServicio;
+import models.repositorios.RepositorioComunidades;
+import models.repositorios.RepositorioPersonas;
+import models.repositorios.RepositorioPrestacionesDeServicio;
 import models.services.IncidentesService;
 import models.services.calculadorConfianza.CalculadorConfianza;
 import models.services.calculadorConfianza.CalculadorConfianzaService;
-import models.services.calculadorConfianza.moldes.InformeConfianza;
 import models.services.calculadorConfianza.requests.GeneradorRequestCalculadorConfianza;
-import models.services.calculadorConfianza.requests.RequestCalculadorConfianza;
 import models.services.notificador.GeneradorNotificaciones;
 import org.quartz.SchedulerException;
 

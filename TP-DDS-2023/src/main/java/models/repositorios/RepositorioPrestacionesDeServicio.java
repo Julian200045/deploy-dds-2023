@@ -1,47 +1,46 @@
-package models.repositorios.comunidades;
+package models.repositorios;
 
 import io.github.flbulgarelli.jpa.extras.simple.WithSimplePersistenceUnit;
-import models.entities.comunidades.Comunidad;
-import models.entities.comunidades.Persona;
+import models.entities.servicios.PrestacionDeServicio;
 import models.repositorios.ICrudRepository;
 
 import javax.persistence.EntityTransaction;
 import java.util.List;
 
-public class RepositorioComunidades implements ICrudRepository, WithSimplePersistenceUnit {
+public class RepositorioPrestacionesDeServicio implements ICrudRepository, WithSimplePersistenceUnit {
   @Override
   public List buscarTodos() {
-    return entityManager().createQuery("from " + Comunidad.class.getName()).getResultList();
+    return entityManager().createQuery("from " + PrestacionDeServicio.class.getName()).getResultList();
   }
 
   @Override
   public Object buscar(Long id) {
-    return entityManager().find(Comunidad.class, id);
+    return entityManager().find(PrestacionDeServicio.class, id);
   }
 
   @Override
-  public void guardar(Object... comunidad) {
+  public void guardar(Object... prestacionDeServicio) {
     EntityTransaction tx = entityManager().getTransaction();
     if (!tx.isActive()) tx.begin();
-    for (Object o : comunidad) {
+    for (Object o : prestacionDeServicio) {
       entityManager().persist(o);
     }
     tx.commit();
   }
 
   @Override
-  public void actualizar(Object comunidad) {
+  public void actualizar(Object prestacionDeServicio) {
     EntityTransaction tx = entityManager().getTransaction();
     if (!tx.isActive()) tx.begin();
-    entityManager().merge(comunidad);
+    entityManager().merge(prestacionDeServicio);
     tx.commit();
   }
 
   @Override
-  public void eliminar(Object comunidad) {
+  public void eliminar(Object prestacionDeServicio) {
     EntityTransaction tx = entityManager().getTransaction();
     if (!tx.isActive()) tx.begin();
-    entityManager().remove(comunidad);
+    entityManager().remove(prestacionDeServicio);
     tx.commit();
   }
 }

@@ -1,8 +1,4 @@
 package models.services.notificador.formas;
-
-import models.repositorios.notificaciones.RepoNotificaciones;
-import models.services.notificador.enviadores.EnviadorMail;
-import models.services.notificador.enviadores.EnviadorWPP;
 import models.services.notificador.Notificacion;
 
 import java.io.IOException;

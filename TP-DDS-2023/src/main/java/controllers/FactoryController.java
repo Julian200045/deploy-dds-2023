@@ -2,8 +2,7 @@ package controllers;
 
 import models.repositorios.RepositorioIncidentes;
 import models.repositorios.RepositorioNotificaciones;
-import models.repositorios.RepositorioUsuarios;
-import models.repositorios.personas.RepositorioPersonas;
+import models.repositorios.RepositorioPersonas;
 import models.services.IncidentesService;
 import models.services.notificador.GeneradorNotificaciones;
 

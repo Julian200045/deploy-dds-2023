@@ -1,4 +1,4 @@
-package models.repositorios.personas;
+package models.repositorios;
 
 import io.github.flbulgarelli.jpa.extras.simple.WithSimplePersistenceUnit;
 import models.entities.comunidades.Persona;

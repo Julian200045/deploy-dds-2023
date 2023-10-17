@@ -3,24 +3,16 @@ package controllers;
 import com.google.gson.Gson;
 import io.javalin.http.Context;
 import models.entities.comunidades.Persona;
-import models.entities.incidentes.EstadoIncidente;
 import models.entities.incidentes.Incidente;
-import models.entities.usuarios.Usuario;
 import models.repositorios.RepositorioIncidentes;
-import models.repositorios.RepositorioTipoEntidad;
-import models.repositorios.RepositorioUsuarios;
-import models.repositorios.personas.RepositorioPersonas;
-import models.repositorios.personas.RepositorioPersonas;
+import models.repositorios.RepositorioPersonas;
 import models.services.IncidentesService;
 import server.dtos.IncidenteInicioDto;
 import server.utils.ICrudViewsHandler;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 public class InicioController implements ICrudViewsHandler {
 
