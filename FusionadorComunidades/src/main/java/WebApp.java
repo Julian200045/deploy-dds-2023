@@ -49,9 +49,9 @@ public class WebApp {
 
     Javalin app = Javalin.create(config -> configOpenAPI(config)).start(port);
 
-    app.get("/sugerencias_fusiones", new SugerenciasFusionController(analizadorComunidades, mensajesDeError));
+    app.post("/sugerencias_fusiones", new SugerenciasFusionController(analizadorComunidades, mensajesDeError));
 
-    app.get("/fusion_comunidades", new FusionComunidadesController(fusionadorComunidades, mensajesDeError));
+    app.post("/fusion_comunidades", new FusionComunidadesController(fusionadorComunidades, mensajesDeError));
   }
 
 
