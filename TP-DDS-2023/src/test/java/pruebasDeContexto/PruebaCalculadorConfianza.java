@@ -39,11 +39,11 @@ public class PruebaCalculadorConfianza {
     repositorioComunidades.guardar(comunidad);
     repositorioComunidades.guardar(comunidad2);
 
-    Usuario usuario1 = new Usuario("tomas", "1234", LocalDateTime.now(), LocalDateTime.now());
-    Usuario usuario2 = new Usuario("julian", "1234", LocalDateTime.now(), LocalDateTime.now());
-    Usuario usuario3 = new Usuario("exequiel", "1234", LocalDateTime.now(), LocalDateTime.now());
-    Usuario usuario4 = new Usuario("renzo", "1234", LocalDateTime.now(), LocalDateTime.now());
-    Usuario usuario5 = new Usuario("gomaaazo", "1234", LocalDateTime.now(), LocalDateTime.now());
+    Usuario usuario1 = new Usuario("tomas", "1234", "hola@gmail.com","112233",LocalDateTime.now(), LocalDateTime.now());
+    Usuario usuario2 = new Usuario("julian", "1234", "hola@gmail.com","112233",LocalDateTime.now(), LocalDateTime.now());
+    Usuario usuario3 = new Usuario("exequiel", "1234", "hola@gmail.com","112233", LocalDateTime.now(), LocalDateTime.now());
+    Usuario usuario4 = new Usuario("renzo", "1234","hola@gmail.com","112233", LocalDateTime.now(), LocalDateTime.now());
+    Usuario usuario5 = new Usuario("gomaaazo", "1234","hola@gmail.com", "112233",LocalDateTime.now(), LocalDateTime.now());
 
     Persona persona1 = new Persona("Juan1", "Carlos1", usuario1);
     Persona persona2 = new Persona("Juan2", "Carlos2", usuario2);

@@ -3,9 +3,7 @@ package models.repositorios;
 import io.github.flbulgarelli.jpa.extras.simple.WithSimplePersistenceUnit;
 import java.util.List;
 import javax.persistence.EntityTransaction;
-import models.entities.incidentes.Incidente;
 import models.entities.organismos.EntidadPrestadora;
-import models.repositorios.ICrudRepository;
 
 public class RepositorioEntidadesPrestadoras implements ICrudRepository, WithSimplePersistenceUnit {
   @Override
