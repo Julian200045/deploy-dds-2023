@@ -79,7 +79,7 @@ public class UsuariosController implements ICrudViewsHandler  {
     @Override
     public void update(Context context) {
         Long longId = Long.parseLong(context.queryParam("id"));
-        Usuario user = (Usuario) this.repositorioUsuarios.buscar(longId).get(0);
+        Usuario user = (Usuario) this.repositorioUsuarios.buscar(longId);
         if(user != null){
             user.setNumeroCelular(context.queryParam("telefono"));
             user.setMail(context.queryParam("mail"));

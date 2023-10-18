@@ -33,6 +33,7 @@ public class Usuario {
   @Setter
   @Getter
   private Rol rol;
+
   @Getter
   @Setter
   @Column(name = "mail")
