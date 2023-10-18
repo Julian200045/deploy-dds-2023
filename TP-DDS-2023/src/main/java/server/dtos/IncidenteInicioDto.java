@@ -1,10 +1,6 @@
 package server.dtos;
 
 import lombok.Getter;
-import models.entities.comunidades.Comunidad;
-import models.entities.establecimientos.Establecimiento;
-import models.entities.incidentes.EstadoIncidente;
-import models.entities.servicios.Servicio;
 
 @Getter
 public class IncidenteInicioDto {

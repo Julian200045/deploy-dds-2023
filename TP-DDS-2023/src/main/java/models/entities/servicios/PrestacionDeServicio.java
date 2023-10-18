@@ -24,15 +24,15 @@ public class PrestacionDeServicio {
   @Getter
   @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST})
   @JoinColumn(name = "servicio_id", referencedColumnName = "id")
-  public Servicio servicio;
+  private Servicio servicio;
   @Getter
   @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST})
   @JoinColumn(name = "establecimiento_id", referencedColumnName = "id")
-  public Establecimiento establecimiento;
+  private Establecimiento establecimiento;
 
   @Getter
   @Column(name = "habilitado")
-  public boolean estaHabilitado;
+  private boolean estaHabilitado;
 
   public PrestacionDeServicio(Servicio servicio, Establecimiento establecimiento) {
     this.servicio = servicio;

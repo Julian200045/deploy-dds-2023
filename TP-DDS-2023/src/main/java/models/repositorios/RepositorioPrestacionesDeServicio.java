@@ -5,6 +5,7 @@ import models.entities.servicios.PrestacionDeServicio;
 import models.repositorios.ICrudRepository;
 
 import javax.persistence.EntityTransaction;
+import javax.persistence.Query;
 import java.util.List;
 
 public class RepositorioPrestacionesDeServicio implements ICrudRepository, WithSimplePersistenceUnit {
@@ -16,6 +17,23 @@ public class RepositorioPrestacionesDeServicio implements ICrudRepository, WithS
   @Override
   public Object buscar(Long id) {
     return entityManager().find(PrestacionDeServicio.class, id);
+  }
+
+  public Object buscarPorEstablecimiento(Long idEstablecimiento){
+    String jpql = "SELECT p from PrestacionDeServicio p join p.establecimiento e where e.id = :id_establecimiento";
+    Query query = entityManager().createQuery(jpql);
+    query.setParameter("id_establecimiento",idEstablecimiento);
+
+    return query.getResultList();
+  }
+
+  public Object buscarPorEstablecimientoYServicio(String nombreEstablecimiento, String nombreServicio){
+    String jpql = "SELECT p from PrestacionDeServicio p join p.establecimiento e join p.servicio s where e.nombre = :nombre_establecimiento and s.nombre = :nombre_servicio";
+    Query query = entityManager().createQuery(jpql);
+    query.setParameter("nombre_establecimiento",nombreEstablecimiento);
+    query.setParameter("nombre_servicio",nombreServicio);
+
+    return query.getSingleResult();
   }
 
   @Override
