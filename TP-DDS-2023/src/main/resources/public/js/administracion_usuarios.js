@@ -3,14 +3,13 @@ let usuarioAEditar = {}
 
 function buscarUsuariosPorNombre(){
     let nombre = document.getElementById("busquedaNombreUsuario").value;
-    axios.get("/administracion/usuario",{
+    axios.get("/administracion/usuarios",{
     params: {
               nombre: nombre,
-              tipoBusqueda: "nombre"
         }
     })
     .then((response => {
-        console.log(response.data);
+        location.href = "/administracion/usuarios?nombre="+nombre;
     }))
     .catch(function (error){
         console.log(error)

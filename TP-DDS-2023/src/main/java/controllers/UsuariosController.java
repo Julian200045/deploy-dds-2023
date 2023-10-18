@@ -22,11 +22,15 @@ public class UsuariosController implements ICrudViewsHandler  {
     public void index(Context context) {
         Map<String, Object> model = new HashMap<>();
 
-        List<Usuario> usuarios = this.repositorioUsuarios.buscarTodos();
+        List<Usuario> usuarios;
+        if(context.queryString() == null || context.queryString().equals("")){
+            usuarios = this.repositorioUsuarios.buscarTodos();
+        } else {
+            String nombreBuscado = context.queryParam("nombre");
+            usuarios = this.repositorioUsuarios.buscarPorNombre(nombreBuscado);
+        }
+
         List<UsuarioDto> usuarioDtos = usuarios.stream().map(usuario -> new UsuarioDto(usuario.getId(),usuario.getNombre(),usuario.getMail(),usuario.getNumeroCelular(),usuario.getRol())).toList();
-        Gson gson = new Gson();
-        System.out.println(gson.toJson(usuarioDtos));
-        System.out.println(usuarios.stream().map(usuario -> usuario.getRol().nombre).toList());
         model.put("users", usuarioDtos);
         context.render("administracion_usuarios.hbs", model);
     }
