@@ -63,10 +63,15 @@
                     <div class="table-row">{{this.comunidad}}</div>
                     <div class="table-row">{{this.observaciones}}</div>
                     <div class="table-row img-container ">
+                        {{#if this.estaAbierto}}
                         <div class="tick_container">
                             <img class="tick tick_main" src="/img/tick.png" alt="">
                             <img class="tick tick_hover" src="/img/tick_hover.png" alt="" onclick="darDeBaja({{this.id}})">
                         </div>
+                        {{else}}
+                        <div class="tick_container">
+                        </div>
+                        {{/if}}
                     </div>
                 {{/each}}
 

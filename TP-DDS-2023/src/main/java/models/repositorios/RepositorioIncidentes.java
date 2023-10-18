@@ -3,6 +3,7 @@ package models.repositorios;
 import io.github.flbulgarelli.jpa.extras.simple.WithSimplePersistenceUnit;
 import java.util.Collections;
 import java.util.List;
+import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
@@ -11,6 +12,8 @@ import models.entities.incidentes.EstadoIncidente;
 import models.entities.incidentes.Incidente;
 import models.entities.servicios.PrestacionDeServicio;
 import models.repositorios.ICrudRepository;
+import org.hibernate.FlushMode;
+import org.hibernate.Session;
 
 public class RepositorioIncidentes implements ICrudRepository, WithSimplePersistenceUnit {
 
@@ -45,12 +48,18 @@ public class RepositorioIncidentes implements ICrudRepository, WithSimplePersist
     tx.commit();
   }
 
+  public void limpiarCacheIncidentes(){
+    entityManager().clear();
+  }
+
   @Override
   public List buscarTodos() {
+    entityManager().clear();
     return entityManager().createQuery("from " + Incidente.class.getName()).getResultList();
   }
 
   public List buscarTodosFiltrados(String establecimiento, String servicio, String comunidad){
+    entityManager().clear();
     String jpql = "SELECT i from Incidente i join i.prestacionDeServicio p join p.establecimiento e join p.servicio s join i.comunidad c where e.nombre LIKE '"+establecimiento+"%' and s.nombre LIKE '"+servicio+"%' and c.nombre LIKE '"+comunidad+"%'";
     Query query = entityManager().createQuery(jpql);
 

@@ -13,14 +13,14 @@ public class IncidenteInicioDto {
   public String establecimiento;
   public String comunidad;
   public String observaciones;
-  public String estado;
+  public Boolean estaAbierto;
 
-  public IncidenteInicioDto(long id, String servicio, String establecimiento, String comunidad, String observaciones,String estado) {
+  public IncidenteInicioDto(long id, String servicio, String establecimiento, String comunidad, String observaciones,Boolean estado) {
     this.id = id;
     this.servicio = servicio;
     this.establecimiento = establecimiento;
     this.comunidad = comunidad;
     this.observaciones = observaciones;
-    this.estado = estado;
+    this.estaAbierto = estado;
   }
 }

@@ -13,6 +13,10 @@ import models.repositorios.RepositorioIncidentes;
 import models.repositorios.RepositorioPersonas;
 import models.repositorios.RepositorioUsuarios;
 import models.services.IncidentesService;
+import org.hibernate.Cache;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.engine.spi.SessionFactoryDelegatingImpl;
 import server.dtos.IncidenteInicioDto;
 import server.utils.ICrudViewsHandler;
 
@@ -39,20 +43,31 @@ public class InicioController implements ICrudViewsHandler {
   public void index(Context context) {
     Map<String, Object> model = new HashMap<>();
     List<Incidente> incidentes;
-    String estado;
 
-    if (context.queryParamMap().size() <= 1) {
+    String estado = context.queryParam("estado");
+    String establecimiento = context.queryParam("establecimiento");
+    String servicio = context.queryParam("servicio");
+    String comunidad = context.queryParam("comunidad");
+
+    if(context.queryString() == null || context.queryString().equals("")){
       incidentes = this.repositorioIncidentes.buscarTodos();
       estado = "ABIERTO";
-    } else {
+    }
+    else if ((establecimiento == null || establecimiento.equals("")) &&
+        (servicio == null  || servicio.equals("")) &&
+        (comunidad== null || comunidad.equals(""))) {
+      incidentes = this.repositorioIncidentes.buscarTodos();
+    }
+    else {
       incidentes = this.repositorioIncidentes.buscarTodosFiltrados(
           context.queryParam("establecimiento"),
           context.queryParam("servicio"),
           context.queryParam("comunidad"));
-      estado = context.queryParam("estado");
     }
 
-    incidentes = incidentes.stream().filter(incidente -> incidente.getEstado().toString().equals(estado)).toList();
+    String finalEstado = estado;
+    incidentes = incidentes.stream().filter(incidente -> incidente.getEstado().toString().equals(finalEstado)).toList();
+
 
     List<IncidenteInicioDto> incidentesDtos = incidentes.stream().map(incidente ->
         new IncidenteInicioDto(
@@ -61,7 +76,7 @@ public class InicioController implements ICrudViewsHandler {
             incidente.getPrestacionDeServicio().getEstablecimiento().getNombre(),
             incidente.getComunidad().getNombre(),
             incidente.getObservaciones(),
-            incidente.getEstado().toString()
+            incidente.getEstado().toString().equals("ABIERTO")
         )).toList();
 
     //ELIMINAR
@@ -108,7 +123,6 @@ public class InicioController implements ICrudViewsHandler {
 
     incidentesService.darDeBajaIncidentesDeLaPrestacion(personaEnSesion, incidenteADarDeBaja.getPrestacionDeServicio());
 
-    context.redirect("/inicio", HttpStatus.OK);
   }
 
   @Override

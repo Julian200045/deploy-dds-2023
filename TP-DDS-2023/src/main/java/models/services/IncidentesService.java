@@ -51,6 +51,7 @@ public class IncidentesService {
       incidente.cerrar(persona.getMembresiaDeComunidad(incidente.getComunidad()));
       repoIncidentes.actualizar(incidente);
     });
+    //repoIncidentes.limpiarCacheIncidentes();
 
     Set<Persona> miembrosANotificar = new HashSet<>();
 
