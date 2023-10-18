@@ -2,8 +2,11 @@ package models.repositorios;
 
 import io.github.flbulgarelli.jpa.extras.simple.WithSimplePersistenceUnit;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import javax.persistence.EntityTransaction;
+import javax.persistence.Query;
+
 import lombok.Getter;
 import models.entities.usuarios.Usuario;
 import models.repositorios.ICrudRepository;
@@ -42,7 +45,12 @@ public class RepositorioUsuarios implements ICrudRepository, WithSimplePersisten
   }
 
   @Override
-  public Object buscar(Long id) {
-    return entityManager().find(Usuario.class, id);
+  public List<Usuario> buscar(Long id) {
+    return Collections.singletonList(entityManager().find(Usuario.class, id));
+  }
+  public List<Usuario> buscarPorNombre(String nombre) {
+    String jpql = "SELECT u from Usuario u where u.nombre LIKE '"+nombre+"%'";
+    Query query = entityManager().createQuery(jpql);
+    return query.getResultList();
   }
 }

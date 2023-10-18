@@ -24,6 +24,11 @@ public class Router {
       delete("incidentes/{id}", ((IncidentesController) FactoryController.controller("Incidentes"))::delete); //TODO implementar mediante JS
 
       get("administracion/usuarios", ((UsuariosController) FactoryController.controller("AdminUsuarios"))::index);
+      get("administracion/usuario", ((UsuariosController) FactoryController.controller("AdminUsuarios"))::show);
+      get("administracion/usuario/busqueda", ((UsuariosController) FactoryController.controller("AdminUsuarios"))::show);
+      post("administracion/usuario/{id}", ((UsuariosController) FactoryController.controller("AdminUsuarios"))::create);
+      put("administracion/usuario", ((UsuariosController) FactoryController.controller("AdminUsuarios"))::update);
+      delete("administracion/usuario", ((UsuariosController) FactoryController.controller("AdminUsuarios"))::delete);
     });
   }
 }

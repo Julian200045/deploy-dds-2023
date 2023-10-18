@@ -23,11 +23,12 @@ public class Usuario {
   @GeneratedValue
   private long id;
   @Getter
+  @Setter
   @Column(name = "nombre")
   private String nombre;
   @Column(name = "contrasenia")
   private String contrasenia;
-  @ManyToOne(fetch = FetchType.LAZY)
+  @ManyToOne
   @JoinColumn(name = "rol_id", referencedColumnName = "id")
   @Setter
   @Getter

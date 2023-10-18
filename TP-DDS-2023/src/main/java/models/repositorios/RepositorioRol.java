@@ -1,6 +1,8 @@
 package models.repositorios;
 
 import io.github.flbulgarelli.jpa.extras.simple.WithSimplePersistenceUnit;
+import models.entities.roles.Rol;
+import models.entities.usuarios.Usuario;
 
 import javax.persistence.EntityTransaction;
 import java.util.List;
@@ -8,12 +10,12 @@ import java.util.List;
 public class RepositorioRol  implements ICrudRepository, WithSimplePersistenceUnit {
     @Override
     public List buscarTodos() {
-        return null;
+        return entityManager().createQuery("from " + Rol.class.getName()).getResultList();
     }
 
     @Override
     public Object buscar(Long id) {
-        return null;
+        return entityManager().find(Rol.class, id);
     }
 
     @Override

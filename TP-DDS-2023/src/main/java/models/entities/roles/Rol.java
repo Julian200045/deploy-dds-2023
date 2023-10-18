@@ -1,11 +1,13 @@
 package models.entities.roles;
 
+import lombok.Getter;
 import models.entities.permisos.Permiso;
 
 import javax.persistence.*;
 import java.util.List;
 @Entity
 @Table(name = "rol")
+@Getter
 public class Rol {
 
   @Id
