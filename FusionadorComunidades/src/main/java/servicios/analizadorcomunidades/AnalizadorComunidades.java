@@ -1,5 +1,6 @@
 package servicios.analizadorcomunidades;
 
+import containers.Propuesta;
 import servicios.analizadorcomunidades.criterioscoincidencias.CriterioCoincidencia;
 import containers.Comunidad;
 import java.util.ArrayList;
@@ -20,15 +21,21 @@ public class AnalizadorComunidades {
    * @param comunidades comunidades que buscan ser fusionadas.
    * @return lista de propuestas formadas, siendo una propuesta una lista de comunidades
    */
-  public List<List<Comunidad>> generarPropuestasFusion(List<Comunidad> comunidades) {
+  public List<Propuesta> generarPropuestasFusion(List<Comunidad> comunidades) {
     List<Coincidencia> coincidencias = new ArrayList<>();
     comunidades.forEach(comunidad -> coincidencias.add(new Coincidencia(comunidad)));
 
     coincidencias.forEach(coincidencia -> coincidencia.setCoincidencias(coincidencias.stream().filter(c -> coinciden(c.comunidad, coincidencia.comunidad)).toList()));
 
-    List<Coincidencia> coincidenciasValidas = new ArrayList<>(coincidencias.stream().filter(c -> c.esValida() && c.coincidencias.size() > 1).toList());
+    List<Coincidencia> coincidenciasValidas =
+        new ArrayList<>(coincidencias.stream().filter(c -> c.esValida() && c.coincidencias.size() > 1).toList());
 
-    return coincidenciasValidas.stream().map(c -> c.coincidencias.stream().map(c1 -> c1.comunidad).toList()).distinct().toList();
+    List<List<Comunidad>> coincidenciasValidasUnicas = coincidenciasValidas.stream().map(c -> c.coincidencias.stream().map(c1 -> c1.comunidad).toList()).distinct().toList();
+
+
+
+    return coincidenciasValidasUnicas.stream().map(listaComunidades ->
+        new Propuesta(listaComunidades)).toList();
   }
 
   private Boolean coinciden(Comunidad comunidad1, Comunidad comunidad2) {
