@@ -8,12 +8,13 @@ import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.HTTP;
+import retrofit2.http.POST;
 
 public interface FusionadorService {
 	//@GET("fusion_comunidades/")
 	@HTTP(method = "POST", path = "fusion_comunidades", hasBody = true)
 	Call<ListaFusionesComunidades> fusiones(@Body RequestPropuestasComunidad request);
 
-	@GET("sugerencias_fusiones/")
+	@POST("sugerencias_fusiones/")
 	Call<ListaPropuestasFusion> propuestas(@Body RequestSugerenciasFusion request);
 }

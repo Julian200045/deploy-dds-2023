@@ -24,6 +24,6 @@ public class PruebaFusionadorComunidades {
 
 
 		Gson gson = new Gson();
-		System.out.println(lista1);
+		System.out.println(gson.toJson(lista1));
 	}
 }
