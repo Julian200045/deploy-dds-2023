@@ -68,3 +68,5 @@ target/**
 # IJ files
 *.iml
 .idea/**
+
+Vistas/
