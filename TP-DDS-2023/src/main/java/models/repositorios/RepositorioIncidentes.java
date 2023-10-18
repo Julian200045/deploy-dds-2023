@@ -25,7 +25,6 @@ public class RepositorioIncidentes implements ICrudRepository, WithSimplePersist
     for (Object inci :
         incidente) {
       entityManager().persist(inci);
-      System.out.println("Entre a guardar el incidente");
     }
     tx.commit();
   }
@@ -54,7 +53,7 @@ public class RepositorioIncidentes implements ICrudRepository, WithSimplePersist
 
   @Override
   public List buscarTodos() {
-    entityManager().clear();
+    this.limpiarCacheIncidentes();
     return entityManager().createQuery("from " + Incidente.class.getName()).getResultList();
   }
 

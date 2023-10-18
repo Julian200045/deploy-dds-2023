@@ -57,7 +57,6 @@
                 <div class="table-header img-container">Dar de Baja</div>
 
                 {{#each incidentes}}
-
                     <div class="table-row">{{this.establecimiento}}</div>
                     <div class="table-row">{{this.servicio}}</div>
                     <div class="table-row">{{this.comunidad}}</div>
@@ -69,14 +68,16 @@
                             <img class="tick tick_hover" src="/img/tick_hover.png" alt="" onclick="darDeBaja({{this.id}})">
                         </div>
                         {{else}}
-                        <div class="tick_container">
-                        </div>
+                        <div class="tick_container"></div>
                         {{/if}}
                     </div>
                 {{/each}}
-
                 </div>
         </div>
+
+        {{#if (estaVacia incidentes)}}
+            <div class="no-result" >No se encontraron incidentes</div>
+        {{/if}}
     
         <div class="button-container">
             <button onclick="location.href='/alta_incidente'" id="boton-navigate-alta-incidente">Dar de alta un incidente</button>

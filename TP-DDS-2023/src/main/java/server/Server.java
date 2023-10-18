@@ -5,9 +5,12 @@ import com.github.jknack.handlebars.Template;
 import io.javalin.Javalin;
 import io.javalin.config.JavalinConfig;
 import io.javalin.http.HttpStatus;
+import io.javalin.plugin.bundled.CorsPluginConfig;
 import io.javalin.rendering.JavalinRenderer;
 import java.io.IOException;
+import java.util.List;
 import java.util.function.Consumer;
+import models.entities.incidentes.Incidente;
 
 public class Server {
   private static Javalin app = null;
@@ -33,9 +36,7 @@ public class Server {
         staticFiles.hostedPath = "/";
         staticFiles.directory = "/public";
         config.plugins.enableCors(cors -> {
-          cors.add(it -> {
-            it.anyHost();
-          });
+          cors.add(CorsPluginConfig::anyHost);
         });
       });
     };
@@ -45,6 +46,12 @@ public class Server {
     JavalinRenderer.register(
         (path, model, context) -> {
           Handlebars handlebars = new Handlebars();
+
+          handlebars.registerHelper("estaVacia", (unaLista, ctx) -> {
+            List<Object> lista = (List<Object>) unaLista;
+            return lista.isEmpty();
+          });
+
           Template template = null;
           try {
             template = handlebars.compile(

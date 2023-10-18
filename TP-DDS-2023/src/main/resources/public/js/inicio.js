@@ -1,7 +1,3 @@
-Handlebars.registerHelper("estaAbierto",function(estado){
-    return true
-})
-
 function buscarIncidentes() {
     let establecimientoSeleccionado = document.getElementById("establecimiento").value;
     let servicioSeleccionado = document.getElementById("servicio").value;
@@ -17,7 +13,6 @@ function buscarIncidentes() {
     } else {
         window.location.href = `/inicio?establecimiento=${establecimientoSeleccionado}&servicio=${servicioSeleccionado}&comunidad=${comunidadSeleccionada}&estado=${estado}`
     }
-
 }
 
 function darDeBaja(idIncidente) {
@@ -30,7 +25,7 @@ function darDeBaja(idIncidente) {
             .then(response => {
                 if (response.ok) {
                     console.log("OK");
-                    window.location.href= "/inicio"
+                    window.location.href = "/inicio"
                 } else {
                     console.error('Error en la solicitud PATCH:', response.statusText);
                 }
