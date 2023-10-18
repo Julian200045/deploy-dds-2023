@@ -34,6 +34,14 @@ public class Establecimiento {
   @OneToMany(mappedBy = "establecimiento", cascade = {CascadeType.MERGE, CascadeType.REMOVE})
   private List<PrestacionDeServicio> prestaciones;
 
+  @Getter
+  @Column(name = "calle")
+  private String calle;
+
+  @Getter
+  @Column(name = "altura")
+  private String altura;
+
   @Setter
   @Getter
   @ManyToOne(fetch = FetchType.LAZY)

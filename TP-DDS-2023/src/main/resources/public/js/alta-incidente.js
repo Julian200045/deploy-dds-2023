@@ -10,19 +10,6 @@ serviciosPorEstablecimiento.forEach((spe) => serviciosEnEstablecimiento[spe.esta
 console.log(serviciosPorEstablecimiento)
 console.log(serviciosEnEstablecimiento);
 
-// const establecimientos = [
-//     'hola',
-//     'buenas',
-//     'UTN - Haedo',
-//     'UTN - BA',
-// ];
-// const serviciosPorEstablecimiento = {
-//     'hola': ['Servicio A1', 'Servicio A2', 'Servicio A3'],
-//     'buenas': ['Servicio B1', 'Servicio B2'],
-//     'UTN - Haedo': ['Servicio C1', 'Servicio C2', 'Servicio C3', 'Servicio C4'],
-//     'UTN - BA': ['Servicio D1'],
-// };
-
 function showSuggestions(input) {
     const inputValue = input.value.toLowerCase();
 
@@ -70,7 +57,9 @@ inputEstablecimiento.addEventListener('input', () => {
     if(inputEstablecimiento.value === '') {
         selectServicio.innerHTML = '<option value="" selected>Selecciona un establecimiento primero</option>';
         selectServicio.disabled = true;
-        console.log("sisiisisisi");
     }
-    console.log("nnononnono");
 });
+
+function navegarAInicio(){
+    window.location.href="/inicio"
+}

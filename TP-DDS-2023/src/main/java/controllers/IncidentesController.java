@@ -19,7 +19,9 @@ import models.repositorios.RepositorioPrestacionesDeServicio;
 import models.repositorios.RepositorioUsuarios;
 import models.services.IncidentesService;
 import org.quartz.SchedulerException;
+import server.dtos.DireccionDto;
 import server.dtos.IncidenteInicioDto;
+import server.dtos.PrestacionDto;
 import server.dtos.ServiciosPorEstablecimientoDto;
 import server.utils.ICrudViewsHandler;
 
@@ -95,7 +97,31 @@ public class IncidentesController implements ICrudViewsHandler {
 
   @Override
   public void show(Context context) {
+    Gson gson = new Gson();
 
+    Map<String, Object> model = new HashMap<>();
+
+    String id = context.pathParam("id");
+
+    Incidente incidente = (Incidente) this.repositorioIncidentes.buscar(Long.parseLong(id));
+
+    IncidenteInicioDto incidenteDto = new IncidenteInicioDto(
+          incidente.getId(),
+          incidente.getPrestacionDeServicio().getServicio().getNombre(),
+          incidente.getPrestacionDeServicio().getEstablecimiento().getNombre(),
+          incidente.getComunidad().getNombre(),
+          incidente.getObservaciones(),
+          incidente.getEstado().toString().equals("ABIERTO"));
+
+    DireccionDto direccionDto =
+        new DireccionDto(
+            incidente.getPrestacionDeServicio().getEstablecimiento().getCalle(),
+            incidente.getPrestacionDeServicio().getEstablecimiento().getAltura());
+
+    model.put("incidente", gson.toJson(incidenteDto));
+    model.put("direccion", gson.toJson(direccionDto));
+
+    context.render("revision_incidente.hbs", model);
   }
 
   @Override
@@ -142,7 +168,7 @@ public class IncidentesController implements ICrudViewsHandler {
     PrestacionDeServicio prestacion = (PrestacionDeServicio) repositorioPrestaciones.buscarPorEstablecimientoYServicio(nombreEstablecimiento,nombreServicio);
 
     incidentesService.darDeAltaIncidente(personaEnSesion,prestacion,observaciones);
-    context.render("alta-incidente.hbs",model);
+    context.redirect("/alta-incidente");
   }
 
   @Override
