@@ -3,12 +3,12 @@ package pruebasDeContexto;
 import com.google.gson.Gson;
 import java.io.IOException;
 import java.util.List;
-import services.fusionadorComunidades.ServicioFusionador;
-import services.fusionadorComunidades.moldes.ComunidadMolde;
-import services.fusionadorComunidades.moldes.ListaFusionesComunidades;
-import services.fusionadorComunidades.moldes.PrestacionDeServicioMolde;
-import services.fusionadorComunidades.moldes.Propuesta;
-import services.fusionadorComunidades.request.RequestPropuestasComunidad;
+import models.services.fusionadorComunidades.ServicioFusionador;
+import models.services.fusionadorComunidades.moldes.ComunidadMolde;
+import models.services.fusionadorComunidades.moldes.ListaFusionesComunidades;
+import models.services.fusionadorComunidades.moldes.PrestacionDeServicioMolde;
+import models.services.fusionadorComunidades.moldes.Propuesta;
+import models.services.fusionadorComunidades.request.RequestPropuestasComunidad;
 
 public class PruebaFusionadorComunidades {
 	public static void main(String[] args) throws IOException {

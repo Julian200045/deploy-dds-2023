@@ -1,4 +1,4 @@
-package services.fusionadorComunidades.moldes;
+package models.services.fusionadorComunidades.moldes;
 
 import java.util.List;
 import lombok.Getter;

@@ -1,14 +1,15 @@
-package services.fusionadorComunidades;
+package models.services.fusionadorComunidades;
 
 import java.io.IOException;
+
+import models.services.fusionadorComunidades.moldes.ListaFusionesComunidades;
+import models.services.fusionadorComunidades.moldes.ListaPropuestasFusion;
+import models.services.fusionadorComunidades.request.RequestPropuestasComunidad;
+import models.services.fusionadorComunidades.request.RequestSugerenciasFusion;
 import retrofit2.Call;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
-import services.fusionadorComunidades.moldes.ListaFusionesComunidades;
-import services.fusionadorComunidades.moldes.ListaPropuestasFusion;
-import services.fusionadorComunidades.request.RequestPropuestasComunidad;
-import services.fusionadorComunidades.request.RequestSugerenciasFusion;
 
 public class ServicioFusionador {
 	private static ServicioFusionador instancia = null;

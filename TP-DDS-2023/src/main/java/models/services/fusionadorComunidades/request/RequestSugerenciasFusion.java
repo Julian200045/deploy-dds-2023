@@ -1,7 +1,7 @@
-package services.fusionadorComunidades.request;
+package models.services.fusionadorComunidades.request;
 
 import java.util.List;
-import services.fusionadorComunidades.moldes.ComunidadMolde;
+import models.services.fusionadorComunidades.moldes.ComunidadMolde;
 
 public class RequestSugerenciasFusion {
 	public List<ComunidadMolde> comunidadesAFusionar;

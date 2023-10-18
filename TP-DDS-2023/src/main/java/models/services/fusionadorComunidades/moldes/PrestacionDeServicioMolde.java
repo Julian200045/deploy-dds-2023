@@ -1,4 +1,4 @@
-package services.fusionadorComunidades.moldes;
+package models.services.fusionadorComunidades.moldes;
 
 
 public class PrestacionDeServicioMolde {

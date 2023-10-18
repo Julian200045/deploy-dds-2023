@@ -1,15 +1,13 @@
-package services.fusionadorComunidades;
+package models.services.fusionadorComunidades;
 
+import models.services.fusionadorComunidades.moldes.ListaFusionesComunidades;
+import models.services.fusionadorComunidades.moldes.ListaPropuestasFusion;
+import models.services.fusionadorComunidades.request.RequestPropuestasComunidad;
+import models.services.fusionadorComunidades.request.RequestSugerenciasFusion;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.HTTP;
-import retrofit2.http.Headers;
-import retrofit2.http.POST;
-import services.fusionadorComunidades.moldes.ListaFusionesComunidades;
-import services.fusionadorComunidades.moldes.ListaPropuestasFusion;
-import services.fusionadorComunidades.request.RequestPropuestasComunidad;
-import services.fusionadorComunidades.request.RequestSugerenciasFusion;
 
 public interface FusionadorService {
 	//@GET("fusion_comunidades/")
