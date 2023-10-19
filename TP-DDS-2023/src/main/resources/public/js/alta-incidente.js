@@ -61,5 +61,5 @@ inputEstablecimiento.addEventListener('input', () => {
 });
 
 function navegarAInicio(){
-    window.location.href="/inicio"
+    window.location.href="/"
 }

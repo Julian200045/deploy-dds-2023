@@ -9,15 +9,15 @@ function buscarIncidentes() {
     if ((establecimientoSeleccionado == null || establecimientoSeleccionado == "") && 
         (servicioSeleccionado == null || servicioSeleccionado == "") && 
         (comunidadSeleccionada == null || comunidadSeleccionada == "")) {
-        window.location.href = `/inicio?estado=${estado}`
+        window.location.href = `/incidentes?estado=${estado}`
     } else {
-        window.location.href = `/inicio?establecimiento=${establecimientoSeleccionado}&servicio=${servicioSeleccionado}&comunidad=${comunidadSeleccionada}&estado=${estado}`
+        window.location.href = `/incidentes?establecimiento=${establecimientoSeleccionado}&servicio=${servicioSeleccionado}&comunidad=${comunidadSeleccionada}&estado=${estado}`
     }
 }
 
 function darDeBaja(idIncidente) {
     if (confirm("¿Seguro que quiere dar de baja el incidente?") === true) {
-        fetch(`/inicio/incidentes/${idIncidente}/dar-de-baja`, {
+        fetch(`/incidentes/${idIncidente}`, {
             method: 'PATCH', headers: {
                 'Content-Type': 'application/json'
             }
@@ -25,7 +25,7 @@ function darDeBaja(idIncidente) {
             .then(response => {
                 if (response.ok) {
                     console.log("OK");
-                    window.location.href = "/inicio"
+                    window.location.href = "/incidentes"
                 } else {
                     console.error('Error en la solicitud PATCH:', response.statusText);
                 }
@@ -36,4 +36,8 @@ function darDeBaja(idIncidente) {
     } else {
         alert("Operación cancelada.");
     }
+}
+
+function navegarAInicio(){
+    window.location.href="/"
 }

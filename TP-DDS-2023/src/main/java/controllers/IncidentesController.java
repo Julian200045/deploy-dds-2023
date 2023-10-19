@@ -2,13 +2,11 @@ package controllers;
 
 import com.google.gson.Gson;
 import io.javalin.http.Context;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
-
 import models.entities.comunidades.Persona;
 import models.entities.incidentes.Incidente;
 import models.entities.servicios.PrestacionDeServicio;
@@ -21,7 +19,6 @@ import models.services.IncidentesService;
 import org.quartz.SchedulerException;
 import server.dtos.DireccionDto;
 import server.dtos.IncidenteInicioDto;
-import server.dtos.PrestacionDto;
 import server.dtos.ServiciosPorEstablecimientoDto;
 import server.utils.ICrudViewsHandler;
 
@@ -57,16 +54,14 @@ public class IncidentesController implements ICrudViewsHandler {
     String servicio = context.queryParam("servicio");
     String comunidad = context.queryParam("comunidad");
 
-    if(context.queryString() == null || context.queryString().equals("")){
+    if (context.queryString() == null || context.queryString().equals("")) {
       incidentes = this.repositorioIncidentes.buscarTodos();
       estado = "ABIERTO";
-    }
-    else if ((establecimiento == null || establecimiento.equals("")) &&
-        (servicio == null  || servicio.equals("")) &&
-        (comunidad== null || comunidad.equals(""))) {
+    } else if ((establecimiento == null || establecimiento.equals("")) &&
+        (servicio == null || servicio.equals("")) &&
+        (comunidad == null || comunidad.equals(""))) {
       incidentes = this.repositorioIncidentes.buscarTodos();
-    }
-    else {
+    } else {
       incidentes = this.repositorioIncidentes.buscarTodosFiltrados(
           context.queryParam("establecimiento"),
           context.queryParam("servicio"),
@@ -86,13 +81,8 @@ public class IncidentesController implements ICrudViewsHandler {
             incidente.getEstado().toString().equals("ABIERTO")
         )).toList();
 
-    //ELIMINAR
-    Gson gson = new Gson();
-    System.out.println(gson.toJson(incidentesDtos));
-    //
-
     model.put("incidentes", incidentesDtos);
-    context.render("inicio.hbs", model);
+    context.render("incidentes.hbs", model);
   }
 
   @Override
@@ -106,12 +96,12 @@ public class IncidentesController implements ICrudViewsHandler {
     Incidente incidente = (Incidente) this.repositorioIncidentes.buscar(Long.parseLong(id));
 
     IncidenteInicioDto incidenteDto = new IncidenteInicioDto(
-          incidente.getId(),
-          incidente.getPrestacionDeServicio().getServicio().getNombre(),
-          incidente.getPrestacionDeServicio().getEstablecimiento().getNombre(),
-          incidente.getComunidad().getNombre(),
-          incidente.getObservaciones(),
-          incidente.getEstado().toString().equals("ABIERTO"));
+        incidente.getId(),
+        incidente.getPrestacionDeServicio().getServicio().getNombre(),
+        incidente.getPrestacionDeServicio().getEstablecimiento().getNombre(),
+        incidente.getComunidad().getNombre(),
+        incidente.getObservaciones(),
+        incidente.getEstado().toString().equals("ABIERTO"));
 
     DireccionDto direccionDto =
         new DireccionDto(
@@ -128,7 +118,7 @@ public class IncidentesController implements ICrudViewsHandler {
   public void create(Context context) {
     Gson gson = new Gson();
 
-    Map<String,Object> model = new HashMap<>();
+    Map<String, Object> model = new HashMap<>();
 
     List<PrestacionDeServicio> prestaciones = repositorioPrestaciones.buscarTodos();
 
@@ -139,19 +129,19 @@ public class IncidentesController implements ICrudViewsHandler {
       List<PrestacionDeServicio> prestacionesDelEstablecimiento = (List<PrestacionDeServicio>) repositorioPrestaciones.buscarPorEstablecimiento(establecimiento.getId());
       serviciosPorEstablecimientoDto.add(
           new ServiciosPorEstablecimientoDto(
-            establecimiento.getNombre(),
-            prestacionesDelEstablecimiento.stream().map(prestacion -> prestacion.getServicio().getNombre()).toList()));
+              establecimiento.getNombre(),
+              prestacionesDelEstablecimiento.stream().map(prestacion -> prestacion.getServicio().getNombre()).toList()));
     });
 
     String jsonServiciosPorEstablecimiento = gson.toJson(serviciosPorEstablecimientoDto);
-    model.put("serviciosPorEstablecimiento",jsonServiciosPorEstablecimiento);
+    model.put("serviciosPorEstablecimiento", jsonServiciosPorEstablecimiento);
 
-    context.render("alta-incidente.hbs",model);
+    context.render("alta-incidente.hbs", model);
   }
 
   @Override
   public void save(Context context) throws SchedulerException {
-    Map<String,Object> model = new HashMap<>();
+    Map<String, Object> model = new HashMap<>();
 
     //ELIMINAR
     context.sessionAttribute("idUsuario", 4L);
@@ -165,10 +155,10 @@ public class IncidentesController implements ICrudViewsHandler {
     String nombreServicio = context.formParam("servicio");
     String observaciones = context.formParam("observaciones");
 
-    PrestacionDeServicio prestacion = (PrestacionDeServicio) repositorioPrestaciones.buscarPorEstablecimientoYServicio(nombreEstablecimiento,nombreServicio);
+    PrestacionDeServicio prestacion = (PrestacionDeServicio) repositorioPrestaciones.buscarPorEstablecimientoYServicio(nombreEstablecimiento, nombreServicio);
 
-    incidentesService.darDeAltaIncidente(personaEnSesion,prestacion,observaciones);
-    context.redirect("/alta-incidente");
+    incidentesService.darDeAltaIncidente(personaEnSesion, prestacion, observaciones);
+    context.redirect("/incidentes/crear");
   }
 
   @Override
