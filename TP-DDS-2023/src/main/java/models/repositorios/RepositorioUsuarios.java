@@ -48,9 +48,11 @@ public class RepositorioUsuarios implements ICrudRepository, WithSimplePersisten
   public Object buscar(Long id) {
     return entityManager().find(Usuario.class, id);
   }
-  public List<Usuario> buscarPorNombre(String nombre) {
-    String jpql = "SELECT u from Usuario u where u.nombre LIKE '"+nombre+"%'";
+
+  public Object buscarPorNombre(String nombre) {
+    String jpql = "SELECT u from Usuario u where u.nombre = :nombre";
     Query query = entityManager().createQuery(jpql);
-    return query.getResultList();
+    query.setParameter("nombre", nombre);
+    return query.getSingleResult();
   }
 }

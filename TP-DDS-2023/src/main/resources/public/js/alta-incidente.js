@@ -61,5 +61,5 @@ inputEstablecimiento.addEventListener('input', () => {
 });
 
 function navegarAInicio(){
-    window.location.href="/"
+    window.location.href="/incidentes"
 }

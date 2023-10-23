@@ -15,48 +15,45 @@ import models.services.notificador.formas.EnElMomento;
 import models.services.notificador.formas.FormasNotificar;
 import models.services.notificador.MedioDeContacto;
 import models.services.notificador.Notificacion;
+@Getter
 @Entity
 @Table(name = "usuario")
 public class Usuario {
-  @Getter
   @Id
   @GeneratedValue
   private long id;
-  @Getter
+
   @Setter
   @Column(name = "nombre")
   private String nombre;
+
   @Column(name = "contrasenia")
   private String contrasenia;
+
   @ManyToOne
   @JoinColumn(name = "rol_id", referencedColumnName = "id")
   @Setter
-  @Getter
   private Rol rol;
 
-  @Getter
   @Setter
   @Column(name = "mail")
   private String mail;
-  @Getter
+
   @Setter
   @Column(name = "num_celular")
   private String numeroCelular;
 
-  @Getter
   @Enumerated(value = EnumType.STRING)
   private MedioDeContacto medioDeContacto;
 
-  @Getter
   @Setter
   @Convert( converter =  FormasNotificarConverter.class)
   @Column(name = "forma_notificar")
   private FormasNotificar forma = new EnElMomento();;
 
-  @Getter
   @Column(name = "inicio_horario_disponible", columnDefinition = "TIMESTAMP")
   private LocalDateTime inicioHorarioDisponible;
-  @Getter
+
   @Column(name = "fin_horario_disponible", columnDefinition = "TIMESTAMP")
   private LocalDateTime finHorarioDisponible;
 

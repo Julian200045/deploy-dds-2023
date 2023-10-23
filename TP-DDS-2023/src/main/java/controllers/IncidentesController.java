@@ -2,6 +2,7 @@ package controllers;
 
 import com.google.gson.Gson;
 import io.javalin.http.Context;
+import io.javalin.http.HttpStatus;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -46,9 +47,12 @@ public class IncidentesController implements ICrudViewsHandler {
 
   @Override
   public void index(Context context) {
+    if(context.sessionAttribute("usuario_id") == null) {
+      context.redirect("/login", HttpStatus.UNAUTHORIZED);
+    }
+
     Map<String, Object> model = new HashMap<>();
     List<Incidente> incidentes;
-
     String estado = context.queryParam("estado");
     String establecimiento = context.queryParam("establecimiento");
     String servicio = context.queryParam("servicio");
@@ -141,13 +145,11 @@ public class IncidentesController implements ICrudViewsHandler {
 
   @Override
   public void save(Context context) throws SchedulerException {
+    Long idUsuarioEnSesion = context.sessionAttribute("usuario_id");
+    if(idUsuarioEnSesion == null) {
+      context.redirect("/login", HttpStatus.UNAUTHORIZED);
+    }
     Map<String, Object> model = new HashMap<>();
-
-    //ELIMINAR
-    context.sessionAttribute("idUsuario", 4L);
-    Long idUsuarioEnSesion = context.sessionAttribute("idUsuario");
-    //
-
     Usuario usuarioEnSesion = (Usuario) repositorioUsuarios.buscar(idUsuarioEnSesion);
     Persona personaEnSesion = (Persona) repositorioPersonas.buscarPorUsuario(usuarioEnSesion);
 
@@ -158,7 +160,7 @@ public class IncidentesController implements ICrudViewsHandler {
     PrestacionDeServicio prestacion = (PrestacionDeServicio) repositorioPrestaciones.buscarPorEstablecimientoYServicio(nombreEstablecimiento, nombreServicio);
 
     incidentesService.darDeAltaIncidente(personaEnSesion, prestacion, observaciones);
-    context.redirect("/incidentes/crear");
+    context.redirect("/incidentes/alta");
   }
 
   @Override
@@ -168,10 +170,10 @@ public class IncidentesController implements ICrudViewsHandler {
 
   @Override
   public void update(Context context) {
-    //ELIMINAR
-    context.sessionAttribute("idUsuario", 4L);
-    Long idUsuarioEnSesion = context.sessionAttribute("idUsuario");
-    //
+    Long idUsuarioEnSesion = context.sessionAttribute("usuario_id");
+    if(idUsuarioEnSesion == null) {
+      context.redirect("/login", HttpStatus.UNAUTHORIZED);
+    }
 
     Long idIncidente = Long.parseLong(context.pathParam("id"));
 

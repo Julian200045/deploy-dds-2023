@@ -17,7 +17,7 @@ function buscarIncidentes() {
 
 function darDeBaja(idIncidente) {
     if (confirm("¿Seguro que quiere dar de baja el incidente?") === true) {
-        fetch(`/incidentes/${idIncidente}`, {
+        fetch(`/incidentes/${idIncidente}/baja`, {
             method: 'PATCH', headers: {
                 'Content-Type': 'application/json'
             }
@@ -39,5 +39,5 @@ function darDeBaja(idIncidente) {
 }
 
 function navegarAInicio(){
-    window.location.href="/"
+    window.location.href="/incidentes"
 }
