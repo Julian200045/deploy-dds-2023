@@ -43,6 +43,7 @@ public class Usuario {
   @Column(name = "num_celular")
   private String numeroCelular;
 
+  @Setter
   @Enumerated(value = EnumType.STRING)
   private MedioDeContacto medioDeContacto;
 
@@ -51,21 +52,20 @@ public class Usuario {
   @Column(name = "forma_notificar")
   private FormasNotificar forma = new EnElMomento();;
 
+  @Setter
   @Column(name = "inicio_horario_disponible", columnDefinition = "TIMESTAMP")
   private LocalDateTime inicioHorarioDisponible;
 
+  @Setter
   @Column(name = "fin_horario_disponible", columnDefinition = "TIMESTAMP")
   private LocalDateTime finHorarioDisponible;
 
-  public Usuario(String nombre, String contrasenia, String mail, String celular, LocalDateTime inicioHorarioDisponible, LocalDateTime finHorarioDisponible) throws IOException {
-    this.contrasenia = contrasenia;
+  public Usuario(String nombre, String contrasenia, String mail, String celular) {
     this.nombre = nombre;
-    this.medioDeContacto = null;
+    this.contrasenia = contrasenia;
     this.mail=mail;
     this.numeroCelular=celular;
-
-    this.inicioHorarioDisponible = inicioHorarioDisponible;
-    this.finHorarioDisponible = finHorarioDisponible;
+    this.medioDeContacto = null;
   }
 
   public Boolean estaDisponible(LocalDateTime horario) {

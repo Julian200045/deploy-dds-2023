@@ -25,8 +25,11 @@ public class Router {
       get("incidentes", ((IncidentesController) FactoryController.controller("Incidentes"))::index);
       get("incidentes/alta", ((IncidentesController) FactoryController.controller("Incidentes"))::create);
       get("incidentes/{id}", ((IncidentesController) FactoryController.controller("Incidentes"))::show);
+      get("usuarios", ((UsuariosController) FactoryController.controller("AdminUsuarios"))::index);
+      get("usuarios/crear", ((UsuariosController) FactoryController.controller("AdminUsuarios"))::create);
       post("incidentes", ((IncidentesController) FactoryController.controller("Incidentes"))::save);
       post("usuarios/login", ((UsuariosController) FactoryController.controller("AdminUsuarios"))::login);
+      post("usuarios", ((UsuariosController) FactoryController.controller("AdminUsuarios"))::save);
       patch("incidentes/{id}/baja", ((IncidentesController) FactoryController.controller("Incidentes"))::update);
 
       get("administracion/usuarios", ((UsuariosController) FactoryController.controller("AdminUsuarios"))::index);

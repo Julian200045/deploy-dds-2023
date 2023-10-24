@@ -1,8 +1,7 @@
 package models.services.validadorDeContrasenia.Validacion;
 
-import models.services.LectorPropiedades;
-
 import java.io.IOException;
+import models.services.LectorPropiedades;
 
 public class ValidacionDeLargo implements Validacion {
 
@@ -17,7 +16,7 @@ public class ValidacionDeLargo implements Validacion {
   }
 
   @Override
-  public Boolean valida(String contrasenia){
+  public Boolean valida(String contrasenia) {
     return min <= contrasenia.length() && contrasenia.length() <= max;
   }
 }

@@ -9,6 +9,10 @@ import models.entities.usuarios.Usuario;
 import models.repositorios.RepositorioUsuarios;
 import models.services.hasher.Hasher;
 import models.services.hasher.HasherEstandar;
+import models.services.validadorDeContrasenia.Validacion.ValidacionMayuscula;
+import models.services.validadorDeContrasenia.Validacion.ValidacionRepeticionLetras;
+import models.services.validadorDeContrasenia.Validacion.ValidacionSimilitudUsuario;
+import models.services.validadorDeContrasenia.ValidadorDeContraseniasPorValidaciones;
 import server.dtos.UsuarioDto;
 import server.utils.ICrudViewsHandler;
 
@@ -64,12 +68,33 @@ public class UsuariosController implements ICrudViewsHandler {
 
   @Override
   public void create(Context context) {
-
+    context.render("crear-usuario.hbs");
   }
 
   @Override
   public void save(Context context) {
+    String nombreUsuario = context.formParam("nombre");
+    String contrasenia = context.formParam("contrasenia");
+    String email = context.formParam("email");
+    String celular = context.formParam("celular");
 
+    if (this.repositorioUsuarios.buscarPorNombre(nombreUsuario) != null) {
+      context.result("Nombre ya existente");
+      return;
+    }
+
+    ValidadorDeContraseniasPorValidaciones validador = new ValidadorDeContraseniasPorValidaciones();
+    validador.agregarValidacion(new ValidacionMayuscula());
+    validador.agregarValidacion(new ValidacionRepeticionLetras());
+    validador.agregarValidacion(new ValidacionSimilitudUsuario(nombreUsuario));
+
+    if (validador.esValida(contrasenia)) {
+      Hasher hasher = new HasherEstandar();
+      Usuario usuario = new Usuario(nombreUsuario, hasher.hashear(contrasenia), email, celular);
+      this.repositorioUsuarios.guardar(usuario);
+      context.result("Usuario creado correctamente");
+      context.redirect("/login");
+    }
   }
 
   @Override

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import javax.persistence.EntityTransaction;
+import javax.persistence.NoResultException;
 import javax.persistence.Query;
 
 import lombok.Getter;
@@ -53,6 +54,10 @@ public class RepositorioUsuarios implements ICrudRepository, WithSimplePersisten
     String jpql = "SELECT u from Usuario u where u.nombre = :nombre";
     Query query = entityManager().createQuery(jpql);
     query.setParameter("nombre", nombre);
-    return query.getSingleResult();
+    try {
+      return query.getSingleResult();
+    } catch (NoResultException e) {
+      return null;
+    }
   }
 }
