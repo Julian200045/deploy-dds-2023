@@ -82,7 +82,7 @@ public class RepositorioIncidentes implements ICrudRepository, WithSimplePersist
 
   public List buscarPorServicio(long idServicio){
 
-    String jpql = "SELECT i from Incidente i join prestacion on prestacion.id = i.prestacion_id where prestacion.servicio_id = :id_servicio";
+    String jpql = "SELECT i from Incidente i join i.prestacionDeServicio p where p.servicio.id = :id_servicio";
     Query query = entityManager().createQuery(jpql);
     query.setParameter("id_servicio",idServicio);
     try {
@@ -94,7 +94,7 @@ public class RepositorioIncidentes implements ICrudRepository, WithSimplePersist
 
   public List buscarPorComunidad(long idComunidad){
 
-    String jpql = "SELECT i from Incidente i where i.comunidad_id = :id_comunidad";
+    String jpql = "SELECT i from Incidente i join i.comunidad where i.comunidad.id  = :id_comunidad";
     Query query = entityManager().createQuery(jpql);
     query.setParameter("id_comunidad",idComunidad);
     try {

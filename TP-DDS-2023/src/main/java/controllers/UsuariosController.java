@@ -9,12 +9,15 @@ import models.entities.comunidades.Persona;
 import models.entities.usuarios.Usuario;
 import models.repositorios.RepositorioPersonas;
 import models.repositorios.RepositorioUsuarios;
+import models.services.LectorPropiedades;
 import models.services.hasher.Hasher;
 import models.services.hasher.HasherEstandar;
+import models.services.validadorDeContrasenia.Validacion.ValidacionDeLargo;
+import models.services.validadorDeContrasenia.Validacion.ValidacionMasUsadas;
 import models.services.validadorDeContrasenia.Validacion.ValidacionMayuscula;
 import models.services.validadorDeContrasenia.Validacion.ValidacionRepeticionLetras;
 import models.services.validadorDeContrasenia.Validacion.ValidacionSimilitudUsuario;
-import models.services.validadorDeContrasenia.ValidadorDeContraseniasPorValidaciones;
+import models.services.validadorDeContrasenia.ValidadorDeContrasenias;
 import server.dtos.UsuarioDto;
 import server.utils.ICrudViewsHandler;
 
@@ -22,10 +25,16 @@ public class UsuariosController implements ICrudViewsHandler {
 
   private RepositorioPersonas repositorioPersonas;
   private RepositorioUsuarios repositorioUsuarios;
+  private ValidadorDeContrasenias validadorDeContrasenias;
+  private LectorPropiedades lectorPropiedades;
+  private Hasher hasher;
 
-  public UsuariosController(RepositorioUsuarios repositorioUsuarios, RepositorioPersonas repositorioPersonas) {
+  public UsuariosController(RepositorioUsuarios repositorioUsuarios, RepositorioPersonas repositorioPersonas, ValidadorDeContrasenias validadorDeContrasenias, LectorPropiedades lectorPropiedades, Hasher hasher) {
     this.repositorioUsuarios = repositorioUsuarios;
     this.repositorioPersonas = repositorioPersonas;
+    this.validadorDeContrasenias = validadorDeContrasenias;
+    this.lectorPropiedades = lectorPropiedades;
+    this.hasher = hasher;
   }
 
   @Override
@@ -89,13 +98,13 @@ public class UsuariosController implements ICrudViewsHandler {
       return;
     }
 
-    ValidadorDeContraseniasPorValidaciones validador = new ValidadorDeContraseniasPorValidaciones();
-    validador.agregarValidacion(new ValidacionMayuscula());
-    validador.agregarValidacion(new ValidacionRepeticionLetras());
-    validador.agregarValidacion(new ValidacionSimilitudUsuario(nombreUsuario));
+    validadorDeContrasenias.agregarValidacion(new ValidacionMayuscula());
+    validadorDeContrasenias.agregarValidacion(new ValidacionRepeticionLetras());
+    validadorDeContrasenias.agregarValidacion(new ValidacionSimilitudUsuario(nombreUsuario));
+    validadorDeContrasenias.agregarValidacion(new ValidacionDeLargo(lectorPropiedades));
+    validadorDeContrasenias.agregarValidacion(new ValidacionMasUsadas(lectorPropiedades));
 
-    if (validador.esValida(contrasenia)) {
-      Hasher hasher = new HasherEstandar();
+    if (validadorDeContrasenias.esValida(contrasenia)) {
       Usuario usuario = new Usuario(nombreUsuario, hasher.hashear(contrasenia), email, celular);
       this.repositorioUsuarios.guardar(usuario);
       Persona persona = new Persona(nombre, apellido, usuario);

@@ -8,11 +8,16 @@ public class ValidacionDeLargo implements Validacion {
   private Integer min;
   private Integer max;
 
-  public ValidacionDeLargo(String path) throws IOException {
-    LectorPropiedades lectorPropiedades = new LectorPropiedades(path);
+  private LectorPropiedades lectorPropiedades;
 
-    this.min = lectorPropiedades.getPropiedadInt("min");
-    this.max = lectorPropiedades.getPropiedadInt("max");
+  public ValidacionDeLargo(LectorPropiedades lectorPropiedades) {
+    this.lectorPropiedades = lectorPropiedades;
+    try {
+      this.min = lectorPropiedades.getPropiedadInt("min");
+      this.max = lectorPropiedades.getPropiedadInt("max");
+    } catch (IOException e) {
+      throw new RuntimeException(e);
+    }
   }
 
   @Override

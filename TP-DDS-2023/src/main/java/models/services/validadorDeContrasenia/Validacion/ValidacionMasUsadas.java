@@ -11,12 +11,16 @@ import models.services.LectorPropiedades;
 public class ValidacionMasUsadas implements Validacion {
 
   private static List<String> constraseniasInvalidas;
+  private LectorPropiedades lectorPropiedades;
 
-  public ValidacionMasUsadas(String pathPropiedades) throws IOException {
-    LectorPropiedades lectorPropiedades = new LectorPropiedades(pathPropiedades);
-
+  public ValidacionMasUsadas(LectorPropiedades lectorPropiedades) {
+    this.lectorPropiedades = lectorPropiedades;
     if (constraseniasInvalidas == null) {
-      constraseniasInvalidas = cargarContraseniasMasUsadas(lectorPropiedades.getPropiedad("password-top-10000-path"));
+      try {
+        constraseniasInvalidas = cargarContraseniasMasUsadas(lectorPropiedades.getPropiedad("password-top-10000-path"));
+      } catch (IOException e) {
+        throw new RuntimeException(e);
+      }
     }
 
   }

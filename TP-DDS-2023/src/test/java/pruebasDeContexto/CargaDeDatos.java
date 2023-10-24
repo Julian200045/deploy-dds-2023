@@ -40,11 +40,11 @@ public class CargaDeDatos {
     repositorioComunidades.guardar(comunidad);
     repositorioComunidades.guardar(comunidad2);
 
-    Usuario usuario1 = new Usuario("tomas", hasher.hashear("1234"), "hola@gmail.com","112233",LocalDateTime.now(), LocalDateTime.now());
-    Usuario usuario2 = new Usuario("julian", hasher.hashear("1234"), "hola@gmail.com","112233",LocalDateTime.now(), LocalDateTime.now());
-    Usuario usuario3 = new Usuario("exequiel", hasher.hashear("1234"), "hola@gmail.com","112233", LocalDateTime.now(), LocalDateTime.now());
-    Usuario usuario4 = new Usuario("renzo", hasher.hashear("1234"),"hola@gmail.com","112233", LocalDateTime.now(), LocalDateTime.now());
-    Usuario usuario5 = new Usuario("gomaaazo", hasher.hashear("1234"),"hola@gmail.com", "112233",LocalDateTime.now(), LocalDateTime.now());
+    Usuario usuario1 = new Usuario("tomas", hasher.hashear("1234"), "hola@gmail.com","112233");
+    Usuario usuario2 = new Usuario("julian", hasher.hashear("1234"), "hola@gmail.com","112233");
+    Usuario usuario3 = new Usuario("exequiel", hasher.hashear("1234"), "hola@gmail.com","112233");
+    Usuario usuario4 = new Usuario("renzo", hasher.hashear("1234"),"hola@gmail.com","112233");
+    Usuario usuario5 = new Usuario("gomaaazo", hasher.hashear("1234"),"hola@gmail.com", "112233");
 
     Persona persona1 = new Persona("Juan1", "Carlos1", usuario1);
     Persona persona2 = new Persona("Juan2", "Carlos2", usuario2);
