@@ -47,8 +47,8 @@ public class IncidentesController implements ICrudViewsHandler {
 
   @Override
   public void index(Context context) {
-    if(context.sessionAttribute("usuario_id") == null) {
-      context.redirect("/login", HttpStatus.UNAUTHORIZED);
+    if (context.sessionAttribute("usuario_id") == null) {
+      context.status(HttpStatus.UNAUTHORIZED).redirect("/login");
     }
 
     Map<String, Object> model = new HashMap<>();
@@ -91,8 +91,6 @@ public class IncidentesController implements ICrudViewsHandler {
 
   @Override
   public void show(Context context) {
-    Gson gson = new Gson();
-
     Map<String, Object> model = new HashMap<>();
 
     String id = context.pathParam("id");
@@ -112,8 +110,8 @@ public class IncidentesController implements ICrudViewsHandler {
             incidente.getPrestacionDeServicio().getEstablecimiento().getCalle(),
             incidente.getPrestacionDeServicio().getEstablecimiento().getAltura());
 
-    model.put("incidente", gson.toJson(incidenteDto));
-    model.put("direccion", gson.toJson(direccionDto));
+    model.put("incidente", incidenteDto);
+    model.put("direccion", direccionDto);
 
     context.render("revision_incidente.hbs", model);
   }
@@ -121,15 +119,11 @@ public class IncidentesController implements ICrudViewsHandler {
   @Override
   public void create(Context context) {
     Gson gson = new Gson();
-
     Map<String, Object> model = new HashMap<>();
 
     List<PrestacionDeServicio> prestaciones = repositorioPrestaciones.buscarTodos();
-
     List<ServiciosPorEstablecimientoDto> serviciosPorEstablecimientoDto = new ArrayList<>();
-
     prestaciones.stream().map(prestacion -> prestacion.getEstablecimiento()).collect(Collectors.toSet()).forEach(establecimiento -> {
-
       List<PrestacionDeServicio> prestacionesDelEstablecimiento = (List<PrestacionDeServicio>) repositorioPrestaciones.buscarPorEstablecimiento(establecimiento.getId());
       serviciosPorEstablecimientoDto.add(
           new ServiciosPorEstablecimientoDto(
@@ -139,17 +133,16 @@ public class IncidentesController implements ICrudViewsHandler {
 
     String jsonServiciosPorEstablecimiento = gson.toJson(serviciosPorEstablecimientoDto);
     model.put("serviciosPorEstablecimiento", jsonServiciosPorEstablecimiento);
-
     context.render("alta-incidente.hbs", model);
   }
 
   @Override
   public void save(Context context) throws SchedulerException {
     Long idUsuarioEnSesion = context.sessionAttribute("usuario_id");
-    if(idUsuarioEnSesion == null) {
-      context.redirect("/login", HttpStatus.UNAUTHORIZED);
+    if (idUsuarioEnSesion == null) {
+      context.redirect("/login");
     }
-    Map<String, Object> model = new HashMap<>();
+
     Usuario usuarioEnSesion = (Usuario) repositorioUsuarios.buscar(idUsuarioEnSesion);
     Persona personaEnSesion = (Persona) repositorioPersonas.buscarPorUsuario(usuarioEnSesion);
 
@@ -171,8 +164,9 @@ public class IncidentesController implements ICrudViewsHandler {
   @Override
   public void update(Context context) {
     Long idUsuarioEnSesion = context.sessionAttribute("usuario_id");
-    if(idUsuarioEnSesion == null) {
+    if (idUsuarioEnSesion == null) {
       context.redirect("/login", HttpStatus.UNAUTHORIZED);
+      return;
     }
 
     Long idIncidente = Long.parseLong(context.pathParam("id"));
@@ -182,6 +176,7 @@ public class IncidentesController implements ICrudViewsHandler {
     Incidente incidenteADarDeBaja = (Incidente) repositorioIncidentes.buscar(idIncidente);
 
     incidentesService.darDeBajaIncidentesDeLaPrestacion(personaEnSesion, incidenteADarDeBaja.getPrestacionDeServicio());
+    context.redirect("/incidentes");
   }
 
   @Override

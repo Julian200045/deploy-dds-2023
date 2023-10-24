@@ -23,10 +23,10 @@
             <div class="table-header">Observaciones</div>
 
             {{#with incidente}}
-            <div class="table-row">{{establecimiento}}</div>
-            <div class="table-row">{{servicio}}</div>
-            <div class="table-row">{{comunidad}}</div>
-            <div class="table-row">{{observaciones}}</div>
+            <div class="table-row">{{this.establecimiento}}</div>
+            <div class="table-row">{{this.servicio}}</div>
+            <div class="table-row">{{this.comunidad}}</div>
+            <div class="table-row">{{this.observaciones}}</div>
             {{/with}}
         </div>
     </div>
@@ -45,37 +45,23 @@
     </div>
 
     <div class="button-container">
-        <button onclick="location.href='/inicio'" id="boton-no-resuelto">El incidente no está resuelto</button>
-        <button onclick="location.href='/incidentes/{{incidentes.id}}/baja'" id="boton-resuelto">Dar de baja incidente</button>
-        <!--button onclick="sendDeleteRequest()"  id="boton-resuelto">Dar de baja incidente</button-->
+        <button onclick="location.href='/incidentes'" id="boton-no-resuelto">El incidente no está resuelto</button>
+        <button onclick="darDeBaja({{incidente.id}})" id="boton-resuelto">Dar de baja incidente</button>
     </div>
 </div>
 
-<script>
-    function sendDeleteRequest() {
-        // Obtén la URL a la que deseas enviar la solicitud DELETE
-        var url = '/baja_incidente/{incidentes.id}';
-
-        // Realiza la solicitud DELETE usando Fetch o XMLHttpRequest
-        fetch(url, {
-            method: 'DELETE',
-            // Puedes incluir más opciones aquí, como headers, body, etc.
-        })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Error al realizar la solicitud DELETE');
+<script>function darDeBaja(idIncidente) {
+    if (confirm("¿Seguro que quiere dar de baja el incidente?") === true) {
+        fetch(`/incidentes/${idIncidente}/baja`, {
+            method: 'PATCH', headers: {
+                'Content-Type': 'application/json'
             }
-            return response.json();
         })
-        .then(data => {
-            // Maneja la respuesta si es necesario
-            console.log(data);
-        })
-        .catch(error => {
-            console.error('Error:', error);
-        });
+               ;
+    } else {
+        alert("Operación cancelada.");
     }
-</script>
+}</script>
 
 </body>
 </html>

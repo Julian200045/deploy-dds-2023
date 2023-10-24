@@ -56,9 +56,11 @@ public class Establecimiento {
   @JoinColumn(name = "tipo_establecimiento_id", referencedColumnName = "id")
   public TipoEstablecimiento tipo;
 
-  public Establecimiento(String nombre, Ubicacion ubicacion, TipoEstablecimiento tipo) {
+  public Establecimiento(String nombre, Ubicacion ubicacion, String calle, String altura, TipoEstablecimiento tipo) {
     this.nombre = nombre;
     this.ubicacion = ubicacion;
+    this.calle = calle;
+    this.altura = altura;
     this.tipo = tipo;
   }
 

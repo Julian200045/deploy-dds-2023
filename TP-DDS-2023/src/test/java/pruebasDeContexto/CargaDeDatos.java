@@ -65,7 +65,7 @@ public class CargaDeDatos {
     repositorioComunidades.actualizar(comunidad2);
 
     Servicio servicio = new Servicio("Servicio1");
-    Establecimiento establecimiento = new Establecimiento("Establecimiento1", null, null);
+    Establecimiento establecimiento = new Establecimiento("Establecimiento1", null, "Av. Medrano", "951", null);
 
     Servicio servicio2 = new Servicio("Servicio2");
 

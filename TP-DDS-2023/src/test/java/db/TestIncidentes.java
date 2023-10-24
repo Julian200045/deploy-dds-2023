@@ -24,6 +24,8 @@ public class TestIncidentes implements WithSimplePersistenceUnit {
         new Servicio("servicio1"),
         new Establecimiento("establecimiento1",
             new Ubicacion(10.0, 10.0),
+            "Av. Medrano",
+            "951",
             new TipoEstablecimiento("tipo1", "hola"))),
         comunidad1,
         "Observaciones varias",
