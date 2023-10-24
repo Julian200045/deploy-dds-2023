@@ -5,7 +5,9 @@ import io.javalin.http.HttpStatus;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import models.entities.comunidades.Persona;
 import models.entities.usuarios.Usuario;
+import models.repositorios.RepositorioPersonas;
 import models.repositorios.RepositorioUsuarios;
 import models.services.hasher.Hasher;
 import models.services.hasher.HasherEstandar;
@@ -18,10 +20,12 @@ import server.utils.ICrudViewsHandler;
 
 public class UsuariosController implements ICrudViewsHandler {
 
+  private RepositorioPersonas repositorioPersonas;
   private RepositorioUsuarios repositorioUsuarios;
 
-  public UsuariosController(RepositorioUsuarios repositorioUsuarios) {
+  public UsuariosController(RepositorioUsuarios repositorioUsuarios, RepositorioPersonas repositorioPersonas) {
     this.repositorioUsuarios = repositorioUsuarios;
+    this.repositorioPersonas = repositorioPersonas;
   }
 
   @Override
@@ -73,13 +77,15 @@ public class UsuariosController implements ICrudViewsHandler {
 
   @Override
   public void save(Context context) {
-    String nombreUsuario = context.formParam("nombre");
+    String nombreUsuario = context.formParam("nombre_usuario");
     String contrasenia = context.formParam("contrasenia");
     String email = context.formParam("email");
     String celular = context.formParam("celular");
+    String nombre = context.formParam("nombre");
+    String apellido = context.formParam("apellido");
 
     if (this.repositorioUsuarios.buscarPorNombre(nombreUsuario) != null) {
-      context.result("Nombre ya existente");
+      context.result("Nombre de usuario ya existente");
       return;
     }
 
@@ -92,6 +98,8 @@ public class UsuariosController implements ICrudViewsHandler {
       Hasher hasher = new HasherEstandar();
       Usuario usuario = new Usuario(nombreUsuario, hasher.hashear(contrasenia), email, celular);
       this.repositorioUsuarios.guardar(usuario);
+      Persona persona = new Persona(nombre, apellido, usuario);
+      this.repositorioPersonas.guardar(persona);
       context.result("Usuario creado correctamente");
       context.redirect("/login");
     }

@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+import models.entities.comunidades.Comunidad;
 import models.entities.comunidades.Persona;
 import models.entities.incidentes.Incidente;
 import models.entities.servicios.PrestacionDeServicio;
@@ -49,43 +50,48 @@ public class IncidentesController implements ICrudViewsHandler {
   public void index(Context context) {
     if (context.sessionAttribute("usuario_id") == null) {
       context.status(HttpStatus.UNAUTHORIZED).redirect("/login");
+      return;
     }
-
+    Usuario usuario = (Usuario) this.repositorioUsuarios.buscar(context.sessionAttribute("usuario_id"));
+    Persona persona = (Persona) this.repositorioPersonas.buscarPorUsuario(usuario);
     Map<String, Object> model = new HashMap<>();
-    List<Incidente> incidentes;
     String estado = context.queryParam("estado");
     String establecimiento = context.queryParam("establecimiento");
     String servicio = context.queryParam("servicio");
     String comunidad = context.queryParam("comunidad");
-
-    if (context.queryString() == null || context.queryString().equals("")) {
-      incidentes = this.repositorioIncidentes.buscarTodos();
-      estado = "ABIERTO";
-    } else if ((establecimiento == null || establecimiento.equals("")) &&
-        (servicio == null || servicio.equals("")) &&
-        (comunidad == null || comunidad.equals(""))) {
-      incidentes = this.repositorioIncidentes.buscarTodos();
-    } else {
-      incidentes = this.repositorioIncidentes.buscarTodosFiltrados(
-          context.queryParam("establecimiento"),
-          context.queryParam("servicio"),
-          context.queryParam("comunidad"));
+    List<Incidente> incidentes = new ArrayList<>();
+    for (Comunidad c : persona.getComunidades()) {
+      incidentes.addAll(this.repositorioIncidentes.buscarPorComunidad(c));
     }
 
-    String finalEstado = estado;
-    incidentes = incidentes.stream().filter(incidente -> incidente.getEstado().toString().equals(finalEstado)).toList();
+    if (context.queryString() == null || context.queryString().equals("")) {
+      estado = "ABIERTO";
+    } else {
+      List<Incidente> incidentesFiltrados = this.repositorioIncidentes.buscarTodosFiltrados(
+          establecimiento,
+          servicio,
+          comunidad);
 
-    List<IncidenteInicioDto> incidentesDtos = incidentes.stream().map(incidente ->
-        new IncidenteInicioDto(
-            incidente.getId(),
-            incidente.getPrestacionDeServicio().getServicio().getNombre(),
-            incidente.getPrestacionDeServicio().getEstablecimiento().getNombre(),
-            incidente.getComunidad().getNombre(),
-            incidente.getObservaciones(),
-            incidente.getEstado().toString().equals("ABIERTO")
-        )).toList();
+      incidentes = incidentesFiltrados.stream().filter(incidentes::contains).toList();
+    }
 
-    model.put("incidentes", incidentesDtos);
+    String estadoFinal = estado;
+    if (incidentes.isEmpty()) {
+      model.put("incidentes", new ArrayList<>());
+    } else {
+      incidentes = incidentes.stream().filter(incidente -> incidente.getEstado().toString().equals(estadoFinal)).toList();
+
+      List<IncidenteInicioDto> incidentesDtos = incidentes.stream().map(incidente ->
+          new IncidenteInicioDto(
+              incidente.getId(),
+              incidente.getPrestacionDeServicio().getServicio().getNombre(),
+              incidente.getPrestacionDeServicio().getEstablecimiento().getNombre(),
+              incidente.getComunidad().getNombre(),
+              incidente.getObservaciones(),
+              incidente.getEstado().toString().equals("ABIERTO")
+          )).toList();
+      model.put("incidentes", incidentesDtos);
+    }
     context.render("incidentes.hbs", model);
   }
 

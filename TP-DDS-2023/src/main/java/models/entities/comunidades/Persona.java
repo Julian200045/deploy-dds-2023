@@ -61,10 +61,10 @@ public class Persona {
     this.gradoConfianza = 5D;
   }
 
-  public List<Comunidad> comunidades(){
-    List<Comunidad> comunidads  = new ArrayList<>();
-    membresias.forEach(membresia -> comunidads.add(membresia.getComunidad()));
-    return comunidads;
+  public List<Comunidad> getComunidades(){
+    List<Comunidad> comunidades  = new ArrayList<>();
+    membresias.forEach(membresia -> comunidades.add(membresia.getComunidad()));
+    return comunidades;
   }
 
   public List<Miembro> getMembresias() {

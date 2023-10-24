@@ -21,7 +21,7 @@ public class FactoryController {
                                                        new RepositorioPrestacionesDeServicio(),
                                                        new IncidentesService(new RepositorioIncidentes(),new GeneradorNotificaciones(new RepositorioNotificaciones()))
                                                        ); break;
-      case "AdminUsuarios": controller = new UsuariosController(new RepositorioUsuarios()); break;
+      case "AdminUsuarios": controller = new UsuariosController(new RepositorioUsuarios(), new RepositorioPersonas()); break;
     }
     return controller;
   }

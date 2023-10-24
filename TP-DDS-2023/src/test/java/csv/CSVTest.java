@@ -1,11 +1,10 @@
 package csv;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import models.entities.entidades.Entidad;
@@ -14,7 +13,6 @@ import models.entities.organismos.EntidadPrestadora;
 import models.entities.usuarios.Usuario;
 import models.repositorios.RepositorioEntidades;
 import models.repositorios.RepositorioEntidadesPrestadoras;
-import models.repositorios.RepositorioServicios;
 import models.repositorios.RepositorioTipoEntidad;
 import models.repositorios.RepositorioUsuarios;
 import models.services.csv.LectorCSV;
@@ -25,18 +23,17 @@ public class CSVTest {
 
   RepositorioEntidades repoEntidades = new RepositorioEntidades();
   RepositorioUsuarios repoUsuarios = new RepositorioUsuarios();
-  RepositorioServicios repoServicios = new RepositorioServicios();
   RepositorioEntidadesPrestadoras repoEntidadesPrestadoras = new RepositorioEntidadesPrestadoras();
 
   @Test
   public void lectorLeeAlIniciar() throws java.io.IOException, com.opencsv.exceptions.CsvValidationException {
     LectorCSV lector = new LectorCSV("src/main/resources/template/project.properties", "organismos-de-control-csv-path");
-    assertTrue(lector.getDatos().size() > 0);
+    assertFalse(lector.getDatos().isEmpty());
   }
 
 
   @Test
-  public void getIdsFunciona() throws java.io.FileNotFoundException, java.io.IOException, com.opencsv.exceptions.CsvValidationException {
+  public void getIdsFunciona() throws java.io.IOException, com.opencsv.exceptions.CsvValidationException {
     LectorCSV lector = new LectorCSV("src/main/resources/template/project.properties", "entidades-prestadoras-csv-path");
     ImportadorEntidadesPrestadoras importadorEntidadesPrestadoras = new ImportadorEntidadesPrestadoras(lector, repoEntidades, repoUsuarios, repoEntidadesPrestadoras);
     String[] datos = {"nombre", "usuario", "email", "1", "2", "3"};
@@ -63,7 +60,7 @@ public class CSVTest {
 
     repoEntidades.guardar(entidad1, entidad2, entidad3);
 
-    Usuario usuario1 = new Usuario("messi", "1234","asd@asd","1234", LocalDateTime.now(), LocalDateTime.now());
+    Usuario usuario1 = new Usuario("messi", "1234","asd@asd","1234");
 
     repoUsuarios.guardar(usuario1);
 

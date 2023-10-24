@@ -44,7 +44,7 @@ public class IncidentesService {
 
     List<Incidente> incidentes = repoIncidentes.buscarPorPrestacion(prestacion);
 
-    List<Comunidad> comunidadesDelMiembroCerrador = persona.comunidades();
+    List<Comunidad> comunidadesDelMiembroCerrador = persona.getComunidades();
 
     List<Incidente> incidentesDeLasComunidadesDelMiembro = incidentes.stream().filter(incidente -> comunidadesDelMiembroCerrador.contains(incidente.getComunidad())).toList();
     incidentesDeLasComunidadesDelMiembro.forEach(incidente -> {
