@@ -30,7 +30,7 @@ public class Miembro {
 	@JoinColumn(name = "comunidad_id", referencedColumnName = "id")
 	private Comunidad comunidad;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(cascade = {CascadeType.MERGE}, fetch = FetchType.LAZY)
 	@JoinColumn(name = "persona_id", referencedColumnName = "id")
 	private Persona persona;
 
@@ -43,10 +43,10 @@ public class Miembro {
 	@Column(name = "tipo_miembro")
 	private TipoMiembro tipoMiembro;
 
-	public Miembro(Comunidad comunidad, Persona persona, TipoMiembro tipoMiembro) {
+	public Miembro(Comunidad comunidad, Persona persona) {
 		this.comunidad = comunidad;
 		this.persona = persona;
-		this.tipoMiembro = tipoMiembro;
+		this.tipoMiembro = TipoMiembro.AFECTADO;
 
 		comunidad.agregarMiembro(this);
 		persona.agregarMembresia(this);

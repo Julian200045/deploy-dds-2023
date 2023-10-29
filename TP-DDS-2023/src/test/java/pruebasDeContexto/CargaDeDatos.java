@@ -52,12 +52,12 @@ public class CargaDeDatos {
     Persona persona4 = new Persona("Juan4", "Carlos4", usuario4);
     Persona persona5 = new Persona("Juan5", "Carlos5", usuario5);
 
-    Miembro miembro1 = new Miembro(comunidad, persona1, TipoMiembro.AFECTADO);
-    Miembro miembro11 = new Miembro(comunidad2, persona1, TipoMiembro.AFECTADO);
-    Miembro miembro2 = new Miembro(comunidad, persona2, TipoMiembro.AFECTADO);
-    Miembro miembro3 = new Miembro(comunidad, persona3, TipoMiembro.AFECTADO);
-    Miembro miembro4 = new Miembro(comunidad, persona4, TipoMiembro.AFECTADO);
-    Miembro miembro5 = new Miembro(comunidad, persona5, TipoMiembro.AFECTADO);
+    Miembro miembro1 = new Miembro(comunidad, persona1);
+    Miembro miembro11 = new Miembro(comunidad2, persona1);
+    Miembro miembro2 = new Miembro(comunidad, persona2);
+    Miembro miembro3 = new Miembro(comunidad, persona3);
+    Miembro miembro4 = new Miembro(comunidad, persona4);
+    Miembro miembro5 = new Miembro(comunidad, persona5);
 
     repositorioPersona.guardar(persona1, persona2, persona3, persona4, persona5);
 

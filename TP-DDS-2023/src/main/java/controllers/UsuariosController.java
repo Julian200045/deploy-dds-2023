@@ -112,6 +112,9 @@ public class UsuariosController implements ICrudViewsHandler {
       context.result("Usuario creado correctamente");
       context.redirect("/login");
     }
+    else {
+      context.result("Contraseña no valida.");
+    }
   }
 
   @Override

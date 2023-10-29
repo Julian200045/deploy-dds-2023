@@ -29,7 +29,7 @@ public class TestIncidentes implements WithSimplePersistenceUnit {
             new TipoEstablecimiento("tipo1", "hola"))),
         comunidad1,
         "Observaciones varias",
-        new Miembro(comunidad1, new Persona("Tomas", "Gomez", new Usuario("tomas","1234","asd@asd","1234")), TipoMiembro.AFECTADO)
+        new Miembro(comunidad1, new Persona("Tomas", "Gomez", new Usuario("tomas","1234","asd@asd","1234")))
         );
     RepositorioIncidentes repositorioIncidentes = new RepositorioIncidentes();
     repositorioIncidentes.guardar(incidente);

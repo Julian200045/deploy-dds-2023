@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="/css/normalize.css">
+    <link rel="stylesheet" href="/css/generalize.css">
+    <link rel="stylesheet" href="/css/comunidades.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comunidades</title>
+</head>
+<body>
+    <div class="header">
+        <div class="logo" onclick="navegarAInicio()"><img  src="/img/logo.png" alt=""></div>
+    </div>
+    <div class="container">
+        <h1>Comunidades</h1>
+        <div class="table-container">
+            <div class="table">
+                <div class="row table-header">
+                    <div class="cell">Nombre</div>
+                    <div class="cell">Prestaciones de Interés</div>
+                    <div class="cell">Grado de Confianza</div>
+                    <div class="cell">Ser miembro</div>
+                </div>
+
+                {{#each comunidades}}
+                    <div class="row">
+                        <div class="cell">{{nombre}}</div>
+                        <div class="cell">
+                            {{#each prestaciones}}
+                                <p><strong>Establecimiento:</strong> {{establecimiento}}</p>
+                                <p><strong>Servicio:</strong> {{servicio}}</p>
+                            {{/each}}
+                        </div>
+                        <div class="cell">{{gradoConfianza}}</div>
+                        <div class="cell">
+                            <button onclick="darDeAltaMiembro({{this.id}})">Sumarse</button>
+                        </div>
+                    </div>
+                {{/each}}
+            </div>
+        </div>
+    </div>
+<script src="/js/comunidades.js"></script>
+</body>
+</html>

@@ -60,7 +60,7 @@ public class CSVTest {
 
     repoEntidades.guardar(entidad1, entidad2, entidad3);
 
-    Usuario usuario1 = new Usuario("messi", "1234","asd@asd","1234");
+    Usuario usuario1 = new Usuario("messi", "1234", "asd@asd", "1234");
 
     repoUsuarios.guardar(usuario1);
 
