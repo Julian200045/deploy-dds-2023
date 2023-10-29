@@ -11,7 +11,12 @@
 <body>
     <div class="header">
         <div class="logo" onclick="navegarAInicio()"><img  src="/img/logo.png" alt=""></div>
-        <nav><a href="/comunidades">Comunidades</a></nav>
+        <div class="nav-container">
+            <a class="nav-link" href="/incidentes">Inicio</a>
+            <a class="nav-link" href="/incidentes/alta">Dar de alta Inicidente</a>
+            <a class="nav-link" href="/comunidades">Comunidades</a>
+        </div>
+        <a class="nav-link" href="/usuarios/logout"><img id="logout-logo" src="/img/logout.png" alt="cerrar sesion"></a>
     </div>
     <div class="container">
         <h1>Incidentes</h1>

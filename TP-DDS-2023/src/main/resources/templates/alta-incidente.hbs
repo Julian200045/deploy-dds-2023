@@ -10,11 +10,16 @@
 </head>
 <body>
     <div class="header">
-        <div class="logo" onclick="navegarAInicio()"><img  src="/img/logo.png"></div>
-        <h1 class="title">Alta de Incidente</h1>
+        <div class="logo" onclick="navegarAInicio()"><img  src="/img/logo.png" alt=""></div>
+        <div class="nav-container">
+            <a class="nav-link" href="/incidentes">Inicio</a>
+            <a class="nav-link" href="/incidentes/alta">Dar de alta Inicidente</a>
+            <a class="nav-link" href="/comunidades">Comunidades</a>
+        </div>
+        <a class="nav-link" href="/usuarios/logout"><img id="logout-logo" src="/img/logout.png" alt="cerrar sesion"></a>
     </div>
-
     <main class="container">
+        <h1 class="title">Alta de Incidente</h1>
         <form class="incident-form" method="POST" action="/incidentes">
             <div class="form-group">
                 <label for="establecimiento">Establecimiento:</label>

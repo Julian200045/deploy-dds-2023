@@ -54,19 +54,26 @@ public class IncidentesController implements ICrudViewsHandler {
     }
     Usuario usuario = (Usuario) this.repositorioUsuarios.buscar(context.sessionAttribute("usuario_id"));
     Persona persona = (Persona) this.repositorioPersonas.buscarPorUsuario(usuario);
+
     Map<String, Object> model = new HashMap<>();
+
     String estado = context.queryParam("estado");
     String establecimiento = context.queryParam("establecimiento");
     String servicio = context.queryParam("servicio");
     String comunidad = context.queryParam("comunidad");
+
     List<Incidente> incidentes = new ArrayList<>();
+
     for (Comunidad c : persona.getComunidades()) {
       incidentes.addAll(this.repositorioIncidentes.buscarPorComunidad(c));
     }
 
     if (context.queryString() == null || context.queryString().equals("")) {
       estado = "ABIERTO";
-    } else {
+    } else if ((establecimiento != null || !establecimiento.equals("")) &&
+        (servicio != null  || !servicio.equals("")) &&
+        (comunidad != null || !comunidad.equals(""))) {
+
       List<Incidente> incidentesFiltrados = this.repositorioIncidentes.buscarTodosFiltrados(
           establecimiento,
           servicio,
@@ -76,6 +83,7 @@ public class IncidentesController implements ICrudViewsHandler {
     }
 
     String estadoFinal = estado;
+
     if (incidentes.isEmpty()) {
       model.put("incidentes", new ArrayList<>());
     } else {
@@ -97,6 +105,10 @@ public class IncidentesController implements ICrudViewsHandler {
 
   @Override
   public void show(Context context) {
+    if (context.sessionAttribute("usuario_id") == null) {
+      context.status(HttpStatus.UNAUTHORIZED).redirect("/login");
+      return;
+    }
     Map<String, Object> model = new HashMap<>();
 
     String id = context.pathParam("id");
@@ -124,6 +136,11 @@ public class IncidentesController implements ICrudViewsHandler {
 
   @Override
   public void create(Context context) {
+    if (context.sessionAttribute("usuario_id") == null) {
+      context.status(HttpStatus.UNAUTHORIZED).redirect("/login");
+      return;
+    }
+
     Gson gson = new Gson();
     Map<String, Object> model = new HashMap<>();
 

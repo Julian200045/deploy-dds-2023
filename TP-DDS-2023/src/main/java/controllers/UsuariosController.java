@@ -167,4 +167,9 @@ public class UsuariosController implements ICrudViewsHandler {
       context.html("Credenciales incorrectas. <a href='/login'>Volver</a>");
     }
   }
+
+  public void logout(Context context){
+    context.sessionAttribute("usuario_id",null);
+    context.status(HttpStatus.PERMANENT_REDIRECT).redirect("/login");
+  }
 }

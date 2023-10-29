@@ -29,6 +29,7 @@ public class Router {
       get("usuarios", ((UsuariosController) FactoryController.controller("Usuarios"))::index);
       get("usuarios/crear", ((UsuariosController) FactoryController.controller("Usuarios"))::create);
       get("comunidades", ((ComunidadesController) FactoryController.controller("Comunidades"))::index);
+      get("usuarios/logout",((UsuariosController) FactoryController.controller("Usuarios"))::logout);
       post("incidentes", ((IncidentesController) FactoryController.controller("Incidentes"))::save);
       post("usuarios/login", ((UsuariosController) FactoryController.controller("Usuarios"))::login);
       post("usuarios", ((UsuariosController) FactoryController.controller("Usuarios"))::save);
