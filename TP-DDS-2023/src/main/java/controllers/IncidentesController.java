@@ -70,16 +70,13 @@ public class IncidentesController implements ICrudViewsHandler {
 
     if (context.queryString() == null || context.queryString().equals("")) {
       estado = "ABIERTO";
-    } else if ((establecimiento != null || !establecimiento.equals("")) &&
-        (servicio != null  || !servicio.equals("")) &&
-        (comunidad != null || !comunidad.equals(""))) {
-
+    } else if (establecimiento != null || servicio != null || comunidad != null ) {
       List<Incidente> incidentesFiltrados = this.repositorioIncidentes.buscarTodosFiltrados(
           establecimiento,
           servicio,
           comunidad);
-
-      incidentes = incidentesFiltrados.stream().filter(incidentes::contains).toList();
+      List<Long> idsIncidentes = incidentes.stream().map(Incidente::getId).toList();
+      incidentes = incidentesFiltrados.stream().filter(i -> idsIncidentes.contains(i.getId())).toList();
     }
 
     String estadoFinal = estado;
