@@ -4,6 +4,6 @@ import java.util.List;
 
 public interface ImportadorDatosCSV {
 
-	public void cargarDatos()throws java.io.FileNotFoundException, java.io.IOException, com.opencsv.exceptions.CsvValidationException ;
-	public List<Long> getIds(String[] datos);
+	void cargarDatos(List<String[]> datosACargar);
+	List<Long> getIds(String[] datos);
 }

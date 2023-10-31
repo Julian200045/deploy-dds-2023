@@ -8,31 +8,35 @@ import models.entities.usuarios.Usuario;
 import models.repositorios.RepositorioEntidades;
 import models.repositorios.RepositorioEntidadesPrestadoras;
 import models.repositorios.RepositorioUsuarios;
-import models.services.csv.LectorCSV;
 
-public class ImportadorEntidadesPrestadoras {
-  LectorCSV lector;
+public class ImportadorEntidadesPrestadoras implements ImportadorDatosCSV {
   RepositorioEntidades repoEntidades;
   RepositorioUsuarios repoUsuarios;
   RepositorioEntidadesPrestadoras repoEntidadesPrestadoras;
 
-  public ImportadorEntidadesPrestadoras(LectorCSV lector, RepositorioEntidades repoEntidades, RepositorioUsuarios repoUsuarios, RepositorioEntidadesPrestadoras repoEntidadesPrestadoras) {
-    this.lector = lector;
+  public ImportadorEntidadesPrestadoras(RepositorioEntidades repoEntidades, RepositorioUsuarios repoUsuarios, RepositorioEntidadesPrestadoras repoEntidadesPrestadoras) {
     this.repoEntidades = repoEntidades;
     this.repoUsuarios = repoUsuarios;
     this.repoEntidadesPrestadoras = repoEntidadesPrestadoras;
   }
 
-  public void cargarDatos() throws java.io.FileNotFoundException, java.io.IOException, com.opencsv.exceptions.CsvValidationException {
-
-    while (!lector.getDatos().isEmpty()) {
-      String[] datos = lector.getDatos().get(0);
-      List<Long> ids = getIds(datos);
+  public void cargarDatos(List<String[]> datosACargar) {
+    int i = 0;
+    List<String[]> datosInvalidos = new ArrayList<>(); //TODO: devolverle al usuario las lineas invalidas como feedback
+    while (!datosACargar.isEmpty()) {
+      String[] lineaDeDatos = datosACargar.get(i);
+      List<Long> ids = getIds(lineaDeDatos);
       List<Entidad> entidades = ids.stream().map(id -> (Entidad) repoEntidades.buscar(id)).toList();
-      Usuario responsable = (Usuario) repoUsuarios.buscar(Long.parseLong(datos[1]));
-      EntidadPrestadora entidadPrestadora = new EntidadPrestadora(datos[0], responsable, datos[2], entidades);
+      Usuario responsable = (Usuario) repoUsuarios.buscarPorNombre(lineaDeDatos[1]);
+      if (responsable == null) {
+        datosInvalidos.add(datosACargar.get(i));
+        datosACargar.remove(i);
+        i++;
+        continue;
+      }
+      EntidadPrestadora entidadPrestadora = new EntidadPrestadora(lineaDeDatos[0], responsable, lineaDeDatos[2], entidades);
       repoEntidadesPrestadoras.guardar(entidadPrestadora);
-      lector.getDatos().remove(0);
+      datosACargar.remove(0);
     }
   }
 

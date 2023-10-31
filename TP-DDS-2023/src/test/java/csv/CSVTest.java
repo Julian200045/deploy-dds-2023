@@ -2,9 +2,8 @@ package csv;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
+import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.List;
 import models.entities.entidades.Entidad;
@@ -26,33 +25,31 @@ public class CSVTest {
   RepositorioEntidadesPrestadoras repoEntidadesPrestadoras = new RepositorioEntidadesPrestadoras();
 
   @Test
-  public void lectorLeeAlIniciar() throws java.io.IOException, com.opencsv.exceptions.CsvValidationException {
-    LectorCSV lector = new LectorCSV("src/main/resources/template/project.properties", "organismos-de-control-csv-path");
-    assertFalse(lector.getDatos().isEmpty());
+  public void lectorLeeAlIniciar() throws java.io.IOException {
+    LectorCSV lector = new LectorCSV();
+    List<String[]> datosLeidos = lector.leerCSV(new FileReader("src/main/resources/public/files/entidadesprestadoras.csv"));
+    assertFalse(datosLeidos.isEmpty());
   }
 
 
   @Test
-  public void getIdsFunciona() throws java.io.IOException, com.opencsv.exceptions.CsvValidationException {
-    LectorCSV lector = new LectorCSV("src/main/resources/template/project.properties", "entidades-prestadoras-csv-path");
-    ImportadorEntidadesPrestadoras importadorEntidadesPrestadoras = new ImportadorEntidadesPrestadoras(lector, repoEntidades, repoUsuarios, repoEntidadesPrestadoras);
+  public void getIdsFunciona() {
+    ImportadorEntidadesPrestadoras importadorEntidadesPrestadoras = new ImportadorEntidadesPrestadoras(repoEntidades, repoUsuarios, repoEntidadesPrestadoras);
     String[] datos = {"nombre", "usuario", "email", "1", "2", "3"};
     assertEquals(3, importadorEntidadesPrestadoras.getIds(datos).size());
   }
 
   @Test
-  public void lasEntidadesPrestadorasSeCreanSegunCSV() throws java.io.IOException, com.opencsv.exceptions.CsvValidationException {
-    LectorCSV lector = mock(LectorCSV.class);
+  public void lasEntidadesPrestadorasSeCreanSegunCSV() {
     RepositorioEntidadesPrestadoras repositorioEntidadesPrestadoras = new RepositorioEntidadesPrestadoras();
     RepositorioTipoEntidad repositorioTipoEntidad = new RepositorioTipoEntidad();
-    ImportadorEntidadesPrestadoras importadorEntidadesPrestadoras = new ImportadorEntidadesPrestadoras(lector, repoEntidades, repoUsuarios, repositorioEntidadesPrestadoras);
+    ImportadorEntidadesPrestadoras importadorEntidadesPrestadoras = new ImportadorEntidadesPrestadoras(repoEntidades, repoUsuarios, repositorioEntidadesPrestadoras);
 
     List<String[]> lista = new ArrayList<>();
     String[] array = {"afip", "5", "messi@hotmail.com", "1", "2", "3"};
     TipoEntidad tipoBancario = new TipoEntidad("Bancaria", "Entidad bancaria", new ArrayList<>());
     lista.add(array);
     repositorioTipoEntidad.guardar(tipoBancario);
-    when(lector.getDatos()).thenReturn(lista);
 
     Entidad entidad1 = new Entidad("entidad1", tipoBancario);
     Entidad entidad2 = new Entidad("entidad2", tipoBancario);
@@ -64,7 +61,7 @@ public class CSVTest {
 
     repoUsuarios.guardar(usuario1);
 
-    importadorEntidadesPrestadoras.cargarDatos();
+    importadorEntidadesPrestadoras.cargarDatos(lista);
     List<EntidadPrestadora> entidadesPrestadoras = repositorioEntidadesPrestadoras.buscarTodos();
     assertEquals(1, entidadesPrestadoras.size());
   }

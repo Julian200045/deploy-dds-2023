@@ -15,21 +15,13 @@ public class EnviadorWPP {
         public static String ACCOUNT_SID = null;
 
   static {
-    try {
       ACCOUNT_SID = lectorPropiedades.getPropiedad("Wpp-Account-Sid");
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
   }
 
   public static String AUTH_TOKEN = null;
 
   static {
-    try {
       AUTH_TOKEN = lectorPropiedades.getPropiedad("Wpp-Auth-Token");
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
   }
 
   public static void enviar(Notificacion notificacion) throws IOException {

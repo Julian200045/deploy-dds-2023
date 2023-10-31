@@ -58,7 +58,7 @@ public class RepositorioIncidentes implements ICrudRepository, WithSimplePersist
   }
 
   public List buscarTodosFiltrados(String establecimiento, String servicio, String comunidad){
-    entityManager().clear();
+    this.limpiarCacheIncidentes();
     String jpql = "SELECT i from Incidente i join i.prestacionDeServicio p join p.establecimiento e join p.servicio s join i.comunidad c where e.nombre LIKE '"+establecimiento+"%' and s.nombre LIKE '"+servicio+"%' and c.nombre LIKE '"+comunidad+"%'";
     Query query = entityManager().createQuery(jpql);
     try {

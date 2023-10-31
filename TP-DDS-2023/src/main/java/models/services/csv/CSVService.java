@@ -1,7 +1,8 @@
 package models.services.csv;
 
+import java.io.Reader;
 import java.util.List;
 
 public interface CSVService {
-  public void retirarDatos(List<String[]> datos) throws java.io.IOException, com.opencsv.exceptions.CsvValidationException;
+  List<String[]> leerCSV(Reader file);
 }
