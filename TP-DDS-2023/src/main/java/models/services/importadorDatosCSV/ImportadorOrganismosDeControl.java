@@ -29,17 +29,15 @@ public class ImportadorOrganismosDeControl implements ImportadorDatosCSV {
     List<String[]> datosInvalidos = new ArrayList<>();
     while (!datosACargar.isEmpty()) {
       String[] lineaDeDatos = datosACargar.get(i);
-      List<Long> ids = getIds(lineaDeDatos);
-      List<EntidadPrestadora> entidadesPrestadoras = ids.stream().map(id -> (EntidadPrestadora) repoEntidadesPrestadoras.buscar(id)).toList();
       Usuario responsable = (Usuario) repoUsuarios.buscarPorNombre(lineaDeDatos[1]);
-      Servicio servicio = (Servicio) repoServicios.buscar(Long.parseLong(lineaDeDatos[3]));
+      Servicio servicio = (Servicio) repoServicios.buscarPorNombre(lineaDeDatos[3]);
       if (responsable == null || servicio == null) {
         datosInvalidos.add(datosACargar.get(i));
         datosACargar.remove(i);
         i++;
         continue;
       }
-      OrganismoDeControl organismoDeControl = new OrganismoDeControl(lineaDeDatos[0], responsable, lineaDeDatos[2], entidadesPrestadoras, servicio);
+      OrganismoDeControl organismoDeControl = new OrganismoDeControl(lineaDeDatos[0], responsable, lineaDeDatos[2], this.leerEntidadesPrestadoras(lineaDeDatos), servicio);
       repoOrganismoDeControl.guardar(organismoDeControl);
       datosACargar.remove(i);
       i++;
@@ -54,4 +52,11 @@ public class ImportadorOrganismosDeControl implements ImportadorDatosCSV {
     return ids;
   }
 
+  public List<EntidadPrestadora> leerEntidadesPrestadoras(String[] lineaDeDatos) {
+    List<EntidadPrestadora> entidadesPrestadoras = new ArrayList<>();
+    for (int i = 4; i < lineaDeDatos.length; i++) {
+      entidadesPrestadoras.add((EntidadPrestadora) this.repoEntidadesPrestadoras.buscarPorNombre(lineaDeDatos[i]));
+    }
+    return entidadesPrestadoras;
+  }
 }

@@ -3,6 +3,8 @@ package models.repositorios;
 import io.github.flbulgarelli.jpa.extras.simple.WithSimplePersistenceUnit;
 import java.util.List;
 import javax.persistence.EntityTransaction;
+import javax.persistence.NoResultException;
+import javax.persistence.Query;
 import models.entities.entidades.Entidad;
 import models.entities.incidentes.Incidente;
 import models.repositorios.ICrudRepository;
@@ -46,5 +48,16 @@ public class RepositorioEntidades implements ICrudRepository, WithSimplePersiste
   @Override
   public List buscarTodos() {
     return entityManager().createQuery("from " + Entidad.class.getName()).getResultList();
+  }
+
+  public Object buscarPorNombre(String nombre) {
+    String jpql = "SELECT e from Entidad e where e.nombre = :nombre";
+    Query query = entityManager().createQuery(jpql);
+    query.setParameter("nombre", nombre);
+    try {
+      return query.getSingleResult();
+    } catch (NoResultException e) {
+      return null;
+    }
   }
 }

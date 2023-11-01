@@ -27,7 +27,7 @@ public class CSVTest {
   @Test
   public void lectorLeeAlIniciar() throws java.io.IOException {
     LectorCSV lector = new LectorCSV();
-    List<String[]> datosLeidos = lector.leerCSV(new FileReader("src/main/resources/public/files/entidadesprestadoras.csv"));
+    List<String[]> datosLeidos = lector.leerCSV(new FileReader("src/main/resources/public/files/entidades-prestadoras.csv"));
     assertFalse(datosLeidos.isEmpty());
   }
 

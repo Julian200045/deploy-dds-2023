@@ -25,8 +25,6 @@ public class ImportadorEntidadesPrestadoras implements ImportadorDatosCSV {
     List<String[]> datosInvalidos = new ArrayList<>(); //TODO: devolverle al usuario las lineas invalidas como feedback
     while (!datosACargar.isEmpty()) {
       String[] lineaDeDatos = datosACargar.get(i);
-      List<Long> ids = getIds(lineaDeDatos);
-      List<Entidad> entidades = ids.stream().map(id -> (Entidad) repoEntidades.buscar(id)).toList();
       Usuario responsable = (Usuario) repoUsuarios.buscarPorNombre(lineaDeDatos[1]);
       if (responsable == null) {
         datosInvalidos.add(datosACargar.get(i));
@@ -34,9 +32,9 @@ public class ImportadorEntidadesPrestadoras implements ImportadorDatosCSV {
         i++;
         continue;
       }
-      EntidadPrestadora entidadPrestadora = new EntidadPrestadora(lineaDeDatos[0], responsable, lineaDeDatos[2], entidades);
+      EntidadPrestadora entidadPrestadora = new EntidadPrestadora(lineaDeDatos[0], responsable, lineaDeDatos[2], this.leerEntidades(lineaDeDatos));
       repoEntidadesPrestadoras.guardar(entidadPrestadora);
-      datosACargar.remove(0);
+      datosACargar.remove(i);
     }
   }
 
@@ -46,5 +44,13 @@ public class ImportadorEntidadesPrestadoras implements ImportadorDatosCSV {
       ids.add(Long.parseLong(datos[i]));
     }
     return ids;
+  }
+
+  public List<Entidad> leerEntidades(String[] lineaDeDatos) {
+    List<Entidad> entidades = new ArrayList<>();
+    for(int i = 3; i < lineaDeDatos.length; i++) {
+      entidades.add((Entidad) this.repoEntidades.buscarPorNombre(lineaDeDatos[i]));
+    }
+    return entidades;
   }
 }
