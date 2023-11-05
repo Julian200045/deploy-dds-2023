@@ -13,4 +13,4 @@ FROM openjdk:17-jdk-slim
 COPY --from=build /target/TP-DDS-2023-1.0-SNAPSHOT-jar-with-dependencies.jar incidentes.jar
 # ENV PORT=8080
 EXPOSE 8080
-CMD ["java","-classpath","incidentes.jar","ar.edu.dds.libros.App"]
+CMD ["java","-classpath","incidentes.jar","server.App"]
