@@ -133,6 +133,8 @@ public class IncidentesController implements ICrudViewsHandler {
 
   @Override
   public void create(Context context) {
+    System.out.println("Entro create");
+
     if (context.sessionAttribute("usuario_id") == null) {
       context.status(HttpStatus.UNAUTHORIZED).redirect("/login");
       return;
