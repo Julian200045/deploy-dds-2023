@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="/css/normalize.css">
+    <link rel="stylesheet" href="/css/generalize.css">
+    <link rel="stylesheet" href="/css/alta-incidente.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carga de organismos</title>
+</head>
+<body>
+<div class="header">
+    <div class="logo" onclick="navegarAInicio()"><img src="/img/logo.png" alt=""></div>
+    <div class="nav-container">
+        <a class="nav-link" href="/incidentes">Inicio</a>
+        <a class="nav-link" href="/incidentes/alta">Dar de alta Inicidente</a>
+        <a class="nav-link" href="/comunidades">Comunidades</a>
+    </div>
+    <a class="nav-link" href="/usuarios/logout"><img id="logout-logo" src="/img/logout.png" alt="cerrar sesion"></a>
+</div>
+<main class="container">
+    <h1 class="title">Carga de Organismos</h1>
+    <form id="organism-form" action="/organismos" method="POST" enctype="multipart/form-data">
+        <input type="file" id="csv-file" name="csv-file" accept=".csv">
+
+        <div class="form-group">
+            <label for="tipo-organismo">Tipo de Organismo:</label>
+            <select id="tipo-organismo" name="tipo-organismo" required>
+                <option value="control">Organismo de Control</option>
+                <option value="prestadora">Entidad Prestadora</option>
+            </select>
+        </div>
+
+        <button type="submit" id="upload-button">Cargar CSV</button>
+    </form>
+
+    <div class="sample-files">
+        <h2 class="title">Archivos de muestra</h2>
+        <a href="/files/organismos-control.csv" download="archivo-control.csv">
+            <button>Organismo de Control</button>
+        </a>
+        <a href="/files/entidades-prestadoras.csv" download="archivo-entidad.csv">
+            <button>Entidad Prestadora</button>
+        </a>
+    </div>
+
+</main>
+<div class="footer">
+    &copy; 2023 - Grupo 10
+</div>
+<script src="/js/carga-organismos.js"></script>
+</body>
