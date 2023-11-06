@@ -5,6 +5,7 @@ import models.entities.comunidades.Persona;
 import models.entities.usuarios.Usuario;
 import models.repositorios.ICrudRepository;
 
+import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
@@ -13,14 +14,20 @@ import java.util.List;
 
 public class RepositorioPersonas implements ICrudRepository, WithSimplePersistenceUnit {
 
+  EntityManager em;
+
+  public RepositorioPersonas(EntityManager em){
+    this.em = em;
+  }
+
   @Override
   public List buscarTodos() {
-    return entityManager().createQuery("from " + Persona.class.getName()).getResultList();
+    return em.createQuery("from " + Persona.class.getName()).getResultList();
   }
 
   @Override
   public Object buscar(Long id) {
-    return entityManager().find(Persona.class, id);
+    return em.find(Persona.class, id);
   }
 
   public Object buscarPorUsuarioId(Long idUsuario){
@@ -28,7 +35,7 @@ public class RepositorioPersonas implements ICrudRepository, WithSimplePersisten
       throw new IllegalArgumentException("El id del usuario no puede ser nulo.");
     }
     String jpql = "SELECT p FROM Persona p WHERE p.usuario.id = :parametro";
-    Query query = entityManager().createQuery(jpql);
+    Query query = em.createQuery(jpql);
     query.setParameter("parametro", idUsuario);
 
     try {
@@ -40,27 +47,27 @@ public class RepositorioPersonas implements ICrudRepository, WithSimplePersisten
 
   @Override
   public void guardar(Object... persona) {
-    EntityTransaction tx = entityManager().getTransaction();
+    EntityTransaction tx = em.getTransaction();
     if (!tx.isActive()) tx.begin();
     for (Object o : persona) {
-      entityManager().persist(o);
+      em.persist(o);
     }
     tx.commit();
   }
 
   @Override
   public void actualizar(Object persona) {
-    EntityTransaction tx = entityManager().getTransaction();
+    EntityTransaction tx = em.getTransaction();
     if (!tx.isActive()) tx.begin();
-    entityManager().merge(persona);
+    em.merge(persona);
     tx.commit();
   }
 
   @Override
   public void eliminar(Object persona) {
-    EntityTransaction tx = entityManager().getTransaction();
+    EntityTransaction tx = em.getTransaction();
     if (!tx.isActive()) tx.begin();
-    entityManager().remove(persona);
+    em.remove(persona);
     tx.commit();
   }
 
@@ -70,7 +77,7 @@ public class RepositorioPersonas implements ICrudRepository, WithSimplePersisten
     }
 
     String jpql = "SELECT p FROM Persona p WHERE p.usuario = :parametro";
-    Query query = entityManager().createQuery(jpql);
+    Query query = em.createQuery(jpql);
     query.setParameter("parametro", usuarioEnSesion);
 
     try {

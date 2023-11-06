@@ -4,26 +4,34 @@ import io.github.flbulgarelli.jpa.extras.simple.WithSimplePersistenceUnit;
 import models.entities.roles.Rol;
 import models.entities.usuarios.Usuario;
 
+import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import java.util.List;
 
 public class RepositorioRol  implements ICrudRepository, WithSimplePersistenceUnit {
+
+    EntityManager em;
+
+    public RepositorioRol(EntityManager em){
+        this.em = em;
+    }
+
     @Override
     public List buscarTodos() {
-        return entityManager().createQuery("from " + Rol.class.getName()).getResultList();
+        return em.createQuery("from " + Rol.class.getName()).getResultList();
     }
 
     @Override
     public Object buscar(Long id) {
-        return entityManager().find(Rol.class, id);
+        return em.find(Rol.class, id);
     }
 
     @Override
     public void guardar(Object... rol) {
-        EntityTransaction tx = entityManager().getTransaction();
+        EntityTransaction tx = em.getTransaction();
         if (!tx.isActive()) tx.begin();
         for (Object o : rol) {
-            entityManager().persist(o);
+            em.persist(o);
         }
         tx.commit();
     }

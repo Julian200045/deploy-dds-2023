@@ -19,28 +19,34 @@ import models.services.importadorDatosCSV.ImportadorOrganismosDeControl;
 import models.services.notificador.GeneradorNotificaciones;
 import models.services.validadorDeContrasenia.ValidadorDeContraseniasPorValidaciones;
 
+import javax.persistence.EntityManager;
+
+import static server.App.entityManagerFactory;
+
 public class FactoryController {
 
   public static Object controller(String nombre) {
+
+    EntityManager em = entityManagerFactory.createEntityManager();
     Object controller = null;
 
     switch (nombre) {
       case "Incidentes":
-        controller = new IncidentesController(new RepositorioIncidentes(),
-            new RepositorioPersonas(),
-            new RepositorioUsuarios(),
-            new RepositorioPrestacionesDeServicio(),
-            new IncidentesService(new RepositorioIncidentes(), new GeneradorNotificaciones(new RepositorioNotificaciones()))
+        controller = new IncidentesController(new RepositorioIncidentes(em),
+            new RepositorioPersonas(em),
+            new RepositorioUsuarios(em),
+            new RepositorioPrestacionesDeServicio(em),
+            new IncidentesService(new RepositorioIncidentes(em), new GeneradorNotificaciones(new RepositorioNotificaciones(em)))
         );
         break;
       case "Usuarios":
-        controller = new UsuariosController(new RepositorioUsuarios(), new RepositorioPersonas(), new ValidadorDeContraseniasPorValidaciones(), new LectorPropiedades("src/main/resources/template/project.properties"), new HasherEstandar());
+        controller = new UsuariosController(new RepositorioUsuarios(em), new RepositorioPersonas(em), new ValidadorDeContraseniasPorValidaciones(), new LectorPropiedades("src/main/resources/template/project.properties"), new HasherEstandar());
         break;
       case "Comunidades":
-        controller = new ComunidadesController(new RepositorioComunidades(), new RepositorioUsuarios(), new RepositorioPersonas());
+        controller = new ComunidadesController(new RepositorioComunidades(em), new RepositorioUsuarios(em), new RepositorioPersonas(em));
         break;
       case "Organismos":
-        controller = new OrganismosController(new LectorCSV(), new ImportadorOrganismosDeControl(new RepositorioEntidadesPrestadoras(), new RepositorioUsuarios(), new RepositorioServicios(), new RepositorioOrganismoDeControl()), new ImportadorEntidadesPrestadoras(new RepositorioEntidades(), new RepositorioUsuarios(), new RepositorioEntidadesPrestadoras()));
+        controller = new OrganismosController(new LectorCSV(), new ImportadorOrganismosDeControl(new RepositorioEntidadesPrestadoras(em), new RepositorioUsuarios(em), new RepositorioServicios(em), new RepositorioOrganismoDeControl(em)), new ImportadorEntidadesPrestadoras(new RepositorioEntidades(em), new RepositorioUsuarios(em), new RepositorioEntidadesPrestadoras(em)));
         break;
     }
     return controller;

@@ -3,6 +3,7 @@ package models.repositorios;
 import io.github.flbulgarelli.jpa.extras.simple.WithSimplePersistenceUnit;
 import java.util.Collections;
 import java.util.List;
+import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
@@ -13,12 +14,18 @@ import models.services.notificador.Notificacion;
 
 public class RepositorioNotificaciones implements ICrudRepository, WithSimplePersistenceUnit {
 
+  EntityManager em;
+
+  public RepositorioNotificaciones(EntityManager em){
+    this.em = em;
+  }
+
   public List buscarPorEstado(EstadoEnvio estadoEnvio) {
     if (estadoEnvio == null) {
       throw new IllegalArgumentException("El estado del envio no puede ser nulo.");
     }
     String jpql = "SELECT n FROM Notificacion n WHERE n.estadoEnvio = :parametro";
-    Query query = entityManager().createQuery(jpql);
+    Query query = em.createQuery(jpql);
     query.setParameter("parametro", estadoEnvio);
     try {
       return query.getResultList();
@@ -29,41 +36,41 @@ public class RepositorioNotificaciones implements ICrudRepository, WithSimplePer
 
   @Override
   public void guardar(Object... notificacion) {
-    EntityTransaction tx = entityManager().getTransaction();
+    EntityTransaction tx = em.getTransaction();
     if (!tx.isActive())
       tx.begin();
     for (Object o :
         notificacion) {
-      entityManager().persist(o);
+      em.persist(o);
     }
     tx.commit();
   }
 
   @Override
   public void eliminar(Object notificacion) {
-    EntityTransaction tx = entityManager().getTransaction();
+    EntityTransaction tx = em.getTransaction();
     if (!tx.isActive())
       tx.begin();
-    entityManager().remove(notificacion);
+    em.remove(notificacion);
     tx.commit();
   }
 
   @Override
   public void actualizar(Object notificacion) {
-    EntityTransaction tx = entityManager().getTransaction();
+    EntityTransaction tx = em.getTransaction();
     if (!tx.isActive())
       tx.begin();
-    entityManager().merge(notificacion);
+    em.merge(notificacion);
     tx.commit();
   }
 
   @Override
   public List buscarTodos() {
-    return entityManager().createQuery("from " + Notificacion.class.getName()).getResultList();
+    return em.createQuery("from " + Notificacion.class.getName()).getResultList();
   }
 
   @Override
   public Notificacion buscar(Long id) {
-    return entityManager().find(Notificacion.class, id);
+    return em.find(Notificacion.class, id);
   }
 }

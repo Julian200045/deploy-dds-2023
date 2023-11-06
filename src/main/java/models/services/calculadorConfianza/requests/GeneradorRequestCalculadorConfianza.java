@@ -6,8 +6,11 @@ import models.repositorios.RepositorioIncidentes;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
+import static server.App.entityManagerFactory;
+
 public class GeneradorRequestCalculadorConfianza {
-  RepositorioIncidentes repoIncidentes = new RepositorioIncidentes();
+
+  RepositorioIncidentes repoIncidentes = new RepositorioIncidentes(entityManagerFactory.createEntityManager());
   final static DateTimeFormatter FORMATTER = DateTimeFormatter.ISO_DATE_TIME;
   public RequestCalculadorConfianza generar(Comunidad comunidad){
     List<Incidente> incidentes = repoIncidentes.buscarPorComunidad(comunidad);
