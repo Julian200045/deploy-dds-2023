@@ -42,16 +42,16 @@ public class IncidentesService {
 
   public void darDeBajaIncidentesDeLaPrestacion(Persona persona, PrestacionDeServicio prestacion) {
 
-    List<Incidente> incidentes = repoIncidentes.buscarPorPrestacion(prestacion);
+    List<Incidente> incidentes = (List<Incidente>) repoIncidentes.buscarPorPrestacion(prestacion);
 
     List<Comunidad> comunidadesDelMiembroCerrador = persona.getComunidades();
 
-    List<Incidente> incidentesDeLasComunidadesDelMiembro = incidentes.stream().filter(incidente -> comunidadesDelMiembroCerrador.contains(incidente.getComunidad())).toList();
+    List<Incidente> incidentesDeLasComunidadesDelMiembro = incidentes.stream().filter(incidente -> comunidadesDelMiembroCerrador.stream().map(Comunidad::getId).toList().contains(incidente.getComunidad().getId())).toList();
+
     incidentesDeLasComunidadesDelMiembro.forEach(incidente -> {
       incidente.cerrar(persona.getMembresiaDeComunidad(incidente.getComunidad()));
       repoIncidentes.actualizar(incidente);
     });
-    //repoIncidentes.limpiarCacheIncidentes();
 
     Set<Persona> miembrosANotificar = new HashSet<>();
 

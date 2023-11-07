@@ -133,7 +133,6 @@ public class IncidentesController implements ICrudViewsHandler {
 
   @Override
   public void create(Context context) {
-    System.out.println("Entro create");
 
     if (context.sessionAttribute("usuario_id") == null) {
       context.status(HttpStatus.UNAUTHORIZED).redirect("/login");
@@ -185,6 +184,7 @@ public class IncidentesController implements ICrudViewsHandler {
 
   @Override
   public void update(Context context) {
+
     Long idUsuarioEnSesion = context.sessionAttribute("usuario_id");
     if (idUsuarioEnSesion == null) {
       context.redirect("/login", HttpStatus.UNAUTHORIZED);
@@ -198,7 +198,8 @@ public class IncidentesController implements ICrudViewsHandler {
     Incidente incidenteADarDeBaja = (Incidente) repositorioIncidentes.buscar(idIncidente);
 
     incidentesService.darDeBajaIncidentesDeLaPrestacion(personaEnSesion, incidenteADarDeBaja.getPrestacionDeServicio());
-    context.redirect("/incidentes");
+    context.status(200);
+    this.index(context);
   }
 
   @Override

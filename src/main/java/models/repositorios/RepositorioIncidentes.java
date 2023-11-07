@@ -46,6 +46,7 @@ public class RepositorioIncidentes implements ICrudRepository, WithSimplePersist
   @Override
   public void actualizar(Object incidente) {
     EntityTransaction tx = em.getTransaction();
+    System.out.println("ENTRO A ACTUALIZAR");
     if (!tx.isActive())
       tx.begin();
     em.merge(incidente);
@@ -130,6 +131,7 @@ public class RepositorioIncidentes implements ICrudRepository, WithSimplePersist
     if (estadoIncidente == null) {
       throw new IllegalArgumentException("El estado del incidente no puede ser nulo.");
     }
+    this.limpiarCacheIncidentes();
     String jpql = "SELECT i FROM Incidente i WHERE i.estado = :parametro";
     Query query = em.createQuery(jpql);
     query.setParameter("parametro", estadoIncidente);
@@ -145,6 +147,7 @@ public class RepositorioIncidentes implements ICrudRepository, WithSimplePersist
     if (comunidad == null) {
       throw new IllegalArgumentException("La comunidad no puede ser nula.");
     }
+    this.limpiarCacheIncidentes();
     String jpql = "SELECT i FROM Incidente i WHERE i.comunidad = :parametro";
     Query query = em.createQuery(jpql);
     query.setParameter("parametro", comunidad);
@@ -160,6 +163,7 @@ public class RepositorioIncidentes implements ICrudRepository, WithSimplePersist
     if (prestacionDeServicio == null) {
       throw new IllegalArgumentException("La prestacion de servicio no puede ser nula.");
     }
+
     String jpql = "SELECT i FROM Incidente i WHERE i.prestacionDeServicio = :parametro";
     Query query = em.createQuery(jpql);
     query.setParameter("parametro", prestacionDeServicio);

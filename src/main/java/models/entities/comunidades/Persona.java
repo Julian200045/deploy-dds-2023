@@ -72,7 +72,7 @@ public class Persona {
   }
 
   public Miembro getMembresiaDeComunidad(Comunidad comunidad){
-    return membresias.stream().filter(miembro -> miembro.getComunidad().equals(comunidad)).findFirst().get();
+    return membresias.stream().filter(miembro -> miembro.getComunidad().getId() == comunidad.getId()).findFirst().get();
   }
   public void agregarMembresia(Miembro miembro){
     membresias.add(miembro);
