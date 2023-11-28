@@ -162,7 +162,7 @@ public class UsuariosController implements ICrudViewsHandler {
     Long longId = Long.parseLong(context.queryParam("id"));
     Usuario user = (Usuario) this.repositorioUsuarios.buscar(longId);
     if (user != null) {
-      user.setHabilitado(false);
+      user.setHabilitado(0);
       this.repositorioUsuarios.actualizar(user);
       context.result("Usuario eliminado");
     } else {

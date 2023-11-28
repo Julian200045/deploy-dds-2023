@@ -62,7 +62,7 @@ public class Usuario {
   @Getter
   @Setter
   @Column(name="habilitado")
-  private Boolean habilitado;
+  private Integer habilitado;
 
   public Usuario(String nombre, String contrasenia, String mail, String celular) {
     this.nombre = nombre;
@@ -70,7 +70,7 @@ public class Usuario {
     this.mail=mail;
     this.numeroCelular=celular;
     this.medioDeContacto = null;
-    this.habilitado = true;
+    this.habilitado = 1;
   }
 
   public Boolean estaDisponible(LocalDateTime horario) {
