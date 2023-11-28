@@ -1,0 +1,22 @@
+package models.entities.informes;
+
+import models.entities.informes.rankings.Rankeador;
+import lombok.Data;
+
+import java.time.LocalDate;
+import java.util.List;
+
+@Data
+public class DatosInforme {
+  private Integer numeroInforme;
+  private LocalDate fechaInicio;
+  private LocalDate fechaFin;
+  private List<Rankeador> rankeadores;
+
+  public DatosInforme(Integer numeroInforme, LocalDate fechaInicio, LocalDate fechaFin, List<Rankeador> rankeadores) {
+    this.numeroInforme = numeroInforme;
+    this.fechaInicio = fechaInicio;
+    this.fechaFin = fechaFin;
+    this.rankeadores = rankeadores;
+  }
+}

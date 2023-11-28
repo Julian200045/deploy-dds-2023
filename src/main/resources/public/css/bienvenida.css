@@ -1,0 +1,20 @@
+.button-container {
+    display:flex;
+    justify-content: center;
+    margin-top: 50px;
+}
+
+.boton-navigate{
+    background-color: #20CCC0;
+    color: #111;
+    border:1px solid #222;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.boton-navigate:hover {
+    background-color: #5ae0d7;
+}

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="/css/normalize.css">
+    <link rel="stylesheet" href="/css/generalize.css">
+    <link rel="stylesheet" href="/css/revision-incidente.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Revisión de incidente</title>
+</head>
+<body>
+    <div class="header">
+        <div class="logo" onclick="navegarAInicio()"><img  src="/img/logo.png" alt=""></div>
+        <div class="nav-container">
+            <a class="nav-link" href="/incidentes">Inicio</a>
+            <a class="nav-link" href="/incidentes/alta">Dar de alta Inicidente</a>
+            <a class="nav-link" href="/comunidades">Comunidades</a>
+            {{#if esAdmin}}
+                        <a class="nav-link" href="/organismos/carga">Cargar organismos</a>
+                        <a class="nav-link" href="/administracion/usuarios">Administrar usuarios</a>
+            {{/if}}
+        </div>
+        <a class="nav-link" href="/usuarios/logout"><img id="logout-logo" src="/img/logout.png" alt="cerrar sesion"></a>
+    </div>
+<div class="container">
+        <h1 class="title">Revisión de incidente</h1>
+    <div class="table-container">
+        <div class="table-title">Datos del incidente</div>
+        <div class="table">
+            <div class="table-header">Establecimiento</div>
+            <div class="table-header">Servicio</div>
+            <div class="table-header">Comunidad</div>
+            <div class="table-header">Observaciones</div>
+
+            {{#with incidente}}
+            <div class="table-row">{{this.establecimiento}}</div>
+            <div class="table-row">{{this.servicio}}</div>
+            <div class="table-row">{{this.comunidad}}</div>
+            <div class="table-row">{{this.observaciones}}</div>
+            {{/with}}
+        </div>
+    </div>
+    <div class="text">
+        Por favor, diríjase a la ubicación del incidente para revisar el estado del mismo.
+    </div>
+    <div class="table-container">
+        <div class="table-title">Ubicación</div>
+        <div class="table" id="table-ubicacion">
+            <div class="table-header">Calle</div>
+            <div class="table-header">Altura</div>
+
+            <div class="table-row">{{direccion.calle}}</div>
+            <div class="table-row">{{direccion.altura}}</div>
+        </div>
+    </div>
+
+    <div class="button-container">
+        <button onclick="location.href='/incidentes'" id="boton-no-resuelto">El incidente no está resuelto</button>
+        <button onclick="darDeBaja({{incidente.id}})" id="boton-resuelto">Dar de baja incidente</button>
+    </div>
+</div>
+
+<script>function darDeBaja(idIncidente) {
+    if (confirm("¿Seguro que quiere dar de baja el incidente?") === true) {
+        fetch(`/incidentes/${idIncidente}/baja`, {
+            method: 'PATCH', headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+               ;
+    } else {
+        alert("Operación cancelada.");
+    }
+}</script>
+
+</body>
+</html>
