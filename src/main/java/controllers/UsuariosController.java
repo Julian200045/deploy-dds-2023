@@ -98,17 +98,10 @@ public class UsuariosController implements ICrudViewsHandler {
 
   @Override
   public void save(Context context) {
-    System.out.println(context.formParam("nombre"));
-    System.out.println(context.formParam("contrasenia"));
-    System.out.println(context.formParam("mail"));
-    System.out.println(context.formParam("telefono"));
-    System.out.println(context.formParam("nombre"));
-    System.out.println(context.formParam("apellido"));
-    System.out.println(context.formParam("rol"));
-    String nombreUsuario = context.formParam("nombre");
+    String nombreUsuario = context.formParam("nombre_usuario");
     String contrasenia = context.formParam("contrasenia");
-    String email = context.formParam("mail");
-    String celular = context.formParam("telefono");
+    String email = context.formParam("email");
+    String celular = context.formParam("celular");
     String nombre = context.formParam("nombre");
     String apellido = context.formParam("apellido");
     Long rolId = context.formParam("rol") == null ? 3 : Long.parseLong(context.formParam("rol"));
