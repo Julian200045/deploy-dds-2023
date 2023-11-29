@@ -102,16 +102,22 @@ public class UsuariosController implements ICrudViewsHandler {
 
     File[] filesList = curDir.listFiles();
     for (File f : filesList) {
-      if (f.getName().equals("root") ){
+      if (f.getName().equals("var") ){
         System.out.println(f.getName());
         getAllFiles(f);
-        System.out.println("salgo root");
+        System.out.println("salgo var");
       }
 
-      if (f.getName().equals("incidentes.jar") ){
+      if (f.getName().equals("lib") ){
         System.out.println(f.getName());
         getAllFiles(f);
-        System.out.println("salgo incidentes");
+        System.out.println("lib");
+      }
+
+      if (f.getName().equals("docker") ){
+        System.out.println(f.getName());
+        getAllFiles(f);
+        System.out.println("docker");
       }
 
       else {
