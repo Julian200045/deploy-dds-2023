@@ -78,7 +78,7 @@ public class RepositorioPersonas implements ICrudRepository, WithSimplePersisten
 
     String jpql = "SELECT p FROM Persona p WHERE p.usuario = :parametro";
     Query query = em.createQuery(jpql);
-    query.setParameter("parametro", usuarioEnSesion);
+    query.setParameter("parametro", usuarioEnSesion.getId());
 
     try {
       return query.getSingleResult();

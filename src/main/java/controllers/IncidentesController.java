@@ -53,6 +53,7 @@ public class IncidentesController implements ICrudViewsHandler {
     System.out.println("ID USUARIO: ");
     System.out.println((Long) context.sessionAttribute("usuario_id"));
     Usuario usuario = (Usuario) this.repositorioUsuarios.buscar(context.sessionAttribute("usuario_id"));
+    System.out.println("LLEGO ACAaaa");
     Persona persona = (Persona) this.repositorioPersonas.buscarPorUsuario(usuario);
 
     Map<String, Object> model = new HashMap<>();
