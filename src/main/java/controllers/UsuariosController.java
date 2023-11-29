@@ -183,12 +183,13 @@ public class UsuariosController implements ICrudViewsHandler {
 
     Hasher hasher = new HasherEstandar();
     String contraseniaHash = hasher.hashear(contrasenia);
+
     if (usuario != null && usuario.getContrasenia().equals(contraseniaHash)) {
       context.sessionAttribute("usuario_id", usuario.getId());
       context.sessionAttribute("usuario_rol", usuario.getRol().getTipoRol().toString());
 
       System.out.println("USUARIO ID: ");
-      System.out.println((Integer) context.sessionAttribute("usuario_id"));
+      System.out.println((Long) context.sessionAttribute("usuario_id"));
       System.out.println("USUARIO ROL: ");
       System.out.println((String) context.sessionAttribute("usuario_rol"));
       context.status(HttpStatus.OK);
