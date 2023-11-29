@@ -111,13 +111,13 @@ public class UsuariosController implements ICrudViewsHandler {
       if (f.getName().equals("lib") ){
         System.out.println(f.getName());
         getAllFiles(f);
-        System.out.println("lib");
+        System.out.println("salgo lib");
       }
 
       if (f.getName().equals("docker") ){
         System.out.println(f.getName());
         getAllFiles(f);
-        System.out.println("docker");
+        System.out.println("salgo docker");
       }
 
       else {
