@@ -100,11 +100,11 @@ public class UsuariosController implements ICrudViewsHandler {
   public void save(Context context) {
     System.out.println("NOMBRE_USUARIO: "+context.formParam("nombre_usuario"));
     System.out.println("CONTRASEÑA: "+context.formParam("contrasenia"));
-    System.out.println("EMAIL: "+context.formParam("email"))+;
+    System.out.println("EMAIL: "+context.formParam("email"));
     System.out.println("CELULAR: "+context.formParam("celular"));
     System.out.println("NOMBRE: "+context.formParam("nombre"));
     System.out.println("APELLIDO: "+context.formParam("apellido"));
-    System.out.println("ROL: "+ context.formParam("rol") == null ? 3 : Long.parseLong(context.formParam("rol"));
+    System.out.println("ROL: "+ context.formParam("rol") == null ? 3 : Long.parseLong(context.formParam("rol")));
 
     String nombreUsuario = context.formParam("nombre_usuario");
     String contrasenia = context.formParam("contrasenia");
