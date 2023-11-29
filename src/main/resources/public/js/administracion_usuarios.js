@@ -71,13 +71,15 @@ function borrarUsuario(identificador){
     })
 }
 function crearUsuario(){
-    let nombre = document.getElementById("nombreUsuarioNuevo").value;
+    let nombre = document.getElementById("nombreeUsuarioNuevo").value;
+    let nombreUsuario = document.getElementById("nombreUsuarioNuevo").value;
     let apellido = document.getElementById("apellidoUsuarioNuevo").value;
     let mail = document.getElementById("mailUsuarioNuevo").value;
     let contrasenia = document.getElementById("contraseniaUsuarioNuevo").value;
     let telefono = document.getElementById("telefonoUsuarioNuevo").value;
     let rol = document.querySelector("select").value;
     let formData = new FormData()
+    formData.append("nombre_usuario",nombreUsuario);
     formData.append("nombre",nombre);
     formData.append("apellido",apellido);
     formData.append("mail",mail);
