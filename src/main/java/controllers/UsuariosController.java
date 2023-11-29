@@ -172,23 +172,18 @@ public class UsuariosController implements ICrudViewsHandler {
   }
 
   public void login(Context context) {
-    System.out.println("ESTA FUNCIONANDO");
     String nombre = context.formParam("nombre_usuario");
     String contrasenia = context.formParam("contrasenia");
 
-    System.out.println("ESTA FUNCIONANDO 2");
     Usuario usuario = (Usuario) this.repositorioUsuarios.buscarPorNombre(nombre);
 
     Hasher hasher = new HasherEstandar();
     String contraseniaHash = hasher.hashear(contrasenia);
-    System.out.println("ESTA FUNCIONANDO 3");
     if (usuario != null && usuario.getContrasenia().equals(contraseniaHash)) {
       context.sessionAttribute("usuario_id", usuario.getId());
       context.sessionAttribute("usuario_rol", usuario.getRol().getTipoRol().toString());
-      System.out.println("ESTA FUNCIONANDO 4");
       context.status(HttpStatus.OK);
     } else {
-      System.out.println("NO ESTA FUNCIONANDO");
       context.status(401);
     }
   }
