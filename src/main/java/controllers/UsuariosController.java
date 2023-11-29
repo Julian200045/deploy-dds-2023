@@ -105,7 +105,8 @@ public class UsuariosController implements ICrudViewsHandler {
     System.out.println("NOMBRE: "+context.formParam("nombre"));
     System.out.println("APELLIDO: "+context.formParam("apellido"));
     System.out.println("ROL: "+ context.formParam("rol"));
-    System.out.println("ROL COMPARE: " + (context.formParam("rol") == "" ? 3 : Long.parseLong(context.formParam("rol"))));
+    Long rolIdPrint = context.formParam("rol") == null ? 3 : Long.parseLong(context.formParam("rol"));
+    System.out.println("ROL COMPARE: " + rolIdPrint);
 
     String nombreUsuario = context.formParam("nombre_usuario");
     String contrasenia = context.formParam("contrasenia");
@@ -113,7 +114,7 @@ public class UsuariosController implements ICrudViewsHandler {
     String celular = context.formParam("celular");
     String nombre = context.formParam("nombre");
     String apellido = context.formParam("apellido");
-    Long rolId = context.formParam("rol") == "" ? 3 : Long.parseLong(context.formParam("rol"));
+    Long rolId = context.formParam("rol") == null ? 3 : Long.parseLong(context.formParam("rol"));
 
     System.out.println("LLEGUE ACA");
     Rol rol = (Rol) repositorioRoles.buscar(rolId);
