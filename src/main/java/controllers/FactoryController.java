@@ -40,7 +40,7 @@ public class FactoryController {
         );
         break;
       case "Usuarios":
-        controller = new UsuariosController(new RepositorioUsuarios(em), new RepositorioRol(em), new RepositorioPersonas(em), new ValidadorDeContraseniasPorValidaciones(), new LectorPropiedades("./template/project.properties"), new HasherEstandar());
+        controller = new UsuariosController(new RepositorioUsuarios(em), new RepositorioRol(em), new RepositorioPersonas(em), new ValidadorDeContraseniasPorValidaciones(), new LectorPropiedades("template/project.properties"), new HasherEstandar());
         break;
       case "Comunidades":
         controller = new ComunidadesController(new RepositorioComunidades(em), new RepositorioUsuarios(em), new RepositorioPersonas(em));
