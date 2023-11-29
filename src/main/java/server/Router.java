@@ -11,6 +11,7 @@ import controllers.FactoryController;
 import controllers.IncidentesController;
 import controllers.OrganismosController;
 import controllers.UsuariosController;
+import io.javalin.http.HttpStatus;
 import models.entities.roles.TipoRol;
 
 public class Router {
@@ -22,6 +23,12 @@ public class Router {
 
     Server.app().get("/login", ctx -> {
       ctx.render("login.hbs");
+    });
+
+    Server.app().after(ctx -> {
+      if (ctx.status().equals(HttpStatus.NOT_FOUND)){
+        ctx.redirect("/incidentes");
+      }
     });
 
     Server.app().routes(() -> {

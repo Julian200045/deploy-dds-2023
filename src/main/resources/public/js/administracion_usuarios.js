@@ -71,8 +71,7 @@ function borrarUsuario(identificador){
     })
 }
 function crearUsuario(){
-    let nombre = document.getElementById("nombreeUsuarioNuevo").value;
-    let nombre_usuario = document.getElementById("nombreUsuarioNuevo").value;
+    let nombre = document.getElementById("nombreUsuarioNuevo").value;
     let apellido = document.getElementById("apellidoUsuarioNuevo").value;
     let mail = document.getElementById("mailUsuarioNuevo").value;
     let contrasenia = document.getElementById("contraseniaUsuarioNuevo").value;
@@ -80,7 +79,6 @@ function crearUsuario(){
     let rol = document.querySelector("select").value;
     let formData = new FormData()
     formData.append("nombre",nombre);
-    formData.append("nombre_usuario",nombre_usuario);
     formData.append("apellido",apellido);
     formData.append("mail",mail);
     formData.append("contrasenia",contrasenia);
@@ -90,11 +88,14 @@ function crearUsuario(){
     axios.post("/administracion/usuario",formData)
     .then((response) => {
         console.log(response.data);
-        if(!alert(response.data)){window.location.reload();}
-//        location.reload()
+        if(!response.data){
+            alert("Usuario creado correctamente");
+            window.location.reload();
+        }
     })
     .catch((error) => {
         console.log(error)
     })
+}
 }
 
