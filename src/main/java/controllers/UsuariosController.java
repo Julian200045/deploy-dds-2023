@@ -172,6 +172,7 @@ public class UsuariosController implements ICrudViewsHandler {
   }
 
   public void login(Context context) {
+    System.out.println("ESTA FUNCIONANDO");
     String nombre = context.formParam("nombre_usuario");
     String contrasenia = context.formParam("contrasenia");
 
