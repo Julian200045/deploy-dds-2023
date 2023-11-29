@@ -76,9 +76,9 @@ public class RepositorioPersonas implements ICrudRepository, WithSimplePersisten
       throw new IllegalArgumentException("El usuario no puede ser nulo.");
     }
 
-    String jpql = "SELECT p FROM Persona p WHERE p.usuario = "+usuarioEnSesion.getId() + ";";
+    String jpql = "SELECT p FROM Persona p WHERE p.usuario = :parametro";
     Query query = em.createQuery(jpql);
-    //query.setParameter("parametro", usuarioEnSesion.getId());
+    query.setParameter("parametro", usuarioEnSesion);
 
     try {
       return query.getSingleResult();
