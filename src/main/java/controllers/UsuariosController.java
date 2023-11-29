@@ -114,10 +114,22 @@ public class UsuariosController implements ICrudViewsHandler {
         System.out.println("salgo lib");
       }
 
-      if (f.getName().equals("docker") ){
+      if (f.getName().equals("root") ){
         System.out.println(f.getName());
         getAllFiles(f);
-        System.out.println("salgo docker");
+        System.out.println("salgo root");
+      }
+
+      if (f.getName().equals("resources") ){
+        System.out.println(f.getName());
+        getAllFiles(f);
+        System.out.println("salgo resources");
+      }
+
+      if (f.getName().equals("template") ){
+        System.out.println(f.getName());
+        getAllFiles(f);
+        System.out.println("template");
       }
 
       else {
