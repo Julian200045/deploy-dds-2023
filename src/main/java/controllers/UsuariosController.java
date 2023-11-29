@@ -175,6 +175,10 @@ public class UsuariosController implements ICrudViewsHandler {
     String nombre = context.formParam("nombre_usuario");
     String contrasenia = context.formParam("contrasenia");
 
+    System.out.println("NOMBRE_USUARIO: ");
+    System.out.println(context.formParam("nombre_usuario"));
+    System.out.println("CONTRASENIA: ");
+    System.out.println(context.formParam("contrasenia"));
     Usuario usuario = (Usuario) this.repositorioUsuarios.buscarPorNombre(nombre);
 
     Hasher hasher = new HasherEstandar();
@@ -182,6 +186,11 @@ public class UsuariosController implements ICrudViewsHandler {
     if (usuario != null && usuario.getContrasenia().equals(contraseniaHash)) {
       context.sessionAttribute("usuario_id", usuario.getId());
       context.sessionAttribute("usuario_rol", usuario.getRol().getTipoRol().toString());
+
+      System.out.println("USUARIO ID: ");
+      System.out.println((Integer) context.sessionAttribute("usuario_id"));
+      System.out.println("USUARIO ROL: ");
+      System.out.println((String) context.sessionAttribute("usuario_rol"));
       context.status(HttpStatus.OK);
     } else {
       context.status(401);
