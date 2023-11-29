@@ -63,7 +63,7 @@
 <script>
     function darDeBaja(idIncidente) {
         if (confirm("¿Seguro que quiere dar de baja el incidente?") === true) {
-            fetch(/incidentes/${idIncidente}/baja, {
+            fetch(`/incidentes/${idIncidente}/baja`, {
                 method: 'PATCH', headers: {
                     'Content-Type': 'application/json'
                 }
@@ -73,7 +73,7 @@
                     window.location.href = "/incidentes"
                 } else {
                     alert("No pudimos dar de baja el incidente. Vuelva a intentarlo");
-                    window.location.href = incidentes/${idIncidente}/baja;
+                    window.location.href = `incidentes/${idIncidente}/baja`;
                 }
             });
         } else {
