@@ -98,6 +98,14 @@ public class UsuariosController implements ICrudViewsHandler {
 
   @Override
   public void save(Context context) {
+    System.out.println("NOMBRE_USUARIO: "+context.formParam("nombre_usuario"));
+    System.out.println("CONTRASEÑA: "+context.formParam("contrasenia"));
+    System.out.println("EMAIL: "+context.formParam("email"))+;
+    System.out.println("CELULAR: "+context.formParam("celular"));
+    System.out.println("NOMBRE: "+context.formParam("nombre"));
+    System.out.println("APELLIDO: "+context.formParam("apellido"));
+    System.out.println("ROL: "+ context.formParam("rol") == null ? 3 : Long.parseLong(context.formParam("rol"));
+
     String nombreUsuario = context.formParam("nombre_usuario");
     String contrasenia = context.formParam("contrasenia");
     String email = context.formParam("email");
@@ -105,30 +113,43 @@ public class UsuariosController implements ICrudViewsHandler {
     String nombre = context.formParam("nombre");
     String apellido = context.formParam("apellido");
     Long rolId = context.formParam("rol") == null ? 3 : Long.parseLong(context.formParam("rol"));
+
+    System.out.println("LLEGUE ACA");
     Rol rol = (Rol) repositorioRoles.buscar(rolId);
 
+    System.out.println("LLEGUE ACA 1");
     if (this.repositorioUsuarios.buscarPorNombre(nombreUsuario) != null) {
       context.result("Nombre de usuario ya existente");
       return;
     }
 
+    System.out.println("LLEGUE ACA 2");
     validadorDeContrasenias.agregarValidacion(new ValidacionMayuscula());
     validadorDeContrasenias.agregarValidacion(new ValidacionRepeticionLetras());
     validadorDeContrasenias.agregarValidacion(new ValidacionSimilitudUsuario(nombreUsuario));
 
+    System.out.println("LLEGUE ACA 3");
     Integer min = lectorPropiedades.getPropiedadInt("min");
     Integer max = lectorPropiedades.getPropiedadInt("max");
     validadorDeContrasenias.agregarValidacion(new ValidacionDeLargo(min, max));
 
+    System.out.println("LLEGUE ACA 4");
     String pathContrasenias = lectorPropiedades.getPropiedad("password-top-10000-path");
     validadorDeContrasenias.agregarValidacion(new ValidacionMasUsadas(pathContrasenias));
 
+    System.out.println("LLEGUE ACA 5");
     if (validadorDeContrasenias.esValida(contrasenia)) {
+      System.out.println("LLEGUE ACA 6");
       Usuario usuario = new Usuario(nombreUsuario, hasher.hashear(contrasenia), email, celular);
+      System.out.println("LLEGUE ACA 7");
       usuario.setRol(rol);
+      System.out.println("LLEGUE ACA 8");
       this.repositorioUsuarios.guardar(usuario);
+      System.out.println("LLEGUE ACA 9");
       Persona persona = new Persona(nombre, apellido, usuario);
+      System.out.println("LLEGUE ACA 10");
       this.repositorioPersonas.guardar(persona);
+      System.out.println("LLEGUE ACA 11");
       context.status(HttpStatus.OK);
     }
     else {
