@@ -60,18 +60,27 @@
     </div>
 </div>
 
-<script>function darDeBaja(idIncidente) {
-    if (confirm("¿Seguro que quiere dar de baja el incidente?") === true) {
-        fetch(`/incidentes/${idIncidente}/baja`, {
-            method: 'PATCH', headers: {
-                'Content-Type': 'application/json'
-            }
-        })
-               ;
-    } else {
-        alert("Operación cancelada.");
+<script>
+    function darDeBaja(idIncidente) {
+        if (confirm("¿Seguro que quiere dar de baja el incidente?") === true) {
+            fetch(/incidentes/${idIncidente}/baja, {
+                method: 'PATCH', headers: {
+                    'Content-Type': 'application/json'
+                }
+            }).then(r => {
+                if (r.ok) {
+                    console.log("OK");
+                    window.location.href = "/incidentes"
+                } else {
+                    alert("No pudimos dar de baja el incidente. Vuelva a intentarlo");
+                    window.location.href = incidentes/${idIncidente}/baja;
+                }
+            });
+        } else {
+            alert("Operación cancelada.");
+        }
     }
-}</script>
+</script>
 
 </body>
 </html>
