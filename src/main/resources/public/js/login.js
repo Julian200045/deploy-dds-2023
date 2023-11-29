@@ -7,13 +7,14 @@ function iniciarSesion() {
         method: 'POST',
         body: iniciarSesionForm
     }).then(r => {
-        setTimeout(() => {  console.log('World!'); }, 5000);
+        setTimeout(() => {  console.log('World!')
         if (r.ok) {
-            window.location.href = "/incidentes"
-        }
-        else {
-            alert("Credenciales incorrectas");
-            window.location.href = "/login"
-        }
+                    window.location.href = "/incidentes"
+                }
+                else {
+                    alert("Credenciales incorrectas");
+                    window.location.href = "/login"
+                }; }, 5000);
+
     });
 }

@@ -50,6 +50,7 @@ public class IncidentesController implements ICrudViewsHandler {
   @Override
   public void index(Context context) {
 
+    System.out.println("ID USUARIO: ");
     System.out.println((String) context.sessionAttribute("usuario_id"));
     Usuario usuario = (Usuario) this.repositorioUsuarios.buscar(context.sessionAttribute("usuario_id"));
     Persona persona = (Persona) this.repositorioPersonas.buscarPorUsuario(usuario);
