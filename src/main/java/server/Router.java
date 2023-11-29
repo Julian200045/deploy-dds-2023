@@ -26,8 +26,9 @@ public class Router {
 
     Server.app().routes(() -> {
 
-      get("incidentes/alta", ((IncidentesController) FactoryController.controller("Incidentes"))::create);
       get("incidentes", ((IncidentesController) FactoryController.controller("Incidentes"))::index);
+      get("incidentes/alta", ((IncidentesController) FactoryController.controller("Incidentes"))::create);
+
       get("comunidades", ((ComunidadesController) FactoryController.controller("Comunidades"))::index);
       get("usuarios", ((UsuariosController) FactoryController.controller("Usuarios"))::index);
       get("incidentes/{id}", ((IncidentesController) FactoryController.controller("Incidentes"))::show);
