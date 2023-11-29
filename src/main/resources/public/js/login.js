@@ -7,6 +7,7 @@ function iniciarSesion() {
         method: 'POST',
         body: iniciarSesionForm
     }).then(r => {
+        sleep(5000).then(() => { console.log('World!'); });
         if (r.ok) {
             window.location.href = "/incidentes"
         }
