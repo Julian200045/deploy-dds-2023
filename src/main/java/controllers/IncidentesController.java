@@ -10,6 +10,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 import models.entities.comunidades.Comunidad;
 import models.entities.comunidades.Persona;
+import models.entities.incidentes.EstadoIncidente;
 import models.entities.incidentes.Incidente;
 import models.entities.roles.TipoRol;
 import models.entities.servicios.PrestacionDeServicio;
@@ -111,27 +112,32 @@ public class IncidentesController implements ICrudViewsHandler {
 
     Incidente incidente = (Incidente) this.repositorioIncidentes.buscar(Long.parseLong(id));
 
-    IncidenteInicioDto incidenteDto = new IncidenteInicioDto(
-        incidente.getId(),
-        incidente.getPrestacionDeServicio().getServicio().getNombre(),
-        incidente.getPrestacionDeServicio().getEstablecimiento().getNombre(),
-        incidente.getComunidad().getNombre(),
-        incidente.getObservaciones(),
-        incidente.getEstado().toString().equals("ABIERTO"));
+    if(incidente.getEstado().equals(EstadoIncidente.ABIERTO)) {
+      IncidenteInicioDto incidenteDto = new IncidenteInicioDto(
+          incidente.getId(),
+          incidente.getPrestacionDeServicio().getServicio().getNombre(),
+          incidente.getPrestacionDeServicio().getEstablecimiento().getNombre(),
+          incidente.getComunidad().getNombre(),
+          incidente.getObservaciones(),
+          incidente.getEstado().toString().equals("ABIERTO"));
 
-    DireccionDto direccionDto =
-        new DireccionDto(
-            incidente.getPrestacionDeServicio().getEstablecimiento().getCalle(),
-            incidente.getPrestacionDeServicio().getEstablecimiento().getAltura());
+      DireccionDto direccionDto =
+          new DireccionDto(
+              incidente.getPrestacionDeServicio().getEstablecimiento().getCalle(),
+              incidente.getPrestacionDeServicio().getEstablecimiento().getAltura());
 
-    model.put("incidente", incidenteDto);
-    model.put("direccion", direccionDto);
+      model.put("incidente", incidenteDto);
+      model.put("direccion", direccionDto);
 
-    Usuario usuario = (Usuario) this.repositorioUsuarios.buscar(context.sessionAttribute("usuario_id"));
-    Boolean esAdmin = usuario.getRol().getTipoRol() == TipoRol.ADMIN;
-    model.put("esAdmin",esAdmin);
+      Usuario usuario = (Usuario) this.repositorioUsuarios.buscar(context.sessionAttribute("usuario_id"));
+      Boolean esAdmin = usuario.getRol().getTipoRol() == TipoRol.ADMIN;
+      model.put("esAdmin",esAdmin);
 
-    context.render("revision_incidente.hbs", model);
+      context.render("revision_incidente.hbs", model);
+    }
+    else {
+      context.redirect("/incidentes");
+    }
   }
 
   @Override
