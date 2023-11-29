@@ -139,6 +139,46 @@ public class UsuariosController implements ICrudViewsHandler {
     }
   }
 
+  public void saveAdmin(Context context) {
+    String nombreUsuario = context.formParam("nombre_usuario");
+    String contrasenia = context.formParam("contrasenia");
+    String email = context.formParam("mail");
+    String celular = context.formParam("telefono");
+    String nombre = context.formParam("nombre");
+    String apellido = context.formParam("apellido");
+    Long rolId = context.formParam("rol") == null ? 3 : Long.parseLong(context.formParam("rol"));
+
+    Rol rol = (Rol) repositorioRoles.buscar(rolId);
+
+    if (this.repositorioUsuarios.buscarPorNombre(nombreUsuario) != null) {
+      context.result("Nombre de usuario ya existente");
+      return;
+    }
+
+    validadorDeContrasenias.agregarValidacion(new ValidacionMayuscula());
+    validadorDeContrasenias.agregarValidacion(new ValidacionRepeticionLetras());
+    validadorDeContrasenias.agregarValidacion(new ValidacionSimilitudUsuario(nombreUsuario));
+
+    Integer min = lectorPropiedades.getPropiedadInt("min");
+    Integer max = lectorPropiedades.getPropiedadInt("max");
+    validadorDeContrasenias.agregarValidacion(new ValidacionDeLargo(min, max));
+
+    String pathContrasenias = lectorPropiedades.getPropiedad("password-top-10000-path");
+    validadorDeContrasenias.agregarValidacion(new ValidacionMasUsadas(pathContrasenias));
+
+    if (validadorDeContrasenias.esValida(contrasenia)) {
+      Usuario usuario = new Usuario(nombreUsuario, hasher.hashear(contrasenia), email, celular);
+      usuario.setRol(rol);
+      this.repositorioUsuarios.guardar(usuario);
+      Persona persona = new Persona(nombre, apellido, usuario);
+      this.repositorioPersonas.guardar(persona);
+      context.status(HttpStatus.OK);
+    }
+    else {
+      context.status(HttpStatus.IM_A_TEAPOT);
+    }
+  }
+
   @Override
   public void edit(Context context) {
 

@@ -44,7 +44,7 @@ public class Router {
 
       get("administracion/usuarios", ((UsuariosController) FactoryController.controller("Usuarios"))::index, TipoRol.ADMIN);
       get("administracion/usuario", ((UsuariosController) FactoryController.controller("Usuarios"))::show, TipoRol.ADMIN);
-      post("administracion/usuario", ((UsuariosController) FactoryController.controller("Usuarios"))::save, TipoRol.ADMIN);
+      post("administracion/usuario", ((UsuariosController) FactoryController.controller("Usuarios"))::saveAdmin, TipoRol.ADMIN);
       put("administracion/usuario", ((UsuariosController) FactoryController.controller("Usuarios"))::update, TipoRol.ADMIN);
       delete("administracion/usuario", ((UsuariosController) FactoryController.controller("Usuarios"))::delete, TipoRol.ADMIN);
     });
