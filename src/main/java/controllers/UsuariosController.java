@@ -185,6 +185,7 @@ public class UsuariosController implements ICrudViewsHandler {
 
     System.out.println("LLEGUE ACA 4");
     String pathContrasenias = lectorPropiedades.getPropiedad("password-top-10000-path");
+    System.out.println("KEYS 3");
     validadorDeContrasenias.agregarValidacion(new ValidacionMasUsadas(pathContrasenias));
 
     System.out.println("LLEGUE ACA 5");

@@ -15,9 +15,11 @@ public class LectorPropiedades {
 
   public String getPropiedad(String key) {
     try {
+      System.out.println("KEYS 1");
       FileInputStream ip = new FileInputStream(path);
       Properties prop = new Properties();
       prop.load(ip);
+      System.out.println("KEYS 2");
       return prop.getProperty(key);
     } catch(FileNotFoundException e) {
       return null;
