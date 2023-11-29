@@ -7,6 +7,9 @@ import io.javalin.config.JavalinConfig;
 import io.javalin.http.HttpStatus;
 import io.javalin.plugin.bundled.CorsPluginConfig;
 import io.javalin.rendering.JavalinRenderer;
+import server.handlers.AppHandlers;
+import server.middlewares.AuthMiddleware;
+
 import java.io.IOException;
 import java.util.List;
 import java.util.function.Consumer;
@@ -25,6 +28,7 @@ public class Server {
       int port = Integer.parseInt(System.getProperty("port", "8080"));
       app = Javalin.create(config()).start(port);
       initTemplateEngine();
+      AppHandlers.applyHandlers(app);
       Router.init();
     }
   }
@@ -37,6 +41,7 @@ public class Server {
         config.plugins.enableCors(cors -> {
           cors.add(CorsPluginConfig::anyHost);
         });
+        AuthMiddleware.apply(config);
       });
     };
   }
