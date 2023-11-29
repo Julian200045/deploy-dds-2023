@@ -125,6 +125,8 @@ public class UsuariosController implements ICrudViewsHandler {
       return;
     }
 
+    System.out.println("PATH: " + System.getProperty("user.dir"));
+
     System.out.println("LLEGUE ACA 2");
     validadorDeContrasenias.agregarValidacion(new ValidacionMayuscula());
     validadorDeContrasenias.agregarValidacion(new ValidacionRepeticionLetras());
