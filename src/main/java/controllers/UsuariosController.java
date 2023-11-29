@@ -2,6 +2,8 @@ package controllers;
 
 import io.javalin.http.Context;
 import io.javalin.http.HttpStatus;
+
+import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -96,6 +98,18 @@ public class UsuariosController implements ICrudViewsHandler {
     context.render("crear-usuario.hbs");
   }
 
+  private static void getAllFiles(File curDir) {
+
+    File[] filesList = curDir.listFiles();
+    for (File f : filesList) {
+      if (f.isDirectory())
+        getAllFiles(f);
+      if (f.isFile()) {
+        System.out.println(f.getName());
+      }
+    }
+  }
+
   @Override
   public void save(Context context) {
     System.out.println("NOMBRE_USUARIO: "+context.formParam("nombre_usuario"));
@@ -126,6 +140,10 @@ public class UsuariosController implements ICrudViewsHandler {
     }
 
     System.out.println("PATH: " + System.getProperty("user.dir"));
+
+    File curDir = new File(".");
+    getAllFiles(curDir);
+
 
     System.out.println("LLEGUE ACA 2");
     validadorDeContrasenias.agregarValidacion(new ValidacionMayuscula());
