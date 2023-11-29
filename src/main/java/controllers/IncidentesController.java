@@ -50,10 +50,7 @@ public class IncidentesController implements ICrudViewsHandler {
   @Override
   public void index(Context context) {
 
-    System.out.println("ID USUARIO: ");
-    System.out.println((Long) context.sessionAttribute("usuario_id"));
     Usuario usuario = (Usuario) this.repositorioUsuarios.buscar(context.sessionAttribute("usuario_id"));
-    System.out.println("LLEGO ACAaaa");
     Persona persona = (Persona) this.repositorioPersonas.buscarPorUsuario(usuario);
 
     Map<String, Object> model = new HashMap<>();
@@ -65,25 +62,19 @@ public class IncidentesController implements ICrudViewsHandler {
 
     List<Incidente> incidentes = new ArrayList<>();
 
-    System.out.println("LLEGO ACA");
     for (Comunidad c : persona.getComunidades()) {
       incidentes.addAll(this.repositorioIncidentes.buscarPorComunidad(c));
     }
 
-    System.out.println("LLEGO ACA 2");
     if (context.queryString() == null || context.queryString().equals("")) {
-      System.out.println("LLEGO ACA 3");
       estado = "ABIERTO";
     } else if (establecimiento != null || servicio != null || comunidad != null ) {
-      System.out.println("LLEGO ACA 4");
       List<Incidente> incidentesFiltrados = this.repositorioIncidentes.buscarTodosFiltrados(
           establecimiento,
           servicio,
           comunidad);
       List<Long> idsIncidentes = incidentes.stream().map(Incidente::getId).toList();
-      System.out.println("LLEGO ACA 5");
       incidentes = incidentesFiltrados.stream().filter(i -> idsIncidentes.contains(i.getId())).toList();
-      System.out.println("LLEGO ACA 6");
     }
 
     String estadoFinal = estado;
@@ -102,14 +93,10 @@ public class IncidentesController implements ICrudViewsHandler {
               incidente.getObservaciones(),
               incidente.getEstado().toString().equals("ABIERTO")
           )).toList();
-      System.out.println("LLEGO ACA 7");
       model.put("incidentes", incidentesDtos);
-      System.out.println("LLEGO ACA 8");
     }
 
-    System.out.println("LLEGO ACA 9");
     Boolean esAdmin = usuario.getRol().getTipoRol() == TipoRol.ADMIN;
-    System.out.println("LLEGO ACA 10");
     model.put("esAdmin",esAdmin);
 
     context.render("incidentes.hbs", model);
